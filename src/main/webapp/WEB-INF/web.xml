@@ -4,4 +4,14 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>Mike</servlet-name>
+    <servlet-class>com.bavon.servlet.Hello</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Mike</servlet-name>
+    <url-pattern>/jonathan</url-pattern>
+  </servlet-mapping>
+
 </web-app>
