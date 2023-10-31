@@ -8,10 +8,26 @@
     <servlet-name>Mike</servlet-name>
     <servlet-class>com.bavon.servlet.Hello</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>MikeAgain</servlet-name>
+    <servlet-class>com.bavon.servlet.HelloAgain</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>MikeFinal</servlet-name>
+    <servlet-class>com.bavon.servlet.HelloFinal</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>Mike</servlet-name>
     <url-pattern>/jonathan</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MikeAgain</servlet-name>
+    <url-pattern>/keziah</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MikeFinal</servlet-name>
+    <url-pattern>/ivy</url-pattern>
   </servlet-mapping>
 
 </web-app>

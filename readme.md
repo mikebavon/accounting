@@ -19,3 +19,16 @@ GenericServlet
 HttpServlet
 
  service();
+
+
+1. Implementing servlet (implments interface)
+
+Client (Browser,Mobile) (request) -> Server (Servlet Container - Wildfly) 
+    -> Hello -> Service(html content) (response)
+
+2. Extending GenericServlet (extends abstract class)
+
+Client (Browser,Mobile) (request) -> Server (Servlet Container - Wildfly)
+    -> Hello -> Service(html content) (response)
+
+3. Extending HTTP servlet 
