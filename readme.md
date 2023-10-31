@@ -49,4 +49,9 @@ Deployment Descriptor (web.xml) - programming through configuration---later
     programme through convention
     describes how web application should be deployed by the servlet container.
 
+ServletRequest - handles request, get parameters
+ServletResponse - enable response, PrintWriter
+
+RequestDispatcher - 
+
     

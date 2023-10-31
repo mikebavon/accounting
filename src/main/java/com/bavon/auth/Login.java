@@ -1,5 +1,6 @@
 package com.bavon.auth;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,12 +20,16 @@ public class Login extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        PrintWriter print = resp.getWriter();
 
-        if (username.equals("Mike") && password.equals("bavon"))
-            print.write("Welcome to accounting");
-        else
+
+        if (username.equals("Mike") && password.equals("bavon")) {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("./app/home.html");
+            dispatcher.include(req, resp);
+
+        } else {
+            PrintWriter print = resp.getWriter();
             print.write("<html><body>Invalid login details <a href=\".\"> Login again </a></body></html>");
+        }
 
     }
 
