@@ -32,3 +32,21 @@ Client (Browser,Mobile) (request) -> Server (Servlet Container - Wildfly)
     -> Hello -> Service(html content) (response)
 
 3. Extending HTTP servlet 
+
+Client (Browser,Mobile) (request) -> Server (Servlet Container - Wildfly)
+-> Hello -> Service -> doGet,doPost,doPut(html content) (response)
+
+
+Servlet Lifecycle
+    1 Loading the servlet - point of deployment to the server - servlet container
+    2 Servlet instance created - on the first access - servlet container
+    3 init() method invoked - called only once
+    4 service() - called on any request
+    5 destroy() - servlet is shutting down or the server is shutting
+        the application is undeployed.
+
+Deployment Descriptor (web.xml) - programming through configuration---later
+    programme through convention
+    describes how web application should be deployed by the servlet container.
+
+    
