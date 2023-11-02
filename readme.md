@@ -34,7 +34,7 @@ Client (Browser,Mobile) (request) -> Server (Servlet Container - Wildfly)
 3. Extending HTTP servlet 
 
 Client (Browser,Mobile) (request) -> Server (Servlet Container - Wildfly)
--> Hello -> Service -> doGet,doPost,doPut(html content) (response)
+-> Hello - Service -> doGet,doPost,doPut(html content) (response)
 
 
 Servlet Lifecycle
@@ -53,5 +53,11 @@ ServletRequest - handles request, get parameters
 ServletResponse - enable response, PrintWriter
 
 RequestDispatcher - 
+
+ ServletContext
+ HttpSession
+ Event & Listeners
+ Listeners
+ 
 
     

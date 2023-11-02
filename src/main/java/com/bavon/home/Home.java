@@ -4,6 +4,7 @@ import com.bavon.app.bean.AccountBean;
 import com.bavon.app.bean.AccountBeanFrench;
 import com.bavon.app.bean.AccountBeanI;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +18,9 @@ public class Home extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        ServletContext ctx = getServletContext();
+
         AccountBeanI accountBeanEn = new AccountBean();
-        AccountBeanI accountBeanFr = new AccountBeanFrench();
 
         PrintWriter print = resp.getWriter();
 
@@ -44,12 +46,17 @@ public class Home extends HttpServlet {
             "</style>\n" +
             "</head>\n" +
             "<body>\n" +
+                "Welcome: " + ctx.getAttribute("username") + "<br/>" +
+                 ctx.getInitParameter("AppName") + "<br/>" +
             "\n" +
             "<h2>Chart Of Accounts</h2>\n");
         print.write(accountBeanEn.chartOfAccounts());
         print.write("\n" +
+                "Server Info: " + ctx.getServerInfo() + "<br/>" +
+                "Application Deployment Location" + ctx.getRealPath(ctx.getContextPath()) + "<br/>" +
                 "</body>\n" +
                 "</html>");
+
 
     }
 }

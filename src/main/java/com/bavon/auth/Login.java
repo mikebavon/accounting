@@ -1,8 +1,8 @@
 package com.bavon.auth;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(urlPatterns = "/login", initParams = {
-    @WebInitParam(name = "username", value = "Mike"),
-    @WebInitParam(name = "password", value = "bavon")
-})
+@WebServlet(urlPatterns = "/login")
 public class Login extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
@@ -22,13 +19,15 @@ public class Login extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 
+        ServletContext ctx = getServletContext();
+
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        if (username.equals(getInitParameter("username"))
-                && password.equals(getInitParameter("password"))) {
+        if (username.equals(ctx.getInitParameter("username"))
+                && password.equals(ctx.getInitParameter("password"))) {
 
-            req.setAttribute("homeInfo", "Welcome to accounting home page!!");
+            ctx.setAttribute("username", username);
             RequestDispatcher dispatcher = req.getRequestDispatcher("./home");
             dispatcher.forward(req, resp);
 
