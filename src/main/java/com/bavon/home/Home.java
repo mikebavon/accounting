@@ -1,8 +1,8 @@
 package com.bavon.home;
 
 import com.bavon.app.bean.AccountBean;
-import com.bavon.app.bean.AccountBeanFrench;
 import com.bavon.app.bean.AccountBeanI;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -10,11 +10,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/home")
 public class Home extends HttpServlet {
+
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        HttpSession httpSession = req.getSession();
+
+        if (StringUtils.isNotBlank((String) httpSession.getAttribute("loggedInId")))
+            resp.sendRedirect("./home");
+        else
+            resp.sendRedirect("./");
+    }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
