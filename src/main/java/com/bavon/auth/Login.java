@@ -40,8 +40,8 @@ public class Login extends HttpServlet {
                 && password.equals(ctx.getInitParameter("password"))) {
 
             ctx.setAttribute("username", username);
-            RequestDispatcher dispatcher = req.getRequestDispatcher("./home");
-            dispatcher.forward(req, resp);
+
+            resp.sendRedirect("./home");
 
         } else {
             PrintWriter print = resp.getWriter();
