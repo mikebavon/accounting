@@ -2,7 +2,6 @@ package com.bavon.auth;
 
 import org.apache.commons.lang3.StringUtils;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,7 +38,7 @@ public class Login extends HttpServlet {
         if (username.equals(ctx.getInitParameter("username"))
                 && password.equals(ctx.getInitParameter("password"))) {
 
-            ctx.setAttribute("username", username);
+            httpSession.setAttribute("username", username);
 
             resp.sendRedirect("./home");
 

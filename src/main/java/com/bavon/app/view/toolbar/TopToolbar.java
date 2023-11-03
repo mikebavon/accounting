@@ -16,6 +16,8 @@ public class TopToolbar implements Menu,Serializable {
         links.add(new MenuLink("./journals", "Journals", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./invoices", "Invoices", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./bills", "Bills", MenuLinkStatus.NOT_ACTIVE));
+        links.add(new MenuLink("./reports", "Reports", MenuLinkStatus.NOT_ACTIVE));
+        links.add(new MenuLink("./logout", "Logout", MenuLinkStatus.NOT_ACTIVE));
     }
 
     @Override
