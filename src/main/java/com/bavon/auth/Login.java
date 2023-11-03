@@ -1,5 +1,7 @@
 package com.bavon.auth;
 
+import com.bavon.app.model.entity.User;
+import com.bavon.database.Database;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletContext;
@@ -27,25 +29,27 @@ public class Login extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 
-        HttpSession httpSession = req.getSession(true);
-        httpSession.setAttribute("loggedInId", new Date().getTime() + "");
-
-        ServletContext ctx = getServletContext();
-
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        if (username.equals(ctx.getInitParameter("username"))
-                && password.equals(ctx.getInitParameter("password"))) {
+        Database database = Database.getDbInstance();
 
-            httpSession.setAttribute("username", username);
+        System.out.println("what time was this database created: " + database.getDatabaseCreateAt());
 
-            resp.sendRedirect("./home");
+        for (User user : database.getUsers()) {
+            if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
+                HttpSession httpSession = req.getSession(true);
 
-        } else {
-            PrintWriter print = resp.getWriter();
-            print.write("<html><body>Invalid login details <a href=\".\"> Login again </a></body></html>");
+                httpSession.setAttribute("loggedInId", new Date().getTime() + "");
+                httpSession.setAttribute("username", username);
+
+                resp.sendRedirect("./home");
+
+            }
         }
+
+        PrintWriter print = resp.getWriter();
+        print.write("<html><body>Invalid login details <a href=\".\"> Login again </a></body></html>");
 
     }
 

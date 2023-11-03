@@ -55,9 +55,11 @@ ServletResponse - enable response, PrintWriter
 RequestDispatcher - 
 
  ServletContext
- HttpSession
- Event & Listeners
- Listeners
+ HttpSession // Cookies ***Assignment**
+ Event & Listeners (Event occurrence of something, listeners is something 
+    that waits for and an event to happen so that it can do something else)
+
+ Filters
  
 
     

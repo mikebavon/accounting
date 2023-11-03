@@ -1,4 +1,4 @@
-package com.bavon.home;
+package com.bavon.action;
 
 import com.bavon.app.bean.AccountBean;
 import com.bavon.app.bean.AccountBeanI;
@@ -20,8 +20,6 @@ public class Journal extends HttpServlet {
         HttpSession httpSession = req.getSession();
 
         if (StringUtils.isNotBlank((String) httpSession.getAttribute("loggedInId"))) {
-
-            AccountBeanI accountBeanEn = new AccountBean();
 
             new AppPage().renderHtml(req, resp, 1,
                     "<h2>Journals </h2> Journals list/register will go here");

@@ -1,4 +1,4 @@
-package com.bavon.home;
+package com.bavon.action;
 
 import com.bavon.app.bean.AccountBean;
 import com.bavon.app.bean.AccountBeanI;
@@ -20,8 +20,6 @@ public class Invoice extends HttpServlet {
         HttpSession httpSession = req.getSession();
 
         if (StringUtils.isNotBlank((String) httpSession.getAttribute("loggedInId"))) {
-
-            AccountBeanI accountBeanEn = new AccountBean();
 
             new AppPage().renderHtml(req, resp, 2,
                     "<h2>Invoices </h2> Invoices list/register will go here");
