@@ -1,6 +1,6 @@
 package com.bavon.app.bean;
 
-import com.bavon.app.model.Account;
+import com.bavon.app.model.entity.Account;
 
 public class AccountBeanFrench implements AccountBeanI{
 

@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/home")
-public class Home extends HttpServlet {
+@WebServlet("journals")
+public class Journal extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         HttpSession httpSession = req.getSession();
@@ -24,10 +24,9 @@ public class Home extends HttpServlet {
             AccountBeanI accountBeanEn = new AccountBean();
 
             new AppPage().renderHtml(req, resp, 0,
-            "<h2>Chart Of Accounts</h2>" + accountBeanEn.chartOfAccounts());
+                    "<h2>Journals </h2> Journals list/register will go here");
 
         } else
             resp.sendRedirect("./");
     }
-
 }

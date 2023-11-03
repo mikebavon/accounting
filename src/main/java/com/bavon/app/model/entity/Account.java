@@ -1,4 +1,4 @@
-package com.bavon.app.model;
+package com.bavon.app.model.entity;
 
 import org.apache.commons.lang3.StringUtils;
 
