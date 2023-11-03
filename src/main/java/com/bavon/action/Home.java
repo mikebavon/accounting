@@ -24,7 +24,14 @@ public class Home extends HttpServlet {
             AccountBeanI accountBeanEn = new AccountBean();
 
             new AppPage().renderHtml(req, resp, 0,
-            "<h2>Chart Of Accounts</h2>" + accountBeanEn.chartOfAccounts());
+            "<h2>Chart Of Accounts</h2>" +
+                "<br/>Add Account<br/><form action=\"./account\" method=\"post\">" +
+                    "  <label for=\"code\">Account Code:</label><br>" +
+                    "  <input type=\"text\" id=\"code\" name=\"code\" ><br>" +
+                    "  <label for=\"name\">Account name:</label><br>" +
+                    "  <input type=\"text\" id=\"name\" name=\"name\" ><br><br>" +
+                    "  <input type=\"submit\" value=\"Submit\">" +
+                "</form><br/>" + accountBeanEn.chartOfAccounts());
 
         } else
             resp.sendRedirect("./");
