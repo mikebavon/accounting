@@ -1,7 +1,5 @@
-package com.bavon.action;
+package com.bavon.app.action;
 
-import com.bavon.app.bean.AccountBean;
-import com.bavon.app.bean.AccountBeanI;
 import com.bavon.app.view.html.AppPage;
 import org.apache.commons.lang3.StringUtils;
 
@@ -14,17 +12,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("journals")
-public class Journal extends HttpServlet {
+public class JournalAction extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         HttpSession httpSession = req.getSession();
 
-        if (StringUtils.isNotBlank((String) httpSession.getAttribute("loggedInId"))) {
+        new AppPage().renderHtml(req, resp, 1,
+                "<h2>Journals </h2> Journals list/register will go here");
 
-            new AppPage().renderHtml(req, resp, 1,
-                    "<h2>Journals </h2> Journals list/register will go here");
-
-        } else
-            resp.sendRedirect("./");
     }
 }

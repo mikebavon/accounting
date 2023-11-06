@@ -1,5 +1,7 @@
-package com.bavon.action;
+package com.bavon.app.action;
 
+import com.bavon.app.bean.AccountBean;
+import com.bavon.app.bean.AccountBeanI;
 import com.bavon.app.model.entity.Account;
 import com.bavon.database.Database;
 import org.apache.commons.lang3.StringUtils;
@@ -16,20 +18,16 @@ import java.math.BigDecimal;
 @WebServlet("/account")
 public class AccountAction extends HttpServlet {
 
+    private AccountBeanI accountBean = new AccountBean();
+
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
 
-        if (StringUtils.isNotBlank((String) httpSession.getAttribute("loggedInId"))) {
+        accountBean.addOrUpdateAccount(new Account(req.getParameter("code"),
+            req.getParameter("name"), BigDecimal.ZERO));
 
-            Database database = Database.getDbInstance();
+        resp.sendRedirect("./home");
 
-            database.getAccounts().add(new Account(req.getParameter("code"),
-                req.getParameter("name"), BigDecimal.ZERO));
-
-            resp.sendRedirect("./home");
-
-        } else
-            resp.sendRedirect("./");
 
     }
 }

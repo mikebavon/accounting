@@ -6,7 +6,7 @@ public interface AccountBeanI {
 
     String chartOfAccounts();
 
-    Account addOrUpdateAccount(Account account) throws Exception;
+    Account addOrUpdateAccount(Account account);
 
     void deleteAccount(Account account);
 }

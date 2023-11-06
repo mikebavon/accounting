@@ -27,9 +27,12 @@ public class AccountBean implements AccountBeanI, Serializable {
 
     }
 
-    public Account addOrUpdateAccount(Account account) throws Exception{
+    public Account addOrUpdateAccount(Account account){
+        Database database = Database.getDbInstance();
 
-        return null;
+        database.getAccounts().add(account);
+
+        return account;
     }
 
     public void deleteAccount(Account account) {

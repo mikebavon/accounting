@@ -1,9 +1,7 @@
-package com.bavon.action;
+package com.bavon.app.action;
 
-import com.bavon.app.model.entity.Account;
 import com.bavon.app.model.entity.User;
 import com.bavon.database.Database;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
