@@ -28,6 +28,8 @@ public class HomeAction extends HttpServlet {
                 "  <input type=\"text\" id=\"code\" name=\"code\" ><br>" +
                 "  <label for=\"name\">Account name:</label><br>" +
                 "  <input type=\"text\" id=\"name\" name=\"name\" ><br><br>" +
+                "  <label for=\"balance\">Balance:</label><br>" +
+                "  <input type=\"text\" id=\"balance\" name=\"balance\" ><br><br>" +
                 "  <input type=\"submit\" value=\"Submit\">" +
             "</form><br/>" + accountBean.chartOfAccounts());
 
