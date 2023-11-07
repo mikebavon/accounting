@@ -60,6 +60,9 @@ RequestDispatcher -
     that waits for and an event to happen so that it can do something else)
 
  Filters
+
+Assignment *** (20 Marks)
+Java Annotations - implement annotations to generate, database table, html form, html table...
  
 
     

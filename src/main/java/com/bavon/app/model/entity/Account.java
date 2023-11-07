@@ -1,18 +1,26 @@
 package com.bavon.app.model.entity;
 
-import org.apache.commons.lang3.StringUtils;
+import com.bavon.app.view.html.BavonHtmlForm;
+import com.bavon.app.view.html.BavonHtmlFormField;
+import com.bavon.app.view.html.BavonTableColHeader;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
+@BavonHtmlForm(label = "Account", url = "./account")
 public class Account implements Serializable {
 
+    @BavonTableColHeader(header = "Code Of The Account")
+    @BavonHtmlFormField(label = "Account Code")
     private String code;
 
+    @BavonTableColHeader(header = "Name Of The Account")
+    @BavonHtmlFormField(label = "Account Name")
     private String name;
 
     private BigDecimal balance;
+
+    private String notes;
 
     public Account(){
 
@@ -48,17 +56,11 @@ public class Account implements Serializable {
         this.balance = balance;
     }
 
-    public String tableRow(){
+    public String getNotes() {
+        return notes;
+    }
 
-        StringBuilder trBuilder = new StringBuilder();
-
-        trBuilder.append("<tr>");
-        trBuilder.append("<td>").append(StringUtils.trimToEmpty(getCode())).append("</td>");
-        trBuilder.append("<td>").append(StringUtils.trimToEmpty(getName())).append("</td>");
-        trBuilder.append("<td>").append(getBalance() == null? ""
-            : new DecimalFormat("#,###.##").format(getBalance())).append("</td>");
-        trBuilder.append("<tr>");
-
-        return trBuilder.toString();
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

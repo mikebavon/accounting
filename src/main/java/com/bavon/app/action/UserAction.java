@@ -1,5 +1,7 @@
 package com.bavon.app.action;
 
+import com.bavon.app.bean.UserBean;
+import com.bavon.app.bean.UserBeanI;
 import com.bavon.app.model.entity.User;
 import com.bavon.database.Database;
 
@@ -11,18 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/user")
-public class UserAction extends HttpServlet {
+public class UserAction extends BaseAction {
+
+    UserBeanI userBean = new UserBean();
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Database database = Database.getDbInstance();
+        User registerUser = new User();
+        serializeForm(registerUser, req.getParameterMap());
 
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String confirmPassword = req.getParameter("confirmPassword");
-
-        if (password.equals(confirmPassword))
-            database.getUsers().add(new User(100L, username, password));
+        userBean.register(registerUser);
 
         resp.sendRedirect("./");
 

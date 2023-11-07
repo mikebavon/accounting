@@ -1,4 +1,4 @@
-package com.bavon.auth;
+package com.bavon.app.action;
 
 
 import javax.servlet.ServletException;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/logout")
-public class Logout  extends HttpServlet {
+public class LogoutAction extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().invalidate();

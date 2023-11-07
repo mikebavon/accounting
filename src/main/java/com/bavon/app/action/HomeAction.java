@@ -2,7 +2,9 @@ package com.bavon.app.action;
 
 import com.bavon.app.bean.AccountBean;
 import com.bavon.app.bean.AccountBeanI;
+import com.bavon.app.model.entity.Account;
 import com.bavon.app.view.html.AppPage;
+import com.bavon.app.view.html.HtmlComponent;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletException;
@@ -22,16 +24,7 @@ public class HomeAction extends HttpServlet {
         HttpSession httpSession = req.getSession();
 
         new AppPage().renderHtml(req, resp, 0,
-        "<h2>Chart Of Accounts</h2>" +
-            "<br/>Add Account<br/><form action=\"./account\" method=\"post\">" +
-                "  <label for=\"code\">Account Code:</label><br>" +
-                "  <input type=\"text\" id=\"code\" name=\"code\" ><br>" +
-                "  <label for=\"name\">Account name:</label><br>" +
-                "  <input type=\"text\" id=\"name\" name=\"name\" ><br><br>" +
-                "  <label for=\"balance\">Balance:</label><br>" +
-                "  <input type=\"text\" id=\"balance\" name=\"balance\" ><br><br>" +
-                "  <input type=\"submit\" value=\"Submit\">" +
-            "</form><br/>" + accountBean.chartOfAccounts());
+                HtmlComponent.form(Account.class) + accountBean.chartOfAccounts());
 
     }
 

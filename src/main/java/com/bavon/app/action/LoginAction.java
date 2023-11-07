@@ -1,13 +1,13 @@
-package com.bavon.auth;
+package com.bavon.app.action;
 
+import com.bavon.app.bean.AuthBean;
+import com.bavon.app.bean.AuthBeanI;
 import com.bavon.app.model.entity.User;
 import com.bavon.database.Database;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +16,9 @@ import java.io.PrintWriter;
 import java.util.Date;
 
 @WebServlet(urlPatterns = "/login")
-public class Login extends HttpServlet {
+public class LoginAction extends BaseAction {
+
+    AuthBeanI authBean = new AuthBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         HttpSession httpSession = req.getSession();
@@ -29,23 +31,19 @@ public class Login extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
+        User loginUser  = new User();
+        serializeForm(loginUser, req.getParameterMap());
 
-        Database database = Database.getDbInstance();
+        User userDetails = authBean.authenticate(loginUser);
 
-        System.out.println("what time was this database created: " + database.getDatabaseCreateAt());
+        if (userDetails != null) {
+            HttpSession httpSession = req.getSession(true);
 
-        for (User user : database.getUsers()) {
-            if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
-                HttpSession httpSession = req.getSession(true);
+            httpSession.setAttribute("loggedInId", new Date().getTime() + "");
+            httpSession.setAttribute("username", loginUser.getUsername());
 
-                httpSession.setAttribute("loggedInId", new Date().getTime() + "");
-                httpSession.setAttribute("username", username);
+            resp.sendRedirect("./home");
 
-                resp.sendRedirect("./home");
-
-            }
         }
 
         PrintWriter print = resp.getWriter();
