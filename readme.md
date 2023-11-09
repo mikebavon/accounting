@@ -66,7 +66,7 @@ Java Annotations - implement annotations to generate, database table, html form,
 
 
 JSP - Java Server Pages
-Java code in HMTL
+JSP - Java code inside HMTL
 Servlet - HTML inside JAVA CODE
 
 JSP IS SIMPLY A SERVLET
