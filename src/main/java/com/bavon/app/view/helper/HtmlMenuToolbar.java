@@ -1,13 +1,10 @@
-package com.bavon.app.view.toolbar;
-
-import com.bavon.app.model.view.MenuLink;
-import com.bavon.app.model.view.MenuLinkStatus;
+package com.bavon.app.view.helper;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopToolbar implements Menu,Serializable {
+public class HtmlMenuToolbar implements HtmlMenu,Serializable {
 
     private final List<MenuLink> links = new ArrayList<>();
 

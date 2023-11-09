@@ -2,12 +2,10 @@ package com.bavon.app.action;
 
 import com.bavon.app.bean.UserBean;
 import com.bavon.app.bean.UserBeanI;
-import com.bavon.app.model.entity.User;
-import com.bavon.database.Database;
+import com.bavon.app.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

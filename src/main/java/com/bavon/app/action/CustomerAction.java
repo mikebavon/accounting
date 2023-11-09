@@ -1,8 +1,7 @@
 package com.bavon.app.action;
 
-import com.bavon.app.model.entity.Customer;
-import com.bavon.app.view.html.AppPage;
-import com.bavon.app.view.html.HtmlComponent;
+import com.bavon.app.model.Customer;
+import com.bavon.app.view.helper.HtmlCmpRender;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,10 +14,8 @@ import java.io.IOException;
 public class CustomerAction extends BaseAction{
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        renderPage(req, resp, 2,HtmlCmpRender.form(Customer.class));
         HttpSession httpSession = req.getSession();
-
-        new AppPage().renderHtml(req, resp, 1,
-                HtmlComponent.form(Customer.class));
 
     }
 }

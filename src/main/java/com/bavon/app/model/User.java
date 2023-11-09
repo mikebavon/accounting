@@ -1,4 +1,4 @@
-package com.bavon.app.model.entity;
+package com.bavon.app.model;
 
 import java.io.Serializable;
 

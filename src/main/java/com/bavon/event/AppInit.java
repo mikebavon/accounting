@@ -1,7 +1,7 @@
 package com.bavon.event;
 
-import com.bavon.app.model.entity.Account;
-import com.bavon.app.model.entity.User;
+import com.bavon.app.model.Account;
+import com.bavon.app.model.User;
 import com.bavon.database.Database;
 
 import javax.servlet.ServletContextEvent;

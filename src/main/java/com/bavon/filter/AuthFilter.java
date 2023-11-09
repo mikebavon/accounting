@@ -32,12 +32,11 @@ public class AuthFilter implements Filter {
         System.out.println("context path: " + httpRequest.getContextPath());
         System.out.println("context URI: " + httpRequest.getRequestURI());
 
-        if (httpSession.isNew()) {
+        if (httpSession.isNew() || StringUtils.isBlank((String) httpSession.getAttribute("loggedInId"))) {
             System.out.println("1.New Session");
             httpSession.invalidate();
 
-            if (servletPath.equals("/login") || servletPath.equals("/index.html")) {
-                System.out.println("2. Proceed to login...or index.html");
+            if (servletPath.equals("/login") || servletPath.equals("/user") || servletPath.contains(".jsp")) {
                 filterChain.doFilter(servletRequest, servletResponse);
 
             } else {

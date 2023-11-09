@@ -1,13 +1,12 @@
-package com.bavon.app.view.html;
+package com.bavon.app.view.helper;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.util.List;
 
-public class HtmlComponent implements Serializable {
+public class HtmlCmpRender implements Serializable {
 
     public static String table(List<? extends Object> models){
 
@@ -20,10 +19,10 @@ public class HtmlComponent implements Serializable {
         trBuilder.append("<table><tr>");
 
         for (Field field : fields) {
-            if (!field.isAnnotationPresent(BavonTableColHeader.class))
+            if (!field.isAnnotationPresent(HtmlTableColHeader.class))
                 continue;
 
-            trBuilder.append("<th>" + field.getAnnotation(BavonTableColHeader.class).header() + "</th>");
+            trBuilder.append("<th>" + field.getAnnotation(HtmlTableColHeader.class).header() + "</th>");
         }
 
         trBuilder.append("</tr>");
@@ -32,7 +31,7 @@ public class HtmlComponent implements Serializable {
 
             trBuilder.append("<tr>");
             for (Field field : fields) {
-                if (!field.isAnnotationPresent(BavonTableColHeader.class))
+                if (!field.isAnnotationPresent(HtmlTableColHeader.class))
                     continue;
 
                 try {
@@ -54,24 +53,24 @@ public class HtmlComponent implements Serializable {
 
     public static String form(Class<?> model){
 
-        BavonHtmlForm bavonHtmlForm = null;
-        if (model.isAnnotationPresent(BavonHtmlForm.class))
-            bavonHtmlForm = model.getAnnotation(BavonHtmlForm.class);
+        HtmlForm htmlFormMarker = null;
+        if (model.isAnnotationPresent(HtmlForm.class))
+            htmlFormMarker = model.getAnnotation(HtmlForm.class);
 
-        if (bavonHtmlForm == null)
+        if (htmlFormMarker == null)
             return StringUtils.EMPTY;
 
-       String htmlForm =  "<h2>" +  bavonHtmlForm.label() + "</h2>" +
-        "<br/>Add " + bavonHtmlForm.label() + "<br/><form action=\"" + bavonHtmlForm.url()
-           + "\" method=\"" + bavonHtmlForm.httpMethod() + "\">";
+       String htmlForm =  "<h2>" +  htmlFormMarker.label() + "</h2>" +
+        "<br/>Add " + htmlFormMarker.label() + "<br/><form action=\"" + htmlFormMarker.url()
+           + "\" method=\"" + htmlFormMarker.httpMethod() + "\">";
 
         Field [] fields = model.getDeclaredFields();
 
         for (Field field : fields) {
-            if (!field.isAnnotationPresent(BavonHtmlFormField.class))
+            if (!field.isAnnotationPresent(HtmlFormField.class))
                 continue;
 
-            BavonHtmlFormField formField = field.getAnnotation(BavonHtmlFormField.class);
+            HtmlFormField formField = field.getAnnotation(HtmlFormField.class);
 
             String fieldName = field.getName();
 

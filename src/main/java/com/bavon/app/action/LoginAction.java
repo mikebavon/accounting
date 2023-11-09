@@ -2,8 +2,7 @@ package com.bavon.app.action;
 
 import com.bavon.app.bean.AuthBean;
 import com.bavon.app.bean.AuthBeanI;
-import com.bavon.app.model.entity.User;
-import com.bavon.database.Database;
+import com.bavon.app.model.User;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletException;

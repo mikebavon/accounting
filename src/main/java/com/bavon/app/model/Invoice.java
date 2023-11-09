@@ -1,18 +1,18 @@
-package com.bavon.app.model.entity;
+package com.bavon.app.model;
 
-import com.bavon.app.view.html.BavonHtmlForm;
-import com.bavon.app.view.html.BavonHtmlFormField;
+import com.bavon.app.view.helper.HtmlForm;
+import com.bavon.app.view.helper.HtmlFormField;
 
 import java.io.Serializable;
 import java.util.Date;
 
-@BavonHtmlForm(label = "Invoice", url = "./invoices", httpMethod = "POST")
+@HtmlForm(label = "Invoice", url = "./invoices", httpMethod = "POST")
 public class Invoice implements Serializable {
 
-    @BavonHtmlFormField(label = "Invoice Date")
+    @HtmlFormField(label = "Invoice Date")
     private Date invoiceDate;
 
-    @BavonHtmlFormField(label = "Invoice Number")
+    @HtmlFormField(label = "Invoice Number")
     private String invoiceNo;
 
     private Journal journal;

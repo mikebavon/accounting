@@ -1,7 +1,7 @@
 package com.bavon.database;
 
-import com.bavon.app.model.entity.Account;
-import com.bavon.app.model.entity.User;
+import com.bavon.app.model.Account;
+import com.bavon.app.model.User;
 
 import java.io.Serializable;
 import java.text.DateFormat;

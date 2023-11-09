@@ -1,34 +1,34 @@
-package com.bavon.app.model.entity;
+package com.bavon.app.model;
 
-import com.bavon.app.view.html.BavonHtmlForm;
-import com.bavon.app.view.html.BavonHtmlFormField;
-import com.bavon.app.view.html.BavonTableColHeader;
+import com.bavon.app.view.helper.HtmlForm;
+import com.bavon.app.view.helper.HtmlFormField;
+import com.bavon.app.view.helper.HtmlTableColHeader;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 
-@BavonHtmlForm(label = "Journal", url = "./journals")
+@HtmlForm(label = "Journal", url = "./journals")
 public class Journal implements Serializable {
 
-    @BavonTableColHeader(header = "Date")
-    @BavonHtmlFormField(label = "Transaction Date")
+    @HtmlTableColHeader(header = "Date")
+    @HtmlFormField(label = "Transaction Date")
     private Date date;
 
-    @BavonTableColHeader(header = "Journal No")
+    @HtmlTableColHeader(header = "Journal No")
     private String journalNo;
 
-    @BavonTableColHeader(header = "Particulars")
-    @BavonHtmlFormField(label = "Particulars")
+    @HtmlTableColHeader(header = "Particulars")
+    @HtmlFormField(label = "Particulars")
     private String memo;
 
-    @BavonTableColHeader(header = "Debit")
-    @BavonHtmlFormField(label = "Debit Amount")
+    @HtmlTableColHeader(header = "Debit")
+    @HtmlFormField(label = "Debit Amount")
     private BigDecimal debitBalance;
 
-    @BavonTableColHeader(header = "Credit")
-    @BavonHtmlFormField(label = "Credit Amount")
+    @HtmlTableColHeader(header = "Credit")
+    @HtmlFormField(label = "Credit Amount")
     private BigDecimal creditBalance;
 
     public Date getDate() {

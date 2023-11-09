@@ -68,7 +68,11 @@ span.psw {
 </head>
 <body>
 
-<h2>Accounting Software</h2>
+<h2><%= application.getInitParameter("AppName") %></h2>
+
+<%
+    application.setAttribute("pageLink","Home/<a href='index.jsp'>Login</a>/Register");
+%>
 
 <span style="font-weight:bold;font-size:13px;">Login</span>
 <form action="./login" method="post">
@@ -88,23 +92,7 @@ span.psw {
   </div>
 </form>
 
-<span style="font-weight:bold;font-size:13px;color:red;">Don't Have An Account? Register</span>
-<form action="./user" method="post">
-
-  <div class="container">
-    <label for="username"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="username" required>
-
-    <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" required>
-
-    <label for="confirmPassword"><b>Password</b></label>
-    <input type="password" placeholder="Confirm Enter Password" name="confirmPassword" required>
-
-    <button type="submit">Register</button>
-  </div>
-
-</form>
+<span style="font-weight:bold;font-size:13px;color:red;">Dont Have An Account? <a href="register.jsp">Register</a></span>
 
 </body>
 </html>

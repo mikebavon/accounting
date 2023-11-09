@@ -1,6 +1,6 @@
 package com.bavon.app.bean;
 
-import com.bavon.app.model.entity.User;
+import com.bavon.app.model.User;
 import com.bavon.database.Database;
 
 import java.io.Serializable;

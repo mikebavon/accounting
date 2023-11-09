@@ -1,4 +1,4 @@
-package com.bavon.app.model.view;
+package com.bavon.app.view.helper;
 
 public enum MenuLinkStatus {
 

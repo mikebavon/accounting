@@ -1,21 +1,26 @@
-package com.bavon.app.model.entity;
+package com.bavon.app.model;
 
-import com.bavon.app.view.html.BavonHtmlForm;
-import com.bavon.app.view.html.BavonHtmlFormField;
-import com.bavon.app.view.html.BavonTableColHeader;
+import com.bavon.app.view.helper.HtmlForm;
+import com.bavon.app.view.helper.HtmlFormField;
+import com.bavon.app.view.helper.HtmlTableColHeader;
+import com.bavon.database.helper.DbColumn;
+import com.bavon.database.helper.DbTable;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@BavonHtmlForm(label = "Account", url = "./account")
+@DbTable(tableName = "journals")
+@HtmlForm(label = "Account", url = "./account")
 public class Account implements Serializable {
 
-    @BavonTableColHeader(header = "Code Of The Account")
-    @BavonHtmlFormField(label = "Account Code")
+    @DbColumn(columnName = "code")
+    @HtmlTableColHeader(header = "Code Of The Account")
+    @HtmlFormField(label = "Account Code")
     private String code;
 
-    @BavonTableColHeader(header = "Name Of The Account")
-    @BavonHtmlFormField(label = "Account Name")
+    @DbColumn(columnName = "name")
+    @HtmlTableColHeader(header = "Name Of The Account")
+    @HtmlFormField(label = "Account Name")
     private String name;
 
     private BigDecimal balance;

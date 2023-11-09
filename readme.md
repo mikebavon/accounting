@@ -63,6 +63,47 @@ RequestDispatcher -
 
 Assignment *** (20 Marks)
 Java Annotations - implement annotations to generate, database table, html form, html table...
- 
 
+
+JSP - Java Server Pages
+Java code in HMTL
+Servlet - HTML inside JAVA CODE
+
+JSP IS SIMPLY A SERVLET
+
+Jsp Lifecycle
+
+1. Jsp is translated to servlet
+    index.jsp->index_jsp.java
+2. Compilation (Servlet is compile to bytecode)
+   index_jsp.java->index_jsp.class
+3. Servlet is loading
+4. Instance is created
+5. _jspInit() is invoked
+6. _jspService() - invoked whenever a request is made
+7. _jspDestroy() - whenever the application is undeployed
+
+hello.jsp->hello_jsp.java->hello_jsp.class
+
+JSP SCRIPTING ELEMENTS
+<% .... %>
+TYPES
+COMMENTS <%!-- COMMENT ---%>
+DIRECTIVES <%@ directive %>
+    page
+    include
+    tagLib
+DECLARATION <%! declaration %>
+EXPRESSION <%= EXPRESSION %>
+SCRIPTLET <% JAVA CODE %>
     
+IMPLICIT OBJECTS
+1. out = JspWritter
+2. request = HttpServletRequest
+3. response = HttpServletResponse
+4. session = HttpSession
+5. application = ServletContext
+6. config = ServletConfig
+7. exception = jspException
+8. page = 
+9. pageContext = request, response, session

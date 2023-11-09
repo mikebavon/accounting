@@ -7,7 +7,7 @@
 
   <context-param>
     <param-name>AppName</param-name>
-    <param-value>Systech Accounting Training - Training</param-value>
+    <param-value>Systech Accounting Software - Training</param-value>
   </context-param>
 
 </web-app>
