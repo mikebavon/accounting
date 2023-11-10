@@ -21,7 +21,7 @@
     }
 
     .topnav a.active {
-        background-color: #04AA6D;
+        background-color: <%= request.getParameter("pageColor") %>;
         color: white;
     }
 
@@ -51,7 +51,7 @@
     }
 
     button {
-      background-color: #04AA6D;
+      background-color: <%= request.getParameter("pageColor") %>;
       color: white;
       padding: 14px 20px;
       margin: 8px 0;

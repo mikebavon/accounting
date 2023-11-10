@@ -2,7 +2,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@ include file="../style/style.jsp" %>
+        <jsp:include page="../style/style.jsp">
+            <jsp:param name="pageColor" value="red" />
+        </jsp:include>
     </head>
 
     <body>

@@ -3,7 +3,9 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-    <%@ include file="./style/style.jsp" %>
+<jsp:include page="./style/style.jsp">
+    <jsp:param name="pageColor" value="#04AA6D;" />
+</jsp:include>
 </style>
 </head>
 <body>
