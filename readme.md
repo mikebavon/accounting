@@ -92,7 +92,7 @@ COMMENTS <%!-- COMMENT ---%>
 DIRECTIVES <%@ directive %>
     page
     include
-    tagLib
+    tagLib *****
 DECLARATION <%! declaration %>
 EXPRESSION <%= EXPRESSION %>
 SCRIPTLET <% JAVA CODE %>
@@ -107,3 +107,8 @@ IMPLICIT OBJECTS
 7. exception = jspException
 8. page = 
 9. pageContext = request, response, session
+
+JSP ACTION TAGS
+1. <jsp:forward>
+2. <jsp:include>
+3. <jsp:useBean>

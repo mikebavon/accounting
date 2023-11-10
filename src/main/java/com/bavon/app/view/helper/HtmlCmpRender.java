@@ -61,8 +61,9 @@ public class HtmlCmpRender implements Serializable {
             return StringUtils.EMPTY;
 
        String htmlForm =  "<h2>" +  htmlFormMarker.label() + "</h2>" +
-        "<br/>Add " + htmlFormMarker.label() + "<br/><form action=\"" + htmlFormMarker.url()
-           + "\" method=\"" + htmlFormMarker.httpMethod() + "\">";
+        "<br/><h3>Add " + htmlFormMarker.label() + "</h3><br/>" +
+           "<form action=\"" + htmlFormMarker.url() + "\" method=\"" + htmlFormMarker.httpMethod() + "\">" +
+               "<div class=\"container\">";
 
         Field [] fields = model.getDeclaredFields();
 
@@ -83,8 +84,10 @@ public class HtmlCmpRender implements Serializable {
                     + (StringUtils.isBlank(formField.name())?fieldName : formField.name()) + "\" ><br>";
         }
 
-        htmlForm += "<input type=\"submit\" value=\"Submit\">";
-        htmlForm += "</form><br/>";
+        htmlForm += "<button type=\"submit\">Submit</button>";
+        htmlForm += "</div>" +
+            "</form>" +
+            "<br/><hr/><br/>";
 
         return htmlForm;
 
