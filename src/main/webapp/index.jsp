@@ -25,12 +25,16 @@
     <span style="font-weight:bold;font-size:13px;">Login</span>
     <form action="./login" method="post">
 
+      <jsp:useBean id="loginForm" class="com.bavon.app.userbean.LoginForm" scope="page"/>
+      Time to Login <jsp:getProperty name="loginForm" property="timeToLogin"/>
+      <jsp:setProperty name="loginForm" property="usernamePlaceHolder" value= "Enter Unique Username"/>
+
       <div class="container">
         <label for="username"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="username" required>
+        <input type="text" placeholder="<jsp:getProperty name="loginForm" property="usernamePlaceHolder" />" name="username" required>
 
         <label for="password"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" required>
+        <input type="password" placeholder="<jsp:getProperty name="loginForm" property="passwordPlaceHolder" />" name="password" required>
 
         <button type="submit">Login</button>
       </div>

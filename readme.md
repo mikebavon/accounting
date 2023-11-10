@@ -112,4 +112,13 @@ JSP ACTION TAGS
 1. <jsp:forward>
 2. <jsp:include>
 3. <jsp:useBean>
+4. <jsp:getProperty>
+5. <jsp:setProperty>
 4. <jsp:param>
+
+Java Bean
+ * A class non-argument constructor
+ * private properties with getters and setters
+ * You must not have a public instance variable
+ * Class must Implement serializable
+
