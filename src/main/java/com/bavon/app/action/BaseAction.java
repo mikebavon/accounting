@@ -27,8 +27,10 @@ public class BaseAction extends HttpServlet {
 
     public void renderPage(HttpServletRequest request, HttpServletResponse response, int activeMenu, String content)
             throws ServletException, IOException {
+
         request.setAttribute("activeMenu", activeMenu);
         request.setAttribute("content", content);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("./app/index.jsp");
         dispatcher.forward(request, response);
     }

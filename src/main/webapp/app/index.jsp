@@ -1,4 +1,6 @@
+<%@ page isELIgnored="false" %>
 <%@ page import="com.bavon.app.view.helper.HtmlMenuToolbar" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,11 +10,12 @@
     </head>
 
     <body>
-        <%= new HtmlMenuToolbar().menu((int)request.getAttribute("activeMenu")) %> <%-- modify to use <jsp:useBean> --%>
+        <jsp:useBean id="htmlMenuToolBar" class="com.bavon.app.view.helper.HtmlMenuToolbar" />
+        <jsp:setProperty name="htmlMenuToolBar" property="activeLink" value='${requestScope.activeMenu}' />
+        ${htmlMenuToolBar.menu}
 
-        <h3> <%= application.getInitParameter("AppName") %> | Welcome:  <%= session.getAttribute("username") %></h3>
-        <br/>
-        <%= request.getAttribute("content") %> <%-- modify to use <jsp:useBean> -->
+        <h3> ${initParam.AppName} | Welcome: ${sessionScope.username} </h3><br/>
+        ${requestScope.content}
         <a href=\./logout\>Logout</a>
     </body>
 </html>

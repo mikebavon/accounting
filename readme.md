@@ -122,3 +122,41 @@ Java Bean
  * You must not have a public instance variable
  * Class must Implement serializable
 
+Expression Language
+EL - easily access declared variable, bean, and implicit objects
+Syntax
+    ${object.parameter}
+    ${1+2}
+
+Expression language Logical operations
+< lt
+> gt
+==  eq
+>= ge
+<= le
+|| or 
+! not
+
+Arithmetic operations
+ +, - , *, /, %
+
+JSTL - Java Standard tag libraries - set tags already defined for usage in jsp..
+replace scriplets.
+
+Jstl tags
+1. JSTL CORE *****
+2. JSTL FORMATTING **** 
+3. JSTL SQL
+4. JSTL XML
+5. JSTL FUNCTIONS ****
+
+JSTL CORE
+<c:out> print writer
+<c:set> set variable in  scope
+<c:remove>
+<c:if>
+<c:choose>
+<c:otherwise>
+<c:forEach>
+<c:param>
+<c:redirect>

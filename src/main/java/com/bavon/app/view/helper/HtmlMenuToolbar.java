@@ -6,6 +6,10 @@ import java.util.List;
 
 public class HtmlMenuToolbar implements HtmlMenu,Serializable {
 
+    private String menu;
+
+    private int activeLink;
+
     private final List<MenuLink> links = new ArrayList<>();
 
     {
@@ -18,20 +22,31 @@ public class HtmlMenuToolbar implements HtmlMenu,Serializable {
         links.add(new MenuLink("./logout", "Logout", MenuLinkStatus.NOT_ACTIVE));
     }
 
-    @Override
-    public String menu(int activeLinkIndex) {
+    public String getMenu() {
 
-        this.activateLink(activeLinkIndex);
+        this.activateLink(getActiveLink());
 
         String menuBar = "<div class=\"topnav\">";
 
         for (MenuLink link : links)
             menuBar += "<a " + (link.getStatus() == MenuLinkStatus.ACTIVE? "class=\"active\"" : "")
-                + " href=\"" + link.getUrl() + "\">" + link.getLabel() + "</a>";
+                    + " href=\"" + link.getUrl() + "\">" + link.getLabel() + "</a>";
 
         menuBar += "</div>";
 
         return menuBar;
+    }
+
+    public void setMenu(String menu) {
+        this.menu = menu;
+    }
+
+    public int getActiveLink() {
+        return activeLink;
+    }
+
+    public void setActiveLink(int activeLink) {
+        this.activeLink = activeLink;
     }
 
     private void activateLink(int linkIndex){
@@ -42,5 +57,10 @@ public class HtmlMenuToolbar implements HtmlMenu,Serializable {
                 links.get(index).setStatus(MenuLinkStatus.NOT_ACTIVE);
         }
 
+    }
+
+    @Override
+    public String menu(int activeLinkIndex) {
+        return null;
     }
 }

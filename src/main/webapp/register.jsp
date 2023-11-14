@@ -1,3 +1,4 @@
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,11 +69,9 @@ span.psw {
 </head>
 <body>
 
-<h2><%
-    out.println(application.getInitParameter("AppName"));
-%></h2>
+<h2>${initParam.AppName}</h2>
 
-<h1><%= application.getAttribute("pageLink") %></h1>
+<h1>${applicationScope.pageLink}</h1>
 
 <span style="font-weight:bold;font-size:13px;">Login</span>
 

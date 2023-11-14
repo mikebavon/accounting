@@ -1,3 +1,5 @@
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,43 +11,37 @@
 </style>
 </head>
 <body>
+<h2>${initParam.AppName}</h2>
+<c:set var="pageLink" scope="application" value="Home/<a href='index.jsp'>Login</a>/Register" />
+<c:choose>
+    <c:when test='${sessionScope.loggedInId ne null}' >
+        <c:redirect url="./home" />
+    </c:when>
+    <c:otherwise>
+        <span style="font-weight:bold;font-size:13px;">Login</span>
+        <form action="./login" method="post">
 
-<h2><%= application.getInitParameter("AppName") %></h2>
+          <jsp:useBean id="loginForm" class="com.bavon.app.userbean.LoginForm" scope="page"/>
+          Time to Login ${loginForm.timeToLogin}
 
-<%
-    application.setAttribute("pageLink","Home/<a href='index.jsp'>Login</a>/Register");
-%>
+          <div class="container">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="${loginForm.usernamePlaceHolder}" name="username" required>
 
-<%
-    if (!session.isNew() && session.getAttribute("loggedInId") != null)
-    {
-        response.sendRedirect("./home");
-    } else {
-%>
-    <span style="font-weight:bold;font-size:13px;">Login</span>
-    <form action="./login" method="post">
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="${loginForm.passwordPlaceHolder}" name="password" required>
 
-      <jsp:useBean id="loginForm" class="com.bavon.app.userbean.LoginForm" scope="page"/>
-      Time to Login <jsp:getProperty name="loginForm" property="timeToLogin"/>
-      <jsp:setProperty name="loginForm" property="usernamePlaceHolder" value= "Enter Unique Username"/>
+            <button type="submit">Login</button>
+          </div>
 
-      <div class="container">
-        <label for="username"><b>Username</b></label>
-        <input type="text" placeholder="<jsp:getProperty name="loginForm" property="usernamePlaceHolder" />" name="username" required>
+          <div class="container">
+            <span class="psw">Forgot <a href="#">password?</a></span>
+          </div>
+        </form>
 
-        <label for="password"><b>Password</b></label>
-        <input type="password" placeholder="<jsp:getProperty name="loginForm" property="passwordPlaceHolder" />" name="password" required>
+        <span style="font-weight:bold;font-size:13px;color:red;">Dont Have An Account? <a href="register.jsp">Register</a></span>
 
-        <button type="submit">Login</button>
-      </div>
-
-      <div class="container">
-        <span class="psw">Forgot <a href="#">password?</a></span>
-      </div>
-    </form>
-
-    <span style="font-weight:bold;font-size:13px;color:red;">Dont Have An Account? <a href="register.jsp">Register</a></span>
-
-    </body>
-    </html>
-<% } %>
+        </body>
+        </html>
+    </c:otherwise>
+</c:choose>
