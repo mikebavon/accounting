@@ -2,6 +2,7 @@ package com.bavon.app.model;
 
 import com.bavon.app.view.helper.HtmlForm;
 import com.bavon.app.view.helper.HtmlFormField;
+import com.bavon.app.view.helper.HtmlTable;
 import com.bavon.app.view.helper.HtmlTableColHeader;
 import com.bavon.database.helper.DbColumn;
 import com.bavon.database.helper.DbTable;
@@ -9,8 +10,8 @@ import com.bavon.database.helper.DbTable;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@DbTable(tableName = "journals")
-@HtmlForm(label = "Account", url = "./account")
+@HtmlTable(addUrl = "./accounts?action=add")
+@HtmlForm(label = "Account", url = "./accounts")
 public class Account implements Serializable {
 
     @DbColumn(columnName = "code")

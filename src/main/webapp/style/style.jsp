@@ -101,4 +101,30 @@
       }
     }
 
+    .linkBtn a:link {
+        background-color: #f44336;
+        color: white;
+        padding: 14px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .linkBtn a:visited {
+        background-color: #f44336;
+        color: white;
+        padding: 14px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .linkBtn a:hover {
+        background-color: red;
+    }
+
+    .linkBtn a:active {
+        background-color: red;
+    }
+
 </style>

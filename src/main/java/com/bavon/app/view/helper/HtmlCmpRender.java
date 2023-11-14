@@ -8,41 +8,53 @@ import java.util.List;
 
 public class HtmlCmpRender implements Serializable {
 
-    public static String table(List<? extends Object> models){
+    public static String table(List<?> dataList, Class<?> dataClass) {
 
-        if (models == null || models.isEmpty())
+        if (!dataClass.isAnnotationPresent(HtmlTable.class))
             return StringUtils.EMPTY;
 
-        Field [] fields = models.get(0).getClass().getDeclaredFields();
+        HtmlTable htmlTable = dataClass.getAnnotation(HtmlTable.class);
 
         StringBuilder trBuilder = new StringBuilder();
-        trBuilder.append("<table><tr>");
+        trBuilder.append("<a class=\"linkBtn\" href=\"")
+            .append(htmlTable.addUrl()).append("\" target=\"_blank\">Add</a><br/>")
+            .append("<table><tr>");
+
+        Field[] fields = dataClass.getDeclaredFields();
 
         for (Field field : fields) {
             if (!field.isAnnotationPresent(HtmlTableColHeader.class))
                 continue;
 
-            trBuilder.append("<th>" + field.getAnnotation(HtmlTableColHeader.class).header() + "</th>");
+            trBuilder.append("<th>")
+                .append(field.getAnnotation(HtmlTableColHeader.class).header())
+                .append("</th>");
         }
 
         trBuilder.append("</tr>");
 
-        for (Object model : models){
+        if (dataList != null && !dataList.isEmpty()){
 
-            trBuilder.append("<tr>");
-            for (Field field : fields) {
-                if (!field.isAnnotationPresent(HtmlTableColHeader.class))
-                    continue;
+            for (Object data : dataList) {
 
-                try {
-                    field.setAccessible(true);
-                    trBuilder.append("<td>").append(field.get(model)).append("</td>");
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
+                trBuilder.append("<tr>");
+                for (Field field : fields) {
+                    if (!field.isAnnotationPresent(HtmlTableColHeader.class))
+                        continue;
+
+                    try {
+                        field.setAccessible(true);
+                        trBuilder.append("<td>").append(field.get(data)).append("</td>");
+
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+
+                    }
                 }
-            }
-            trBuilder.append("<tr>");
 
+                trBuilder.append("<tr>");
+
+            }
         }
 
         trBuilder.append("</table>");
@@ -60,10 +72,9 @@ public class HtmlCmpRender implements Serializable {
         if (htmlFormMarker == null)
             return StringUtils.EMPTY;
 
-       String htmlForm =  "<h2>" +  htmlFormMarker.label() + "</h2>" +
-        "<br/><h3>Add " + htmlFormMarker.label() + "</h3><br/>" +
+        StringBuilder htmlForm = new StringBuilder("<br/><h3>Add " + htmlFormMarker.label() + "</h3><br/>" +
            "<form action=\"" + htmlFormMarker.url() + "\" method=\"" + htmlFormMarker.httpMethod() + "\">" +
-               "<div class=\"container\">";
+           "<div class=\"container\">");
 
         Field [] fields = model.getDeclaredFields();
 
@@ -75,22 +86,26 @@ public class HtmlCmpRender implements Serializable {
 
             String fieldName = field.getName();
 
-            htmlForm += "<label for=\""
-                    + (StringUtils.isBlank(formField.labelFor())?fieldName : formField.labelFor())
-                + "\">"
-                    + (StringUtils.isBlank(formField.label())?fieldName : formField.label()) + ":</label><br>";
-            htmlForm += "<input type=\"text\" id=\""
-                    + (StringUtils.isBlank(formField.id())?fieldName : formField.id())+ "\" name=\""
-                    + (StringUtils.isBlank(formField.name())?fieldName : formField.name()) + "\" ><br>";
+            htmlForm
+                .append("<label for=\"").append(ifBlank(formField.labelFor(), fieldName)).append("\">")
+                .append(ifBlank(formField.label(),fieldName))
+                .append(":</label><br>");
+
+            htmlForm.append("<input type=\"text\" id=\"").append(ifBlank(formField.id(),fieldName))
+                .append("\" name=\"").append(ifBlank(formField.name(),fieldName))
+                .append("\" ><br>");
+
         }
 
-        htmlForm += "<button type=\"submit\">Submit</button>";
-        htmlForm += "</div>" +
-            "</form>" +
-            "<br/><hr/><br/>";
+        htmlForm.append("<button type=\"submit\">Submit</button>");
+        htmlForm.append("</div>" + "</form>" + "<br/>");
 
-        return htmlForm;
-
+        return htmlForm.toString();
 
     }
+
+    private static String ifBlank(String target, String alternative){
+        return StringUtils.isBlank(target)? alternative : StringUtils.trimToEmpty(target);
+    }
+
 }

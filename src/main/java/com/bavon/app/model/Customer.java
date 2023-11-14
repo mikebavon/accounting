@@ -2,11 +2,13 @@ package com.bavon.app.model;
 
 import com.bavon.app.view.helper.HtmlForm;
 import com.bavon.app.view.helper.HtmlFormField;
+import com.bavon.app.view.helper.HtmlTable;
 import com.bavon.app.view.helper.HtmlTableColHeader;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+@HtmlTable(addUrl = "./customers?action=add")
 @HtmlForm(label = "Customer", url = "./customers")
 public class Customer implements Serializable {
 

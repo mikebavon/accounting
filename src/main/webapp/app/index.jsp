@@ -14,8 +14,7 @@
         <jsp:setProperty name="htmlMenuToolBar" property="activeLink" value='${requestScope.activeMenu}' />
         ${htmlMenuToolBar.menu}
 
-        <h3> ${initParam.AppName} | Welcome: ${sessionScope.username} </h3><br/>
+        <h3> ${initParam.AppName} | User: ${sessionScope.username} </h3><br/>
         ${requestScope.content}
-        <a href=\./logout\>Logout</a>
     </body>
 </html>

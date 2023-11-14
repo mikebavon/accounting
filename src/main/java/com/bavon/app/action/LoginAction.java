@@ -30,8 +30,7 @@ public class LoginAction extends BaseAction {
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 
-        User loginUser  = new User();
-        serializeForm(loginUser, req.getParameterMap());
+        User loginUser  = serializeForm(User.class, req.getParameterMap());
 
         User userDetails = authBean.authenticate(loginUser);
 

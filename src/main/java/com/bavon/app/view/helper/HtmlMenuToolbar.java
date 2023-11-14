@@ -14,6 +14,7 @@ public class HtmlMenuToolbar implements HtmlMenu,Serializable {
 
     {
         links.add(new MenuLink("./home", "Home", MenuLinkStatus.ACTIVE));
+        links.add(new MenuLink("./accounts", "Account", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./journals", "Journals", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./customers", "Customers", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./invoices", "Invoices", MenuLinkStatus.NOT_ACTIVE));

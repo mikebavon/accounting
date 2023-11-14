@@ -1,7 +1,6 @@
 package com.bavon.app.action;
 
 import com.bavon.app.model.Journal;
-import com.bavon.app.view.helper.HtmlCmpRender;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +13,7 @@ import java.util.ArrayList;
 public class JournalAction extends BaseAction {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        renderPage(req, resp, 1,
-                HtmlCmpRender.form(Journal.class) + HtmlCmpRender.table(new ArrayList<Journal>()));
+        renderPage(req, resp, 2, Journal.class,new ArrayList<Journal>());
 
     }
 }

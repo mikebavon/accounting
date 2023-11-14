@@ -2,11 +2,14 @@ package com.bavon.app.model;
 
 import com.bavon.app.view.helper.HtmlForm;
 import com.bavon.app.view.helper.HtmlFormField;
+import com.bavon.app.view.helper.HtmlTable;
 
 import java.io.Serializable;
 import java.util.Date;
 
-@HtmlForm(label = "Invoice", url = "./invoices", httpMethod = "POST")
+
+@HtmlTable(addUrl = "./invoices?action=add")
+@HtmlForm(label = "Invoice", url = "./invoices")
 public class Invoice implements Serializable {
 
     @HtmlFormField(label = "Invoice Date")

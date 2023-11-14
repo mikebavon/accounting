@@ -1,16 +1,15 @@
 package com.bavon.app.bean;
 
 import com.bavon.app.model.Account;
-import com.bavon.app.view.helper.HtmlCmpRender;
 import com.bavon.database.Database;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class AccountBean implements AccountBeanI, Serializable {
 
-    public String chartOfAccounts(){
-
-        return HtmlCmpRender.table(Database.getDbInstance().getAccounts());
+    public List<Account> list(){
+        return Database.getDbInstance().getAccounts();
 
     }
 

@@ -2,9 +2,11 @@ package com.bavon.app.bean;
 
 import com.bavon.app.model.Account;
 
+import java.util.List;
+
 public interface AccountBeanI {
 
-    String chartOfAccounts();
+    List<Account> list();
 
     Account addOrUpdateAccount(Account account);
 
