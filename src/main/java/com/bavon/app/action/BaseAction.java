@@ -1,6 +1,5 @@
 package com.bavon.app.action;
 
-import com.bavon.app.model.Account;
 import com.bavon.app.view.helper.HtmlCmpRender;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -43,7 +42,7 @@ public class BaseAction extends HttpServlet {
         if (StringUtils.trimToEmpty(request.getParameter("action")).equals("add"))
             request.setAttribute("content", HtmlCmpRender.form(entity));
         else
-            request.setAttribute("content", HtmlCmpRender.table(entityList, Account.class));
+            request.setAttribute("content", HtmlCmpRender.table(entityList, entity));
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("./app/index.jsp");
         dispatcher.forward(request, response);

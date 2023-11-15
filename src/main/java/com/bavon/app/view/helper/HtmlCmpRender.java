@@ -17,7 +17,7 @@ public class HtmlCmpRender implements Serializable {
 
         StringBuilder trBuilder = new StringBuilder();
         trBuilder.append("<a class=\"linkBtn\" href=\"")
-            .append(htmlTable.addUrl()).append("\" target=\"_blank\">Add</a><br/>")
+            .append(htmlTable.addUrl()).append("\">Add</a><br/>")
             .append("<table><tr>");
 
         Field[] fields = dataClass.getDeclaredFields();
@@ -64,6 +64,8 @@ public class HtmlCmpRender implements Serializable {
     }
 
     public static String form(Class<?> model){
+
+        System.out.println(">>>>>>>>>" + model.getName());
 
         HtmlForm htmlFormMarker = null;
         if (model.isAnnotationPresent(HtmlForm.class))

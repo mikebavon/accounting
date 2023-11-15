@@ -13,9 +13,9 @@ import java.util.Date;
 @HtmlForm(label = "Journal", url = "./journals")
 public class Journal implements Serializable {
 
-    @HtmlTableColHeader(header = "Date")
+   /* @HtmlTableColHeader(header = "Date")
     @HtmlFormField(label = "Transaction Date")
-    private Date date;
+    private Date date;*/
 
     @HtmlTableColHeader(header = "Journal No")
     private String journalNo;
@@ -30,7 +30,7 @@ public class Journal implements Serializable {
 
     @HtmlTableColHeader(header = "Credit")
     @HtmlFormField(label = "Credit Amount")
-    private BigDecimal creditBalance;
+    private BigDecimal creditBalance;/*
 
     public Date getDate() {
         return date;
@@ -38,7 +38,7 @@ public class Journal implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
-    }
+    }*/
 
     public String getJournalNo() {
         return journalNo;

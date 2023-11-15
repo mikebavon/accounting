@@ -1,6 +1,8 @@
 package com.bavon.database;
 
 import com.bavon.app.model.Account;
+import com.bavon.app.model.Customer;
+import com.bavon.app.model.Journal;
 import com.bavon.app.model.User;
 
 import java.io.Serializable;
@@ -8,6 +10,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Database implements Serializable {
 
@@ -16,6 +19,10 @@ public class Database implements Serializable {
     private List<User> users = new ArrayList<>();
 
     private List<Account> accounts = new ArrayList<>();
+
+    private List<Journal> journals = new ArrayList<>();
+
+    private List<Customer> customers = new ArrayList<>();
 
     private static Database dbInstance;
 
@@ -45,6 +52,22 @@ public class Database implements Serializable {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public List<Journal> getJournals() {
+        return journals;
+    }
+
+    public void setJournals(List<Journal> journals) {
+        this.journals = journals;
+    }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
     }
 
     public String getDatabaseCreateAt() {
