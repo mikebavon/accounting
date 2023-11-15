@@ -1,28 +1,17 @@
 package com.bavon.database;
 
-import com.bavon.app.model.Account;
-import com.bavon.app.model.Customer;
-import com.bavon.app.model.Journal;
-import com.bavon.app.model.User;
-
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Database implements Serializable {
 
     private String databaseCreateAt;
 
-    private List<User> users = new ArrayList<>();
-
-    private List<Account> accounts = new ArrayList<>();
-
-    private List<Journal> journals = new ArrayList<>();
-
-    private List<Customer> customers = new ArrayList<>();
+    private List<Object> data = new ArrayList<>();
 
     private static Database dbInstance;
 
@@ -38,36 +27,22 @@ public class Database implements Serializable {
         return dbInstance;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<Object> getData() {
+        return data;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setData(List<Object> data) {
+        this.data = data;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
-    }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-    }
+    public List<Object> getData(Class<?> clazz) {
 
-    public List<Journal> getJournals() {
-        return journals;
-    }
+        return data
+            .stream()
+            .filter(clazz::isInstance)
+            .collect(Collectors.toList());
 
-    public void setJournals(List<Journal> journals) {
-        this.journals = journals;
-    }
-
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
     }
 
     public String getDatabaseCreateAt() {

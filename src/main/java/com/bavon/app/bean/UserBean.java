@@ -13,7 +13,7 @@ public class UserBean implements UserBeanI, Serializable {
     public boolean register(User user) {
 
         if (user.getPassword().equals(user.getConfirmPassword())) {
-            database.getUsers().add(new User(100L, user.getUsername(), user.getPassword()));
+            database.getData().add(new User(100L, user.getUsername(), user.getPassword()));
 
             return true;
         }

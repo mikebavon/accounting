@@ -17,7 +17,8 @@ public class CustomerAction extends BaseAction{
     private final CustomerBeanI customerBean = new CustomerBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        renderPage(req, resp, 3,Customer.class, customerBean.list());
+        System.out.println("Get Customers>>>>>");
+        renderPage(req, resp, 3,Customer.class, customerBean.list(Customer.class));
 
     }
 
