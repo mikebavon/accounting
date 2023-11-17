@@ -11,7 +11,7 @@ import java.util.Date;
 @HtmlForm(label = "Invoice", url = "./invoices")
 public class Invoice implements Serializable {
 
-    @HtmlTableColHeader(header = "Date")
+    @HtmlTableColHeader(header = "Date", dateFormat = "dd/MM/yyy")
     @HtmlFormField(label = "Invoice Date", type = HtmlFormFieldType.DATE, required = true)
     private Date invoiceDate;
 
@@ -19,7 +19,7 @@ public class Invoice implements Serializable {
     @HtmlFormField(label = "Invoice Number", required = true)
     private String invoiceNo;
 
-    @HtmlTableColHeader(header = "Total")
+    @HtmlTableColHeader(header = "Total", numberFormat = "#,###.##")
     private BigDecimal total;
 
     @HtmlTableColHeader(header = "Narration")

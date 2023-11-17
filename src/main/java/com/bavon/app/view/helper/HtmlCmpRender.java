@@ -4,6 +4,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +50,20 @@ public class HtmlCmpRender implements Serializable {
 
                     try {
                         field.setAccessible(true);
-                        trBuilder.append("<td>").append(Optional.ofNullable(field.get(data)).orElse("")).append("</td>");
+                        HtmlTableColHeader colHeader = field.getAnnotation(HtmlTableColHeader.class);
+
+                        Object colData;
+                        if (StringUtils.isNotBlank(colHeader.dateFormat()))
+                            colData = new SimpleDateFormat(colHeader.dateFormat()).format((Date) field.get(data));
+                        else if (StringUtils.isNotBlank(colHeader.numberFormat()))
+                            colData = new DecimalFormat(colHeader.numberFormat())
+                                .format(Optional.ofNullable(field.get(data)).orElse(BigDecimal.ZERO));
+                        else
+                            colData = field.get(data);
+
+                        trBuilder.append("<td>")
+                            .append(Optional.ofNullable(colData).orElse(""))
+                            .append("</td>");
 
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException(e);
@@ -90,7 +108,7 @@ public class HtmlCmpRender implements Serializable {
             htmlForm
                 .append("<label for=\"").append(ifBlank(formField.labelFor(), fieldName)).append("\">")
                 .append(ifBlank(formField.label(), fieldName))
-                .append(formField.required()?"* ":"")
+                .append(formField.required()?"<span style=\"color:red;\">*</span> ":"")
                 .append(":</label><br>");
 
             htmlForm.append("<input type=\"")

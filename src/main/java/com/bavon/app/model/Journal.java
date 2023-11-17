@@ -10,7 +10,7 @@ import java.util.Date;
 @HtmlForm(label = "Journal", url = "./journals")
 public class Journal implements Serializable {
 
-    @HtmlTableColHeader(header = "Date")
+    @HtmlTableColHeader(header = "Date", dateFormat = "dd MMM yyyy")
     @HtmlFormField(label = "Transaction Date", type = HtmlFormFieldType.DATE, required = true)
     private Date date;
 
@@ -21,11 +21,11 @@ public class Journal implements Serializable {
     @HtmlFormField(label = "Particulars", required = true)
     private String memo;
 
-    @HtmlTableColHeader(header = "Debit")
+    @HtmlTableColHeader(header = "Debit", numberFormat = "#,###.00")
     @HtmlFormField(label = "Debit Amount", type = HtmlFormFieldType.NUMBER)
     private BigDecimal debitBalance;
 
-    @HtmlTableColHeader(header = "Credit")
+    @HtmlTableColHeader(header = "Credit", numberFormat = "#,###.00")
     @HtmlFormField(label = "Credit Amount", type = HtmlFormFieldType.NUMBER)
     private BigDecimal creditBalance;
 

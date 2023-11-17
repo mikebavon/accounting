@@ -11,4 +11,8 @@ public @interface HtmlTableColHeader {
 
     String header();
 
+    String dateFormat() default "";
+
+    String numberFormat() default "";
+
 }
