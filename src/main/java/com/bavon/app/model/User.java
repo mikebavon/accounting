@@ -1,13 +1,21 @@
 package com.bavon.app.model;
 
+import com.bavon.database.Database;
+import com.bavon.database.helper.DbTable;
+import com.bavon.database.helper.DbTableColumn;
+
 import java.io.Serializable;
 
+@DbTable(name = "users")
 public class User implements Serializable {
 
+    @DbTableColumn(name = "id", definition = "int")
     private Long id;
 
+    @DbTableColumn(name = "username")
     private String username;
 
+    @DbTableColumn(name = "password")
     private String password;
 
     private String confirmPassword;

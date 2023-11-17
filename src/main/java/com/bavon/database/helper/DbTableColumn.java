@@ -5,11 +5,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface DbColumn {
+@Retention(RetentionPolicy.RUNTIME)
+public @interface DbTableColumn {
 
-    String columnName();
+    String name();
 
+    String definition() default "varchar(255)";
 
 }

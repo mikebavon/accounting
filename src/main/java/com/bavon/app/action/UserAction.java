@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/user")
 public class UserAction extends BaseAction {
@@ -17,7 +18,12 @@ public class UserAction extends BaseAction {
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        userBean.register(serializeForm(User.class, req.getParameterMap()));
+        try {
+            userBean.register(serializeForm(User.class, req.getParameterMap()));
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+
         resp.sendRedirect("./");
 
 

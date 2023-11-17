@@ -4,28 +4,30 @@ import com.bavon.app.view.helper.HtmlForm;
 import com.bavon.app.view.helper.HtmlFormField;
 import com.bavon.app.view.helper.HtmlTable;
 import com.bavon.app.view.helper.HtmlTableColHeader;
-import com.bavon.database.helper.DbColumn;
 import com.bavon.database.helper.DbTable;
+import com.bavon.database.helper.DbTableColumn;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+@DbTable(name = "accounts")
 @HtmlTable(addUrl = "./accounts?action=add")
 @HtmlForm(label = "Account", url = "./accounts")
 public class Account implements Serializable {
 
-    @DbColumn(columnName = "code")
+    @DbTableColumn(name = "account_code")
     @HtmlTableColHeader(header = "Account Code")
     @HtmlFormField(label = "Account Code", required = true)
     private String code;
 
-    @DbColumn(columnName = "name")
+    @DbTableColumn(name = "account_name")
     @HtmlTableColHeader(header = "Account Name")
     @HtmlFormField(label = "Account Name", required = true)
     private String name;
 
     private BigDecimal balance;
 
+    @DbTableColumn(name = "notes")
     private String notes;
 
     public Account(){

@@ -32,20 +32,24 @@ public class LoginAction extends BaseAction {
 
         User loginUser  = serializeForm(User.class, req.getParameterMap());
 
-        User userDetails = authBean.authenticate(loginUser);
+        try {
+            User userDetails = authBean.authenticate(loginUser);
 
-        if (userDetails != null) {
-            HttpSession httpSession = req.getSession(true);
+            if (userDetails != null) {
+                HttpSession httpSession = req.getSession(true);
 
-            httpSession.setAttribute("loggedInId", new Date().getTime() + "");
-            httpSession.setAttribute("username", loginUser.getUsername());
+                httpSession.setAttribute("loggedInId", new Date().getTime() + "");
+                httpSession.setAttribute("username", loginUser.getUsername());
 
-            resp.sendRedirect("./home");
+                resp.sendRedirect("./home");
 
+            }
+
+            PrintWriter print = resp.getWriter();
+            print.write("<html><body>Invalid login details <a href=\".\"> Login again </a></body></html>");
+        }catch (Exception ex) {
+            ex.printStackTrace();
         }
-
-        PrintWriter print = resp.getWriter();
-        print.write("<html><body>Invalid login details <a href=\".\"> Login again </a></body></html>");
 
     }
 

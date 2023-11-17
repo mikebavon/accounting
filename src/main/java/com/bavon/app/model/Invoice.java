@@ -1,12 +1,15 @@
 package com.bavon.app.model;
 
 import com.bavon.app.view.helper.*;
+import com.bavon.database.helper.DbTable;
+import com.bavon.database.helper.DbTableColumn;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 
+@DbTable(name = "invoices")
 @HtmlTable(addUrl = "./invoices?action=add")
 @HtmlForm(label = "Invoice", url = "./invoices")
 public class Invoice implements Serializable {
@@ -15,13 +18,16 @@ public class Invoice implements Serializable {
     @HtmlFormField(label = "Invoice Date", type = HtmlFormFieldType.DATE, required = true)
     private Date invoiceDate;
 
+    @DbTableColumn(name = "invoice_no")
     @HtmlTableColHeader(header = "Invoice Number")
     @HtmlFormField(label = "Invoice Number", required = true)
     private String invoiceNo;
 
+    @DbTableColumn(name = "total")
     @HtmlTableColHeader(header = "Total", numberFormat = "#,###.##")
     private BigDecimal total;
 
+    @DbTableColumn(name = "narration")
     @HtmlTableColHeader(header = "Narration")
     @HtmlFormField(label = "Narration", required = true)
     private String narration;
