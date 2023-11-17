@@ -6,11 +6,9 @@ import java.util.Date;
 
 public class LoginForm implements Serializable {
 
-    private String usernamePlaceHolder = "Enter Username Of Your Choice";
+    private String usernamePlaceHolder = "Enter Username";
 
-    private String passwordPlaceHolder = "Enter Password Of Your Choice";
-
-    private String timeToLogin;
+    private String passwordPlaceHolder = "Enter Password";
 
     public String getUsernamePlaceHolder() {
         return usernamePlaceHolder;
@@ -26,16 +24,5 @@ public class LoginForm implements Serializable {
 
     public void setPasswordPlaceHolder(String passwordPlaceHolder) {
         this.passwordPlaceHolder = passwordPlaceHolder;
-    }
-
-    public String getTimeToLogin() {
-        if (timeToLogin == null)
-            timeToLogin = DateFormat.getDateTimeInstance().format(new Date());
-
-        return timeToLogin;
-    }
-
-    public void setTimeToLogin(String timeToLogin) {
-        this.timeToLogin = timeToLogin;
     }
 }

@@ -1,10 +1,9 @@
 package com.bavon.app.model;
 
-import com.bavon.app.view.helper.HtmlForm;
-import com.bavon.app.view.helper.HtmlFormField;
-import com.bavon.app.view.helper.HtmlTable;
+import com.bavon.app.view.helper.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -12,15 +11,24 @@ import java.util.Date;
 @HtmlForm(label = "Invoice", url = "./invoices")
 public class Invoice implements Serializable {
 
-    @HtmlFormField(label = "Invoice Date")
+    @HtmlTableColHeader(header = "Date")
+    @HtmlFormField(label = "Invoice Date", type = HtmlFormFieldType.DATE)
     private Date invoiceDate;
 
+    @HtmlTableColHeader(header = "Invoice Number")
     @HtmlFormField(label = "Invoice Number")
     private String invoiceNo;
 
+    @HtmlTableColHeader(header = "Total")
+    private BigDecimal total;
+
+    @HtmlTableColHeader(header = "Narration")
+    @HtmlFormField(label = "Narration")
+    private String narration;
+
     private Journal journal;
 
-    public Date getInvoiceDate() {
+   public Date getInvoiceDate() {
         return invoiceDate;
     }
 
@@ -42,5 +50,21 @@ public class Invoice implements Serializable {
 
     public void setJournal(Journal journal) {
         this.journal = journal;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public String getNarration() {
+        return narration;
+    }
+
+    public void setNarration(String narration) {
+        this.narration = narration;
     }
 }

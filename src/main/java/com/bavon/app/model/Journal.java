@@ -1,9 +1,6 @@
 package com.bavon.app.model;
 
-import com.bavon.app.view.helper.HtmlForm;
-import com.bavon.app.view.helper.HtmlFormField;
-import com.bavon.app.view.helper.HtmlTable;
-import com.bavon.app.view.helper.HtmlTableColHeader;
+import com.bavon.app.view.helper.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,9 +10,9 @@ import java.util.Date;
 @HtmlForm(label = "Journal", url = "./journals")
 public class Journal implements Serializable {
 
-   /* @HtmlTableColHeader(header = "Date")
-    @HtmlFormField(label = "Transaction Date")
-    private Date date;*/
+    @HtmlTableColHeader(header = "Date")
+    @HtmlFormField(label = "Transaction Date", type = HtmlFormFieldType.DATE)
+    private Date date;
 
     @HtmlTableColHeader(header = "Journal No")
     private String journalNo;
@@ -25,12 +22,12 @@ public class Journal implements Serializable {
     private String memo;
 
     @HtmlTableColHeader(header = "Debit")
-    @HtmlFormField(label = "Debit Amount")
+    @HtmlFormField(label = "Debit Amount", type = HtmlFormFieldType.NUMBER)
     private BigDecimal debitBalance;
 
     @HtmlTableColHeader(header = "Credit")
-    @HtmlFormField(label = "Credit Amount")
-    private BigDecimal creditBalance;/*
+    @HtmlFormField(label = "Credit Amount", type = HtmlFormFieldType.NUMBER)
+    private BigDecimal creditBalance;
 
     public Date getDate() {
         return date;
@@ -38,7 +35,7 @@ public class Journal implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
-    }*/
+    }
 
     public String getJournalNo() {
         return journalNo;

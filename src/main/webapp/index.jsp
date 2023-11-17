@@ -18,11 +18,10 @@
             <c:redirect url="./home" />
         </c:when>
         <c:otherwise>
-            <span style="font-weight:bold;font-size:13px;">Login</span>
+            <span style="font-weight:bold;font-size:16px;">Login</span>
             <form action="./login" method="post">
 
               <jsp:useBean id="loginForm" class="com.bavon.app.userbean.LoginForm" scope="page"/>
-              Time to Login ${loginForm.timeToLogin}
 
               <div class="container">
                 <label for="username"><b>Username</b></label>

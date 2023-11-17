@@ -29,6 +29,7 @@
         font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
+        margin-top: 100px;
     }
 
     td, th {
@@ -41,7 +42,7 @@
         background-color: #dddddd;
     }
 
-    input[type=text], input[type=password] {
+    input[type=text], input[type=password], input[type=number], input[type=date] {
       width: 100%;
       padding: 12px 20px;
       margin: 8px 0;
@@ -101,30 +102,11 @@
       }
     }
 
-    .linkBtn a:link {
-        background-color: #f44336;
-        color: white;
-        padding: 14px 25px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-    }
-
-    .linkBtn a:visited {
-        background-color: #f44336;
-        color: white;
-        padding: 14px 25px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-    }
-
-    .linkBtn a:hover {
-        background-color: red;
-    }
-
-    .linkBtn a:active {
-        background-color: red;
+    .link-btn-add {
+      background-color: green;
+      color: white;
+      padding: 15px 25px;
+      text-decoration: none;
     }
 
 </style>

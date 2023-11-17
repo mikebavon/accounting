@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Optional;
 
 public class HtmlCmpRender implements Serializable {
 
@@ -16,7 +17,7 @@ public class HtmlCmpRender implements Serializable {
         HtmlTable htmlTable = dataClass.getAnnotation(HtmlTable.class);
 
         StringBuilder trBuilder = new StringBuilder();
-        trBuilder.append("<a class=\"linkBtn\" href=\"")
+        trBuilder.append("<a class=\"link-btn-add\" href=\"")
             .append(htmlTable.addUrl()).append("\">Add</a><br/>")
             .append("<table><tr>");
 
@@ -44,7 +45,7 @@ public class HtmlCmpRender implements Serializable {
 
                     try {
                         field.setAccessible(true);
-                        trBuilder.append("<td>").append(field.get(data)).append("</td>");
+                        trBuilder.append("<td>").append(Optional.ofNullable(field.get(data)).orElse("")).append("</td>");
 
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException(e);
@@ -64,8 +65,6 @@ public class HtmlCmpRender implements Serializable {
     }
 
     public static String form(Class<?> model){
-
-        System.out.println(">>>>>>>>>" + model.getName());
 
         HtmlForm htmlFormMarker = null;
         if (model.isAnnotationPresent(HtmlForm.class))
@@ -91,11 +90,18 @@ public class HtmlCmpRender implements Serializable {
             htmlForm
                 .append("<label for=\"").append(ifBlank(formField.labelFor(), fieldName)).append("\">")
                 .append(ifBlank(formField.label(),fieldName))
+                .append(formField.required()?"* ":"")
                 .append(":</label><br>");
 
-            htmlForm.append("<input type=\"text\" id=\"").append(ifBlank(formField.id(),fieldName))
+            htmlForm.append("<input type=\"")
+                .append(formField.type())
+                .append("\" id=\"").append(ifBlank(formField.id(),fieldName))
                 .append("\" name=\"").append(ifBlank(formField.name(),fieldName))
                 .append("\" ><br>");
+
+            //if (field.getClass().isEnum()){
+
+            //}
 
         }
 
