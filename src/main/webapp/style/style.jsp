@@ -29,7 +29,7 @@
         font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
-        margin-top: 100px;
+        margin-top: 50px;
     }
 
     td, th {
