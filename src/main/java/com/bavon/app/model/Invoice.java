@@ -12,18 +12,18 @@ import java.util.Date;
 public class Invoice implements Serializable {
 
     @HtmlTableColHeader(header = "Date")
-    @HtmlFormField(label = "Invoice Date", type = HtmlFormFieldType.DATE)
+    @HtmlFormField(label = "Invoice Date", type = HtmlFormFieldType.DATE, required = true)
     private Date invoiceDate;
 
     @HtmlTableColHeader(header = "Invoice Number")
-    @HtmlFormField(label = "Invoice Number")
+    @HtmlFormField(label = "Invoice Number", required = true)
     private String invoiceNo;
 
     @HtmlTableColHeader(header = "Total")
     private BigDecimal total;
 
     @HtmlTableColHeader(header = "Narration")
-    @HtmlFormField(label = "Narration")
+    @HtmlFormField(label = "Narration", required = true)
     private String narration;
 
     private Journal journal;

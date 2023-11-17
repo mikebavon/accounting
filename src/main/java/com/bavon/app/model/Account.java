@@ -15,13 +15,13 @@ import java.math.BigDecimal;
 public class Account implements Serializable {
 
     @DbColumn(columnName = "code")
-    @HtmlTableColHeader(header = "Code Of The Account")
-    @HtmlFormField(label = "Account Code")
+    @HtmlTableColHeader(header = "Account Code")
+    @HtmlFormField(label = "Account Code", required = true)
     private String code;
 
     @DbColumn(columnName = "name")
-    @HtmlTableColHeader(header = "Name Of The Account")
-    @HtmlFormField(label = "Account Name")
+    @HtmlTableColHeader(header = "Account Name")
+    @HtmlFormField(label = "Account Name", required = true)
     private String name;
 
     private BigDecimal balance;

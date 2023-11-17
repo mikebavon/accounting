@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class BillAction extends BaseAction {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        renderPage(req, resp, 5, Account.class, new ArrayList<Account>());
+        renderPage(req, resp, 6, Account.class, new ArrayList<Account>());
 
     }
 }

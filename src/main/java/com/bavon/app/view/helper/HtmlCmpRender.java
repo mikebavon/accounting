@@ -89,15 +89,16 @@ public class HtmlCmpRender implements Serializable {
 
             htmlForm
                 .append("<label for=\"").append(ifBlank(formField.labelFor(), fieldName)).append("\">")
-                .append(ifBlank(formField.label(),fieldName))
+                .append(ifBlank(formField.label(), fieldName))
                 .append(formField.required()?"* ":"")
                 .append(":</label><br>");
 
             htmlForm.append("<input type=\"")
                 .append(formField.type())
-                .append("\" id=\"").append(ifBlank(formField.id(),fieldName))
-                .append("\" name=\"").append(ifBlank(formField.name(),fieldName))
-                .append("\" ><br>");
+                .append("\" id=\"").append(ifBlank(formField.id(), fieldName))
+                .append("\" name=\"").append(ifBlank(formField.name(), fieldName)).append("\" ")
+                .append(formField.required()?"required" : "")
+                .append("><br>");
 
             //if (field.getClass().isEnum()){
 

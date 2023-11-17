@@ -11,14 +11,14 @@ import java.util.Date;
 public class Journal implements Serializable {
 
     @HtmlTableColHeader(header = "Date")
-    @HtmlFormField(label = "Transaction Date", type = HtmlFormFieldType.DATE)
+    @HtmlFormField(label = "Transaction Date", type = HtmlFormFieldType.DATE, required = true)
     private Date date;
 
     @HtmlTableColHeader(header = "Journal No")
     private String journalNo;
 
     @HtmlTableColHeader(header = "Particulars")
-    @HtmlFormField(label = "Particulars")
+    @HtmlFormField(label = "Particulars", required = true)
     private String memo;
 
     @HtmlTableColHeader(header = "Debit")

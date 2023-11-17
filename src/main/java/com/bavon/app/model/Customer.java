@@ -13,11 +13,11 @@ import java.math.BigDecimal;
 public class Customer implements Serializable {
 
     @HtmlTableColHeader(header = "Customer Name")
-    @HtmlFormField(label = "Name")
+    @HtmlFormField(label = "Customer Name", required = true)
     private String name;
 
     @HtmlTableColHeader(header = "Customer Address")
-    @HtmlFormField(label = "Customer Address")
+    @HtmlFormField(label = "Customer Address", required = true)
     private String address;
 
     @HtmlTableColHeader(header = "Account Balance")
