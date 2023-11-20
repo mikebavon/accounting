@@ -1,6 +1,7 @@
 package com.bavon.app.bean;
 
 import com.bavon.database.Database;
+import com.bavon.database.MysqlDatabase;
 
 import java.util.List;
 
@@ -15,10 +16,7 @@ public class GenericBean<T> implements GenericBeanI<T>{
 
     @Override
     public void addOrUpdateAccount(T entity) {
-
-        Database database = Database.getDbInstance();
-
-        database.getData().add(entity);
+        MysqlDatabase.insert(entity);
 
     }
 

@@ -11,7 +11,7 @@ import java.util.Date;
 @DbTable(name = "journals")
 @HtmlTable(addUrl = "./journals?action=add")
 @HtmlForm(label = "Journal", url = "./journals")
-public class Journal implements Serializable {
+public class Journal extends BaseEntity {
 
     @HtmlTableColHeader(header = "Date", dateFormat = "dd MMM yyyy")
     @HtmlFormField(label = "Transaction Date", type = HtmlFormFieldType.DATE, required = true)

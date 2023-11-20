@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @DbTable(name = "customers")
 @HtmlTable(addUrl = "./customers?action=add")
 @HtmlForm(label = "Customer", url = "./customers")
-public class Customer implements Serializable {
+public class Customer extends BaseEntity {
 
     @DbTableColumn(name = "name")
     @HtmlTableColHeader(header = "Customer Name")

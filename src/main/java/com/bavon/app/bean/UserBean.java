@@ -19,14 +19,7 @@ public class UserBean implements UserBeanI, Serializable {
 
         if (user.getPassword().equals(user.getConfirmPassword())) {
 
-            PreparedStatement sqlStmt = MysqlDatabase.getInstance().getConnection()
-                .prepareStatement("insert into users(id,username,password) values(?,?,?)");
-
-            sqlStmt.setInt(1, ThreadLocalRandom.current().nextInt(1, 1000));
-            sqlStmt.setString(2, user.getUsername());
-            sqlStmt.setString(3, user.getPassword());
-
-            sqlStmt.executeUpdate();
+            MysqlDatabase.insert(user);
 
             return true;
         }

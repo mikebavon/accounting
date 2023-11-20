@@ -1,16 +1,11 @@
 package com.bavon.app.model;
 
-import com.bavon.database.Database;
 import com.bavon.database.helper.DbTable;
 import com.bavon.database.helper.DbTableColumn;
 
-import java.io.Serializable;
 
 @DbTable(name = "users")
-public class User implements Serializable {
-
-    @DbTableColumn(name = "id", definition = "int")
-    private Long id;
+public class User extends BaseEntity {
 
     @DbTableColumn(name = "username")
     private String username;
@@ -23,17 +18,9 @@ public class User implements Serializable {
     public User(){}
 
     public User(Long id, String username, String password) {
-        this.id = id;
+        setId(id);
         this.username = username;
         this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {

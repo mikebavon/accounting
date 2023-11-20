@@ -7,13 +7,12 @@ import com.bavon.app.view.helper.HtmlTableColHeader;
 import com.bavon.database.helper.DbTable;
 import com.bavon.database.helper.DbTableColumn;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 @DbTable(name = "vendors")
 @HtmlTable(addUrl = "./vendors?action=add")
 @HtmlForm(label = "Vendor/Supplier", url = "./vendors")
-public class Vendor implements Serializable {
+public class Vendor extends BaseEntity {
 
     @DbTableColumn(name = "vendor_name")
     @HtmlTableColHeader(header = "Vendor Name")

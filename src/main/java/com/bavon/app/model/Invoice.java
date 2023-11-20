@@ -4,7 +4,6 @@ import com.bavon.app.view.helper.*;
 import com.bavon.database.helper.DbTable;
 import com.bavon.database.helper.DbTableColumn;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -12,7 +11,7 @@ import java.util.Date;
 @DbTable(name = "invoices")
 @HtmlTable(addUrl = "./invoices?action=add")
 @HtmlForm(label = "Invoice", url = "./invoices")
-public class Invoice implements Serializable {
+public class Invoice extends BaseEntity {
 
     @HtmlTableColHeader(header = "Date", dateFormat = "dd/MM/yyy")
     @HtmlFormField(label = "Invoice Date", type = HtmlFormFieldType.DATE, required = true)
