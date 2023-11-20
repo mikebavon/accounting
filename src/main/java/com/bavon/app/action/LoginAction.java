@@ -35,11 +35,11 @@ public class LoginAction extends BaseAction {
         try {
             User userDetails = authBean.authenticate(loginUser);
 
-            if (userDetails != null) {
+            if (userDetails != null && StringUtils.isNotBlank(userDetails.getUsername())) {
                 HttpSession httpSession = req.getSession(true);
 
                 httpSession.setAttribute("loggedInId", new Date().getTime() + "");
-                httpSession.setAttribute("username", loginUser.getUsername());
+                httpSession.setAttribute("username", userDetails.getUsername());
 
                 resp.sendRedirect("./home");
 

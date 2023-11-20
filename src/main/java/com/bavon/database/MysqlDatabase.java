@@ -1,8 +1,9 @@
 package com.bavon.database;
 
+import com.mysql.cj.jdbc.MysqlDataSource;
+
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MysqlDatabase implements Serializable {
@@ -18,7 +19,12 @@ public class MysqlDatabase implements Serializable {
     private Connection connection;
 
     private MysqlDatabase() throws SQLException {
-        connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        MysqlDataSource dataSource = new MysqlDataSource();
+        dataSource.setUrl(URL);
+        dataSource.setUser(USER);
+        dataSource.setPassword(PASSWORD);
+
+        connection = dataSource.getConnection();
     }
 
     public static MysqlDatabase getInstance() throws SQLException{
