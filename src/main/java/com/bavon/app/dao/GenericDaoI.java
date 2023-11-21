@@ -1,9 +1,9 @@
-package com.bavon.app.bean;
+package com.bavon.app.dao;
 
 import java.io.Serializable;
 import java.util.List;
 
-public interface GenericBeanI<T> extends Serializable {
+public interface GenericDaoI <T> extends Serializable {
 
     List<T> list(Class<?> entity);
 

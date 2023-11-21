@@ -21,7 +21,7 @@ public class VendorAction extends BaseAction{
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        vendorBean.addOrUpdateAccount(serializeForm(Vendor.class, req.getParameterMap()));
+        vendorBean.addOrUpdate(serializeForm(Vendor.class, req.getParameterMap()));
 
         resp.sendRedirect("./vendors");
 

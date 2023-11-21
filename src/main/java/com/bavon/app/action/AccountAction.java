@@ -20,7 +20,7 @@ public class AccountAction extends BaseAction {
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        accountBean.addOrUpdateAccount(serializeForm(Account.class, req.getParameterMap()));
+        accountBean.addOrUpdate(serializeForm(Account.class, req.getParameterMap()));
 
         resp.sendRedirect("./accounts");
 

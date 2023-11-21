@@ -22,7 +22,7 @@ public class InvoiceAction extends BaseAction {
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        invoiceBean.addOrUpdateAccount(serializeForm(Invoice.class, req.getParameterMap()));
+        invoiceBean.addOrUpdate(serializeForm(Invoice.class, req.getParameterMap()));
 
         resp.sendRedirect("./invoices");
 

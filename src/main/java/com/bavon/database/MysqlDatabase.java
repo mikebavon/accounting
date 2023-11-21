@@ -58,6 +58,7 @@ public class MysqlDatabase implements Serializable {
             entities.add(Customer.class);
             entities.add(Invoice.class);
             entities.add(Vendor.class);
+            entities.add(Item.class);
 
             for (Class<?> clazz : entities) {
                 if (!clazz.isAnnotationPresent(DbTable.class))
@@ -93,13 +94,13 @@ public class MysqlDatabase implements Serializable {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
         }
 
 
     }
 
-    public static void insert(Object entity) {
+    public static void saveOrUpdate(Object entity) {
 
         try {
 
@@ -162,6 +163,12 @@ public class MysqlDatabase implements Serializable {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static <T> List<T> select(T filter) {
+
+        return new ArrayList<>();
+
     }
 
     public Connection getConnection() {

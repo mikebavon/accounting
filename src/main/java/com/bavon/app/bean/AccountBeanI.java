@@ -6,5 +6,4 @@ import java.util.List;
 
 
 public interface AccountBeanI extends GenericBeanI<Account> {
-    List<Account> chartTree();
 }

@@ -4,7 +4,7 @@ import com.bavon.app.model.User;
 
 import java.sql.SQLException;
 
-public interface UserBeanI {
+public interface UserBeanI extends GenericBeanI<User>{
 
     boolean register(User user) throws SQLException;
 

@@ -1,28 +1,22 @@
 package com.bavon.app.bean;
 
 import com.bavon.app.model.User;
-import com.bavon.database.Database;
-import com.bavon.database.MysqlDatabase;
 
-import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.concurrent.ThreadLocalRandom;
 
-public class UserBean implements UserBeanI, Serializable {
-
-
+public class UserBean extends GenericBean<User> implements UserBeanI {
 
     @Override
     public boolean register(User user) throws SQLException {
 
-        if (user.getPassword().equals(user.getConfirmPassword())) {
+        if (!user.getPassword().equals(user.getConfirmPassword()))
+            throw new RuntimeException("Password & confirm password do not match");
 
-            MysqlDatabase.insert(user);
+        //1. check if username already exist
+        //2. hash password
+        //3. initiate event to send email ...Observer design pattern
 
-            return true;
-        }
+        getDao().addOrUpdate(user);
 
         return false;
     }

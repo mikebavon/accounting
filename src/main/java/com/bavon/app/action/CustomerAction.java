@@ -22,7 +22,7 @@ public class CustomerAction extends BaseAction{
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        customerBean.addOrUpdateAccount(serializeForm(Customer.class, req.getParameterMap()));
+        customerBean.addOrUpdate(serializeForm(Customer.class, req.getParameterMap()));
 
         resp.sendRedirect("./customers");
 

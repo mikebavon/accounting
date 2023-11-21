@@ -29,6 +29,8 @@ public class Account extends BaseEntity {
     @DbTableColumn(name = "notes")
     private String notes;
 
+    private AccountType type;
+
     public Account(){
 
     }
@@ -69,5 +71,13 @@ public class Account extends BaseEntity {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public AccountType getType() {
+        return type;
+    }
+
+    public void setType(AccountType type) {
+        this.type = type;
     }
 }
