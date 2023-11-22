@@ -1,10 +1,10 @@
 package com.bavon.app.action;
 
-import com.bavon.app.bean.AuthBean;
 import com.bavon.app.bean.AuthBeanI;
 import com.bavon.app.model.User;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,8 @@ import java.util.Date;
 @WebServlet(urlPatterns = "/login")
 public class LoginAction extends BaseAction {
 
-    AuthBeanI authBean = new AuthBean();
+    @EJB
+    AuthBeanI authBean;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         HttpSession httpSession = req.getSession();

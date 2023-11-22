@@ -47,6 +47,14 @@
       <version>1.2</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>8.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/taglibs/standard -->
     <dependency>
       <groupId>taglibs</groupId>
@@ -60,6 +68,7 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.33</version>
     </dependency>
+
 
   </dependencies>
 

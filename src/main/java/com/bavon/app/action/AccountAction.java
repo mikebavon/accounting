@@ -1,9 +1,9 @@
 package com.bavon.app.action;
 
-import com.bavon.app.bean.AccountBean;
 import com.bavon.app.bean.AccountBeanI;
 import com.bavon.app.model.Account;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +13,8 @@ import java.io.IOException;
 @WebServlet("/accounts")
 public class AccountAction extends BaseAction {
 
-    private final AccountBeanI accountBean = new AccountBean();
+    @EJB
+    private AccountBeanI accountBean;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         renderPage(req, resp, 1,  Account.class, accountBean.list(new Account()));

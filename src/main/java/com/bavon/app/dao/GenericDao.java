@@ -1,6 +1,5 @@
 package com.bavon.app.dao;
 
-import com.bavon.database.Database;
 import com.bavon.database.MysqlDatabase;
 
 import java.util.List;

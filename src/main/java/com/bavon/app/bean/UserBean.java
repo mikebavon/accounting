@@ -2,8 +2,12 @@ package com.bavon.app.bean;
 
 import com.bavon.app.model.User;
 
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import java.sql.SQLException;
 
+@Stateless
+@Remote
 public class UserBean extends GenericBean<User> implements UserBeanI {
 
     @Override

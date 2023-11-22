@@ -2,8 +2,10 @@ package com.bavon.app.bean;
 
 import com.bavon.app.model.Journal;
 
+import javax.ejb.Stateless;
 import java.util.Date;
 
+@Stateless
 public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
 
     @Override

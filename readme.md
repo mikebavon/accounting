@@ -160,3 +160,23 @@ JSTL CORE
 <c:forEach>
 <c:param>
 <c:redirect>
+
+EJB - Enterprise Java Bean
+ -Java class with business logic
+ -Java class/pojo registered in a container(ejb container - wildfly)
+ -Ejb extends server....class registered becomes part of the server(wildfly)
+
+EJB - REQUIRES SERVER(WILDFLY) - EJB CONTAINERS
+
+Advantage of using EJB
+ -Instance is managed by container (No use of new keyword)
+ -Pooling Business logic - EJb Container..
+ -Remote method invocation
+ -Distributed system
+
+Types of EJB
+    -Session
+        *Stateless - no state/no data retained after invocation --- http request.
+        *Stateful - state/data conversation is maint -- http session
+    -Message Bean
+        -messaging (JMS) MSG QUEI...

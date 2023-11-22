@@ -1,9 +1,9 @@
 package com.bavon.app.action;
 
-import com.bavon.app.bean.JournalBean;
 import com.bavon.app.bean.JournalBeanI;
 import com.bavon.app.model.Journal;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +14,8 @@ import java.util.Date;
 @WebServlet("/journals")
 public class JournalAction extends BaseAction {
 
-    JournalBeanI journalBean = new JournalBean();
+    @EJB
+    JournalBeanI journalBean;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         renderPage(req, resp, 2, Journal.class, journalBean.list(new Journal()));

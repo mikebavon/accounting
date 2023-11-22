@@ -5,7 +5,7 @@ import com.bavon.app.dao.GenericDaoI;
 
 import java.util.List;
 
-public class GenericBean<T> implements GenericBeanI<T>{
+public abstract class GenericBean<T> implements GenericBeanI<T>{
 
     private final GenericDaoI<T> genericDao = new GenericDao<>();
 
