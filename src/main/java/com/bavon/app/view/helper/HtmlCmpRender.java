@@ -4,6 +4,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -54,7 +56,8 @@ public class HtmlCmpRender implements Serializable {
 
                         Object colData;
                         if (StringUtils.isNotBlank(colHeader.dateFormat()))
-                            colData = new SimpleDateFormat(colHeader.dateFormat()).format((Date) field.get(data));
+                            colData = new SimpleDateFormat(colHeader.dateFormat())
+                                .format(Optional.ofNullable((Date) field.get(data)).orElse(new Date()));
                         else if (StringUtils.isNotBlank(colHeader.numberFormat()))
                             colData = new DecimalFormat(colHeader.numberFormat())
                                 .format(Optional.ofNullable(field.get(data)).orElse(BigDecimal.ZERO));
@@ -111,16 +114,36 @@ public class HtmlCmpRender implements Serializable {
                 .append(formField.required()?"<span style=\"color:red;\">*</span> ":"")
                 .append(":</label><br>");
 
-            htmlForm.append("<input type=\"")
-                .append(formField.type())
-                .append("\" id=\"").append(ifBlank(formField.id(), fieldName))
-                .append("\" name=\"").append(ifBlank(formField.name(), fieldName)).append("\" ")
-                .append(formField.required()?"required" : "")
-                .append("><br>");
+            if (field.getType().isEnum()) {
+                htmlForm.append("<select")
+                    .append(" id=\"").append(ifBlank(formField.id(), fieldName))
+                    .append("\" name=\"").append(ifBlank(formField.name(), fieldName)).append("\" ")
+                    .append(formField.required()?"required" : "")
+                    .append(">");
 
-            //if (field.getClass().isEnum()){
+                for (Object enumValue : field.getType().getEnumConstants()){
+                    System.out.println(enumValue);
 
-            //}
+                    try {
+                        Method method = field.getType().getMethod("getName");
+                        htmlForm.append("htmlForm.append(<option value=\"")
+                            .append(enumValue).append("\">")
+                            .append(method.invoke(enumValue)).append("</option>)");
+                    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+                htmlForm.append("</select>");
+
+            } else {
+                htmlForm.append("<input type=\"")
+                    .append(formField.type())
+                    .append("\" id=\"").append(ifBlank(formField.id(), fieldName))
+                    .append("\" name=\"").append(ifBlank(formField.name(), fieldName)).append("\" ")
+                    .append(formField.required()?"required" : "")
+                    .append("><br>");
+            }
 
         }
 

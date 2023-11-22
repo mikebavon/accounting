@@ -14,6 +14,7 @@ import java.util.Date;
 public class Journal extends BaseEntity {
 
     @HtmlTableColHeader(header = "Date", dateFormat = "dd MMM yyyy")
+    @DbTableColumn(name = "txn_date", definition = "DATE")
     @HtmlFormField(label = "Transaction Date", type = HtmlFormFieldType.DATE, required = true)
     private Date date;
 

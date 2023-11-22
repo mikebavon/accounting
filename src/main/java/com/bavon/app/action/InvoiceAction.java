@@ -17,7 +17,7 @@ public class InvoiceAction extends BaseAction {
     private final InvoiceBeanI invoiceBean = new InvoiceBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        renderPage(req, resp, 4, Invoice.class, invoiceBean.list(Invoice.class));
+        renderPage(req, resp, 4, Invoice.class, invoiceBean.list(new Invoice()));
 
     }
 

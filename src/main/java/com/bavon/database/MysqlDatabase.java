@@ -4,6 +4,10 @@ import com.bavon.app.model.*;
 import com.bavon.database.helper.DbTable;
 import com.bavon.database.helper.DbTableColumn;
 import com.bavon.database.helper.DbTableId;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.converters.DateConverter;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -12,11 +16,10 @@ import javax.sql.DataSource;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class MysqlDatabase implements Serializable {
@@ -154,6 +157,8 @@ public class MysqlDatabase implements Serializable {
                     sqlStmt.setBigDecimal(paramIdx++, (BigDecimal) param);
                 else if (param.getClass().isAssignableFrom(Long.class))
                     sqlStmt.setLong(paramIdx++, (long) param);
+                else if (param.getClass().isAssignableFrom(Date.class))
+                    sqlStmt.setDate(paramIdx++, new java.sql.Date(((Date) param).getTime()));
                 else
                     sqlStmt.setString(paramIdx++, (String) param);
             }
@@ -165,9 +170,107 @@ public class MysqlDatabase implements Serializable {
         }
     }
 
-    public static <T> List<T> select(T filter) {
+    @SuppressWarnings("unchecked")
+    public static <T> List<T> fetch(T entity) {
 
-        return new ArrayList<>();
+        List<T> resultList = new ArrayList<>();
+
+        try {
+            Class<?> clazz = entity.getClass();
+
+            if (!clazz.isAnnotationPresent(DbTable.class))
+                return resultList;
+
+            DbTable dbTable = clazz.getAnnotation(DbTable.class);
+
+            String tableAlias = dbTable.name().charAt(0) + "_e_";
+            System.out.println("table alias " + tableAlias);
+
+            List<Field> fields = new ArrayList<>(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
+            fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+
+            StringBuilder columnBuilder = new StringBuilder();
+            StringBuilder paramPlaceHolderBuilder = new StringBuilder();
+            List<Object> whereParams = new ArrayList<>();
+
+            DateConverter converter = new DateConverter( null );
+            converter.setPattern("yyyy-mm-dd");
+            ConvertUtils.register(converter, Date.class);
+
+            for (Field field : fields) {
+                if (!field.isAnnotationPresent(DbTableColumn.class) || field.isAnnotationPresent(DbTableId.class))
+                    continue;
+
+                DbTableColumn dbTableColumn = field.getAnnotation(DbTableColumn.class);
+
+                columnBuilder.append(tableAlias).append(".").append(dbTableColumn.name()).append(",");
+
+                field.setAccessible(true);
+                if (field.get(entity) != null) {
+                    paramPlaceHolderBuilder
+                        .append(whereParams.isEmpty()?"":" and ")
+                        .append(tableAlias).append(".").append(dbTableColumn.name()).append("=?");
+                    whereParams.add(field.get(entity));
+                }
+
+            }
+
+            String queryBuilder =
+                "select " +
+                columnBuilder +
+                " from " +
+                dbTable.name() + " " + tableAlias +
+                (whereParams.isEmpty() && StringUtils.isBlank(paramPlaceHolderBuilder) ? "" : " where " + paramPlaceHolderBuilder);
+
+            String query = queryBuilder.replace(", from", " from");
+            System.out.println("Query: " + query);
+
+            PreparedStatement sqlStmt = MysqlDatabase.getInstance().getConnection()
+                .prepareStatement(query);
+
+            int paramIdx = 1;
+            for (Object whereParam : whereParams) {
+                if (whereParam.getClass().isAssignableFrom(BigDecimal.class))
+                    sqlStmt.setBigDecimal(paramIdx++, (BigDecimal) whereParam);
+                else if (whereParam.getClass().isAssignableFrom(Long.class))
+                    sqlStmt.setLong(paramIdx++, (long) whereParam);
+                else
+                    sqlStmt.setString(paramIdx++, (String) whereParam);
+            }
+
+            ResultSet resultSet = sqlStmt.executeQuery();
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            int resultSetMetaDataCnt = resultSetMetaData.getColumnCount();
+
+            while (resultSet.next()){
+                T bean = (T) entity.getClass().getDeclaredConstructor().newInstance();
+
+                for (int idx = 1; idx <= resultSetMetaDataCnt; idx++ ) {
+                    String colName = resultSetMetaData.getColumnName(idx);
+
+                    for (Field field : fields) {
+                        if (!field.isAnnotationPresent(DbTableColumn.class) || field.isAnnotationPresent(DbTableId.class))
+                            continue;
+
+                        DbTableColumn dbTableColumn = field.getAnnotation(DbTableColumn.class);
+
+                        field.setAccessible(true);
+                        if (dbTableColumn.name().equals(colName)) {
+                            BeanUtils.setProperty(bean, field.getName(), resultSet.getObject(idx));
+                            break;
+                        }
+                    }
+
+                }
+
+                resultList.add(bean);
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return resultList;
 
     }
 

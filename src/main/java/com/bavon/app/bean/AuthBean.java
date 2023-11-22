@@ -4,28 +4,17 @@ import com.bavon.app.model.User;
 import com.bavon.database.MysqlDatabase;
 
 import java.io.Serializable;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
 public class AuthBean implements AuthBeanI, Serializable {
 
-    public User authenticate(User loginUser) throws SQLException {
+    public User authenticate(User loginUser) {
 
-        PreparedStatement sqlStmt = MysqlDatabase.getInstance().getConnection()
-            .prepareStatement("select id,username from users where username=? and password=? limit 1");
-        sqlStmt.setString(1, loginUser.getUsername());
-        sqlStmt.setString(2, loginUser.getPassword());
+        List<User> users = MysqlDatabase.fetch(loginUser);
 
-        ResultSet result = sqlStmt.executeQuery();
+        if (users.isEmpty() || users.get(0) == null)
+            throw new RuntimeException("Invalid user!!");
 
-        User user = new User();
-
-        while (result.next()){
-            user.setId(result.getLong("id"));
-            user.setUsername(result.getString("username"));
-        }
-
-        return user;
+        return users.get(0);
     }
 }

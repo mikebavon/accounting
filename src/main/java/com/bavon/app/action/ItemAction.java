@@ -19,7 +19,7 @@ public class ItemAction extends BaseAction{
     private final ItemBeanI itemBean = new ItemBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        renderPage(req, resp, 8,  Item.class, itemBean.list(Item.class));
+        renderPage(req, resp, 8,  Item.class, itemBean.list(new Item()));
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {

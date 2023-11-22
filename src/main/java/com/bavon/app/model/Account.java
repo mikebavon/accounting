@@ -29,6 +29,10 @@ public class Account extends BaseEntity {
     @DbTableColumn(name = "notes")
     private String notes;
 
+    @HtmlFormField(label = "Account Category", required = true)
+    private AccountCategory category;
+
+    @HtmlFormField(label = "Account Type", required = true)
     private AccountType type;
 
     public Account(){
@@ -71,6 +75,14 @@ public class Account extends BaseEntity {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public AccountCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(AccountCategory category) {
+        this.category = category;
     }
 
     public AccountType getType() {

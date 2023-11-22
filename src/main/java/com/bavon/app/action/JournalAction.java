@@ -17,7 +17,7 @@ public class JournalAction extends BaseAction {
     JournalBeanI journalBean = new JournalBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        renderPage(req, resp, 2, Journal.class, journalBean.list(Journal.class));
+        renderPage(req, resp, 2, Journal.class, journalBean.list(new Journal()));
 
     }
 

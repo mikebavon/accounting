@@ -12,6 +12,8 @@ public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
             journal.getDebitBalance().compareTo(journal.getCreditBalance()) !=0 )
             throw new RuntimeException("Invalid journal");
 
+        if (journal.getDate() == null)
+            journal.setDate(new Date());
 
         journal.setJournalNo(new Date().getTime() + "");
         getDao().addOrUpdate(journal);

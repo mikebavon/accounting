@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface GenericDaoI <T> extends Serializable {
 
-    List<T> list(Class<?> entity);
+    List<T> list(Object entity);
 
     void addOrUpdate(T entity);
 

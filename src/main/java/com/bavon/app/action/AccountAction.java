@@ -16,7 +16,7 @@ public class AccountAction extends BaseAction {
     private final AccountBeanI accountBean = new AccountBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        renderPage(req, resp, 1,  Account.class, accountBean.list(Account.class));
+        renderPage(req, resp, 1,  Account.class, accountBean.list(new Account()));
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {

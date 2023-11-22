@@ -10,7 +10,7 @@ public class GenericBean<T> implements GenericBeanI<T>{
     private final GenericDaoI<T> genericDao = new GenericDao<>();
 
     @Override
-    public List<T> list(Class<?> entity) {
+    public List<T> list(Object entity) {
         return genericDao.list(entity);
 
     }

@@ -9,8 +9,8 @@ public class GenericDao<T> implements GenericDaoI<T> {
 
     @SuppressWarnings({"unchecked"})
     @Override
-    public List<T> list(Class<?> entity) {
-        return (List<T>) MysqlDatabase.select(entity);
+    public List<T> list(Object entity) {
+        return (List<T>) MysqlDatabase.fetch(entity);
 
     }
 

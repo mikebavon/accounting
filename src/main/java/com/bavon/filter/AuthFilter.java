@@ -28,12 +28,8 @@ public class AuthFilter implements Filter {
         HttpSession httpSession = httpRequest.getSession();
 
         String servletPath = httpRequest.getServletPath();
-        System.out.println("servlet path: " + servletPath);
-        System.out.println("context path: " + httpRequest.getContextPath());
-        System.out.println("context URI: " + httpRequest.getRequestURI());
 
         if (httpSession.isNew() || StringUtils.isBlank((String) httpSession.getAttribute("loggedInId"))) {
-            System.out.println("1.New Session");
             httpSession.invalidate();
 
             if (servletPath.equals("/login") || servletPath.equals("/user") || servletPath.contains(".jsp")) {

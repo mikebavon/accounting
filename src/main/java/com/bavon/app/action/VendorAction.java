@@ -16,7 +16,7 @@ public class VendorAction extends BaseAction{
     private final VendorBeanI vendorBean = new VendorBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        renderPage(req, resp, 5, Vendor.class, vendorBean.list(Vendor.class));
+        renderPage(req, resp, 5, Vendor.class, vendorBean.list(new Vendor()));
 
     }
 
