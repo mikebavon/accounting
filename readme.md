@@ -177,6 +177,19 @@ Advantage of using EJB
 Types of EJB
     -Session
         *Stateless - no state/no data retained after invocation --- http request.
-        *Stateful - state/data conversation is maint -- http session
+        *Stateful - state/data conversation is maintained -- http session
+        *Singleton
     -Message Bean
         -messaging (JMS) MSG QUEI...
+
+stateful
+300,000
+Withdrawal 1 300,000-30,000 = 270,000 //state 1
+Withdrawal 2 270,000-30,000 = 240,000 //state 2
+Withdrawal 3 240,000-30,000 = 210,000 //state 3
+
+stateless
+300,000
+Withdrawal 1 300,000-30,000 = 270,000 //state 1
+Withdrawal 2 300,000-30,000 = 270,000 //state 2
+Withdrawal 3 300,000-30,000 = 270,000 //state 3
