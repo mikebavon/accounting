@@ -9,6 +9,10 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -22,37 +26,27 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+@Singleton
+@Startup
 public class MysqlDatabase implements Serializable {
-
-    private static MysqlDatabase database;
 
     private Connection connection;
 
-    private MysqlDatabase() throws SQLException, NamingException {
+
+    @PostConstruct
+    private void init() throws SQLException, NamingException {
         Context ctx = new InitialContext();
         DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/accounting");
         connection = dataSource.getConnection();
+
+        this.updateSchema();
     }
 
-    public static MysqlDatabase getInstance(){
-        if (database == null) {
-            try {
-                database = new MysqlDatabase();
 
-            } catch (SQLException | NamingException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        return database;
-
-    }
-
-    public static void updateSchema(){
+    private void updateSchema(){
         System.out.println("*************** updating schema database *************");
 
         try {
-            Connection connection = MysqlDatabase.getInstance().getConnection();
 
             List<Class<?>> entities = new ArrayList<>();
             entities.add(User.class);
@@ -103,7 +97,7 @@ public class MysqlDatabase implements Serializable {
 
     }
 
-    public static void saveOrUpdate(Object entity) {
+    public void saveOrUpdate(Object entity) {
 
         try {
 
@@ -148,8 +142,7 @@ public class MysqlDatabase implements Serializable {
             String query = queryBuilder.replace(",)", ")");
             System.out.println("Query: " + query);
 
-            PreparedStatement sqlStmt = MysqlDatabase.getInstance().getConnection()
-                .prepareStatement(query);
+            PreparedStatement sqlStmt = connection.prepareStatement(query);
 
             int paramIdx = 1;
             for (Object param : parameters) {
@@ -171,7 +164,7 @@ public class MysqlDatabase implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> List<T> fetch(T entity) {
+    public <T> List<T> fetch(T entity) {
 
         List<T> resultList = new ArrayList<>();
 
@@ -225,8 +218,7 @@ public class MysqlDatabase implements Serializable {
             String query = queryBuilder.replace(", from", " from");
             System.out.println("Query: " + query);
 
-            PreparedStatement sqlStmt = MysqlDatabase.getInstance().getConnection()
-                .prepareStatement(query);
+            PreparedStatement sqlStmt = connection.prepareStatement(query);
 
             int paramIdx = 1;
             for (Object whereParam : whereParams) {
@@ -274,11 +266,15 @@ public class MysqlDatabase implements Serializable {
 
     }
 
-    public Connection getConnection() {
-        return connection;
-    }
+    @PreDestroy
+    public void closeConnection(){
+        try {
+            if (connection != null)
+                connection.close();
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
     }
 }

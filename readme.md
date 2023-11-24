@@ -178,7 +178,7 @@ Types of EJB
     -Session
         *Stateless - no state/no data retained after invocation --- http request.
         *Stateful - state/data conversation is maintained -- http session
-        *Singleton
+        *Singleton - Single instance accessible globally in jvm
     -Message Bean
         -messaging (JMS) MSG QUEI...
 
