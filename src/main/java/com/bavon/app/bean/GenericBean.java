@@ -12,7 +12,7 @@ public abstract class GenericBean<T> implements GenericBeanI<T>{
     @EJB
     MysqlDatabase database;
 
-    private final GenericDaoI<T> genericDao = new GenericDao<>();
+    private final GenericDaoI<T> genericDao = new GenericDao<>(); // this is not a management
 
     @Override
     public List<T> list(Object entity) {

@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.DependsOn;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.naming.Context;
@@ -27,7 +28,8 @@ import java.util.Date;
 import java.util.List;
 
 @Singleton
-@Startup
+@Startup()
+@DependsOn({"CheckOsBean","CheckCountryBean","CheckLicenseBean"})
 public class MysqlDatabase implements Serializable {
 
     private Connection connection;
@@ -38,6 +40,8 @@ public class MysqlDatabase implements Serializable {
         Context ctx = new InitialContext();
         DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/accounting");
         connection = dataSource.getConnection();
+
+        System.out.println("Executed. on start up!!");
 
         this.updateSchema();
     }
