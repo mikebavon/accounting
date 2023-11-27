@@ -5,6 +5,7 @@ import com.bavon.app.dao.GenericDaoI;
 import com.bavon.database.MysqlDatabase;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import java.util.List;
 
 public abstract class GenericBean<T> implements GenericBeanI<T>{
@@ -12,7 +13,8 @@ public abstract class GenericBean<T> implements GenericBeanI<T>{
     @EJB
     MysqlDatabase database;
 
-    private final GenericDaoI<T> genericDao = new GenericDao<>(); // this is not a management
+    @Inject
+    private GenericDaoI<T> genericDao;
 
     @Override
     public List<T> list(Object entity) {

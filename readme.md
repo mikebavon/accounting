@@ -193,3 +193,20 @@ stateless
 Withdrawal 1 300,000-30,000 = 270,000 //state 1
 Withdrawal 2 300,000-30,000 = 270,000 //state 2
 Withdrawal 3 300,000-30,000 = 270,000 //state 3
+
+CDI - Context Dependency Injection (IOC)
+    the flow of the program is inverted in which the context instance of a class is 
+    created and provided by the server(container)
+
+Advantages of CDI architecture (IOC)
+    -reduce coupling and increase cohesion
+    -it easier to replace implementation
+
+Dependency injection is used to achieve IOC
+IOC container - wildfly (server)
+
+3 main relatives/classes involved in DI
+1. CLIENT CLASS - INJECTS, RESOURCE OR A SERVICE
+2. SERVICE CLASS - CLASS BEING INJECT TO PROVIDE A SERVICE
+3. INJECTOR CLASS - CLASS THAT DOES THE INJECTION
+    
