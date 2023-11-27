@@ -209,4 +209,9 @@ IOC container - wildfly (server)
 1. CLIENT CLASS - INJECTS, RESOURCE OR A SERVICE
 2. SERVICE CLASS - CLASS BEING INJECT TO PROVIDE A SERVICE
 3. INJECTOR CLASS - CLASS THAT DOES THE INJECTION
+
+Injection Points
+1. fields injection 
+2. constructor
+3. method injection
     
