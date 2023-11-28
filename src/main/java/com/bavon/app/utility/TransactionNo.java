@@ -9,5 +9,6 @@ import java.lang.annotation.Target;
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.TYPE})
-public @interface JournalNo {
+public @interface TransactionNo {
+    TransactionType type() default TransactionType.JOURNAL;
 }

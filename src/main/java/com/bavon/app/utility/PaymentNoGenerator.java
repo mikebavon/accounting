@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
-@PaymentNo
+@TransactionNo(type = TransactionType.PAYMENT)
 public class PaymentNoGenerator implements TransactionNoGenerator{
 
     public String generate(){
