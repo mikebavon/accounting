@@ -1,11 +1,14 @@
 package com.bavon.app.bean;
 
 import com.bavon.app.model.Journal;
+import com.bavon.app.utility.JournalNoGenerator;
 import com.bavon.app.utility.JournalValidator;
 import com.bavon.app.utility.TransactionNo;
 import com.bavon.app.utility.TransactionNoGenerator;
 
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import java.util.Date;
 
@@ -13,8 +16,8 @@ import java.util.Date;
 public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
 
     @Inject
-    @TransactionNo
-    private TransactionNoGenerator txnNoGenerator;
+    @Any
+    private Instance<TransactionNoGenerator> txnNoGenerators;
 
     @Inject
     private JournalValidator journalValidator;
@@ -27,7 +30,18 @@ public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
         if (journal.getDate() == null)
             journal.setDate(new Date());
 
-        journal.setJournalNo(txnNoGenerator.generate());
+        int count = 0;
+        for (TransactionNoGenerator txnNoGenerator : txnNoGenerators){
+            if (txnNoGenerator.getClass().isAssignableFrom(JournalNoGenerator.class))
+                journal.setJournalNo(txnNoGenerator.generate());
+            else
+                System.out.println("We wont use " + txnNoGenerator.getClass().getSimpleName());
+
+            count++;
+        }
+
+        System.out.println("We looped through " + count + " implementations");
+
         getDao().addOrUpdate(journal);
 
     }

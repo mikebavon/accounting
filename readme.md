@@ -217,4 +217,12 @@ Injection Points
 
 CDI QUALIFIERS
 @Qualifier - specify an implementation/bean to be injected
+
+INBUILT QUALIFIES
+    @Named 
+    @Default
+    @Any
+    @Alternative
+    @Initialized
+    @Destroy
     
