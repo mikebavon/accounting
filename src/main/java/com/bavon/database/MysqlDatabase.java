@@ -60,6 +60,7 @@ public class MysqlDatabase implements Serializable {
             entities.add(Invoice.class);
             entities.add(Vendor.class);
             entities.add(Item.class);
+            entities.add(Payment.class);
 
             for (Class<?> clazz : entities) {
                 if (!clazz.isAnnotationPresent(DbTable.class))

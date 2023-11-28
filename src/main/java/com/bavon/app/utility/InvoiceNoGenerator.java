@@ -4,7 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class InvoiceNoGenerator {
+@InvoiceNo
+public class InvoiceNoGenerator implements TransactionNoGenerator{
 
     public String generate(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd");

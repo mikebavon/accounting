@@ -7,23 +7,22 @@ import com.bavon.database.helper.DbTableColumn;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
-@DbTable(name = "invoices")
-@HtmlTable(addUrl = "./invoices?action=add")
-@HtmlForm(label = "Invoice", url = "./invoices")
-public class Invoice extends BaseEntity {
+@DbTable(name = "payments")
+@HtmlTable(addUrl = "./payments?action=add")
+@HtmlForm(label = "Payment Voucher", url = "./payments")
+public class Payment extends BaseEntity {
 
     @HtmlTableColHeader(header = "Date", dateFormat = "dd/MM/yyy")
-    @HtmlFormField(label = "Invoice Date", type = HtmlFormFieldType.DATE, required = true)
-    private Date invoiceDate;
+    @HtmlFormField(label = "Payment Date", type = HtmlFormFieldType.DATE, required = true)
+    private Date txnDate;
 
-    @DbTableColumn(name = "invoice_no")
-    @HtmlTableColHeader(header = "Invoice Number")
-    private String invoiceNo;
+    @DbTableColumn(name = "voucher_no")
+    @HtmlTableColHeader(header = "Voucher Number")
+    private String voucherNo;
 
     @DbTableColumn(name = "total", definition = "decimal(10,2)")
     @HtmlTableColHeader(header = "Total", numberFormat = "#,###.##")
-    @HtmlFormField(label = "Invoice Total", required = true)
+    @HtmlFormField(label = "Total", required = true)
     private BigDecimal total;
 
     @DbTableColumn(name = "narration")
@@ -33,28 +32,20 @@ public class Invoice extends BaseEntity {
 
     private Journal journal;
 
-   public Date getInvoiceDate() {
-        return invoiceDate;
+    public Date getTxnDate() {
+        return txnDate;
     }
 
-    public void setInvoiceDate(Date invoiceDate) {
-        this.invoiceDate = invoiceDate;
+    public void setTxnDate(Date txnDate) {
+        this.txnDate = txnDate;
     }
 
-    public String getInvoiceNo() {
-        return invoiceNo;
+    public String getVoucherNo() {
+        return voucherNo;
     }
 
-    public void setInvoiceNo(String invoiceNo) {
-        this.invoiceNo = invoiceNo;
-    }
-
-    public Journal getJournal() {
-        return journal;
-    }
-
-    public void setJournal(Journal journal) {
-        this.journal = journal;
+    public void setVoucherNo(String voucherNo) {
+        this.voucherNo = voucherNo;
     }
 
     public BigDecimal getTotal() {
@@ -71,5 +62,13 @@ public class Invoice extends BaseEntity {
 
     public void setNarration(String narration) {
         this.narration = narration;
+    }
+
+    public Journal getJournal() {
+        return journal;
+    }
+
+    public void setJournal(Journal journal) {
+        this.journal = journal;
     }
 }

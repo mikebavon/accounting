@@ -1,8 +1,9 @@
 package com.bavon.app.bean;
 
 import com.bavon.app.model.Journal;
-import com.bavon.app.utility.JournalNoGenerator;
+import com.bavon.app.utility.JournalNo;
 import com.bavon.app.utility.JournalValidator;
+import com.bavon.app.utility.TransactionNoGenerator;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -12,7 +13,8 @@ import java.util.Date;
 public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
 
     @Inject
-    private JournalNoGenerator journalNoGenerator;
+    @JournalNo
+    private TransactionNoGenerator txnNoGenerator;
 
     @Inject
     private JournalValidator journalValidator;
@@ -25,7 +27,7 @@ public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
         if (journal.getDate() == null)
             journal.setDate(new Date());
 
-        journal.setJournalNo(journalNoGenerator.generate());
+        journal.setJournalNo(txnNoGenerator.generate());
         getDao().addOrUpdate(journal);
 
     }

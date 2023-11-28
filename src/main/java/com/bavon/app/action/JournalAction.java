@@ -23,7 +23,6 @@ public class JournalAction extends BaseAction {
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.getParameterMap().put("date", new String[]{new Date().toString()});
         journalBean.addOrUpdate(serializeForm(Journal.class, req.getParameterMap()));
 
         resp.sendRedirect("./journals");

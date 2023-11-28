@@ -4,12 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
-@JournalNo
-public class JournalNoGenerator implements TransactionNoGenerator{
+@PaymentNo
+public class PaymentNoGenerator implements TransactionNoGenerator{
 
     public String generate(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
 
-        return "JNL" + dateFormat.format(new Date()) + "-" + ThreadLocalRandom.current().nextInt(0, 1000 + 1);
+        return "PMT" + dateFormat.format(new Date()) + "-" + ThreadLocalRandom.current().nextInt(2000, 3000 + 1);
     }
 }

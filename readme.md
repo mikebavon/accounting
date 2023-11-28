@@ -214,4 +214,7 @@ Injection Points
 1. fields injection 
 2. constructor
 3. method injection
+
+CDI QUALIFIERS
+@Qualifier - specify an implementation/bean to be injected
     
