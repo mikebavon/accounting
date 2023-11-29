@@ -5,7 +5,7 @@ import javax.enterprise.inject.Alternative;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-@Priority(50)
+@Priority(1)
 @Alternative
 public class EncryptSha256 implements EncryptText {
 
