@@ -219,10 +219,11 @@ CDI QUALIFIERS
 @Qualifier - specify an implementation/bean to be injected
 
 INBUILT QUALIFIES
-    @Named 
-    @Default
-    @Any
-    @Alternative
+    @Named - set bean name
+    @Default - any bean without a qualifier is by by default annotated with @Default 
+        or if it is @Named without value
+    @Any - added to all beans, allows dynamic access of bean through Instance
+    @Alternative - allows enabling and disabling beans, use bean on priority
     @Initialized
     @Destroy
     

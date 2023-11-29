@@ -1,10 +1,11 @@
 package com.bavon.app.utility;
 
+import javax.inject.Named;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
-@TransactionNo
+@Named("Journal")
 public class JournalNoGenerator implements TransactionNoGenerator{
 
     public String generate(){

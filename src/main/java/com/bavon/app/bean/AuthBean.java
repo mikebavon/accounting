@@ -1,7 +1,8 @@
 package com.bavon.app.bean;
 
 import com.bavon.app.model.User;
-import com.bavon.app.utility.HashText;
+import com.bavon.app.utility.EncryptSha256;
+import com.bavon.app.utility.EncryptText;
 import com.bavon.database.MysqlDatabase;
 
 import javax.ejb.EJB;
@@ -19,12 +20,12 @@ public class AuthBean implements AuthBeanI, Serializable {
     MysqlDatabase database;
 
     @Inject
-    private HashText hashText;
+    private EncryptText encryptText;
 
     public User authenticate(User loginUser) {
 
         try {
-            loginUser.setPassword(hashText.hash(loginUser.getPassword()));
+            loginUser.setPassword(encryptText.encrypt(loginUser.getPassword()));
         } catch (Exception ex){
             throw new RuntimeException(ex.getMessage());
         }

@@ -1,7 +1,8 @@
 package com.bavon.app.bean;
 
 import com.bavon.app.model.User;
-import com.bavon.app.utility.HashText;
+import com.bavon.app.utility.EncryptSha256;
+import com.bavon.app.utility.EncryptText;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -14,7 +15,7 @@ import java.util.List;
 public class UserBean extends GenericBean<User> implements UserBeanI {
 
     @Inject
-    private HashText hashText;
+    private EncryptText encryptText;
 
     @Override
     public boolean register(User user) throws SQLException {
@@ -27,7 +28,7 @@ public class UserBean extends GenericBean<User> implements UserBeanI {
             throw new RuntimeException("User already exists!");
 
         try {
-            user.setPassword(hashText.hash(user.getPassword()));
+            user.setPassword(encryptText.encrypt(user.getPassword()));
         } catch (Exception ex){
             throw new RuntimeException(ex.getMessage());
         }

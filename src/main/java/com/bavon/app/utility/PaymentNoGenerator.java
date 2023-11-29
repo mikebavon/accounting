@@ -1,10 +1,11 @@
 package com.bavon.app.utility;
 
+import javax.inject.Named;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
-@TransactionNo(type = TransactionType.PAYMENT)
+@Named("Payment")
 public class PaymentNoGenerator implements TransactionNoGenerator{
 
     public String generate(){
