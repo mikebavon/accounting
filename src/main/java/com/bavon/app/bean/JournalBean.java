@@ -1,12 +1,15 @@
 package com.bavon.app.bean;
 
+import com.bavon.app.model.AuditLog;
 import com.bavon.app.model.Journal;
 import com.bavon.app.utility.JournalValidator;
 import com.bavon.app.utility.TransactionNoGenerator;
 
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.text.DateFormat;
 import java.util.Date;
 
 @Stateless
@@ -19,6 +22,9 @@ public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
     @Inject
     private JournalValidator journalValidator;
 
+    @Inject
+    private Event<AuditLog> logger;
+
     @Override
     public void addOrUpdate(Journal journal) {
         if (journalValidator.inValid(journal))
@@ -30,6 +36,12 @@ public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
         journal.setJournalNo(txnNoGenerator.generate());
 
         getDao().addOrUpdate(journal);
+
+        AuditLog log = new AuditLog();
+        log.setLogDetails("A journal " + journal.getJournalNo() + " was added at "
+            + DateFormat.getDateTimeInstance().format(new Date()));
+
+        logger.fire(log);
 
     }
 

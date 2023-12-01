@@ -226,4 +226,14 @@ INBUILT QUALIFIES
     @Alternative - allows enabling and disabling beans, use bean on priority
     @Initialized
     @Destroy
-    
+
+CDI Producers
+ @Produces
+
+Types of beans
+    Class based beans***
+    method beans
+    field beans
+
+CDI events (Event)
+    @Observer 

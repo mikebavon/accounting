@@ -5,6 +5,7 @@ import com.bavon.app.model.User;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,12 +14,19 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/login")
 public class LoginAction extends BaseAction {
 
     @EJB
     AuthBeanI authBean;
+
+    @Inject
+    private double buildNumber;
+
+    @Inject
+    private List<String> developers;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         HttpSession httpSession = req.getSession();
@@ -41,6 +49,11 @@ public class LoginAction extends BaseAction {
 
                 httpSession.setAttribute("loggedInId", new Date().getTime() + "");
                 httpSession.setAttribute("username", userDetails.getUsername());
+                System.out.println("The build number is " + buildNumber);
+
+                System.out.println("This application developers are:");
+                for (String developer : developers)
+                    System.out.println(developer);
 
                 resp.sendRedirect("./home");
 
