@@ -14,7 +14,7 @@ public class GenericDao<T> implements GenericDaoI<T> {
     public List<T> list(Object entity) {
         String jpql  = "FROM " + entity.getClass().getSimpleName() + " e";
 
-        List<T> results = (List<T>) em.createQuery(jpql, entity.getClass());
+        List<T> results = (List<T>) em.createQuery(jpql, entity.getClass()).getResultList();
 
         return results;
 

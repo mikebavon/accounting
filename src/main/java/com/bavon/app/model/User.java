@@ -3,6 +3,7 @@ package com.bavon.app.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -15,6 +16,7 @@ public class User extends BaseEntity {
     @Column(name = "password")
     private String password;
 
+    @Transient
     private String confirmPassword;
 
     public User(){}
