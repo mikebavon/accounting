@@ -242,4 +242,16 @@ Resource Management (Resource Injection)
  Inject resources
  A resource is program that provides data e.g datasource(database), JMS, File system etc
 
-To inject a resource @Resource, uses JNDI
+To inject a resource @Resource, uses 
+
+JPA
+ORM - Object Relation Mapping (Map object properties to relation database entity(table) columns) 
+- solve impedance mismatch
+varchar != String 
+text != String
+float != Double
+
+Specification of ORM in java - JPA (Java Persistence API)
+    HIBERNATE
+    ECLIPSE LINK
+    TOP LINK

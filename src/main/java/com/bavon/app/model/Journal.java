@@ -1,38 +1,38 @@
 package com.bavon.app.model;
 
 import com.bavon.app.view.helper.*;
-import com.bavon.database.helper.DbTable;
-import com.bavon.database.helper.DbTableColumn;
 
-import java.io.Serializable;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@DbTable(name = "journals")
+@Entity
+@Table(name = "journals")
 @HtmlTable(addUrl = "./journals?action=add")
 @HtmlForm(label = "Journal", url = "./journals")
 public class Journal extends BaseEntity {
 
     @HtmlTableColHeader(header = "Date", dateFormat = "dd MMM yyyy")
-    @DbTableColumn(name = "txn_date", definition = "DATE")
+    @Column(name = "txn_date")
+    @Temporal(TemporalType.DATE)
     @HtmlFormField(label = "Transaction Date", type = HtmlFormFieldType.DATE, required = true)
     private Date date;
 
-    @DbTableColumn(name = "journal_no")
+    @Column(name = "journal_no", nullable = false, unique = true)
     @HtmlTableColHeader(header = "Journal No")
     private String journalNo;
 
-    @DbTableColumn(name = "particulars")
+    @Column(name = "particulars", columnDefinition = "longtext")
     @HtmlTableColHeader(header = "Particulars")
     @HtmlFormField(label = "Particulars", required = true)
     private String memo;
 
-    @DbTableColumn(name = "debit", definition = "decimal(10,2)")
+    @Column(name = "debit")
     @HtmlTableColHeader(header = "Debit", numberFormat = "#,###.00")
     @HtmlFormField(label = "Debit Amount", type = HtmlFormFieldType.NUMBER)
     private BigDecimal debitBalance;
 
-    @DbTableColumn(name = "credit", definition = "decimal(10,2)")
+    @Column(name = "credit")
     @HtmlTableColHeader(header = "Credit", numberFormat = "#,###.00")
     @HtmlFormField(label = "Credit Amount", type = HtmlFormFieldType.NUMBER)
     private BigDecimal creditBalance;

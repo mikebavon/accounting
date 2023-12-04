@@ -1,7 +1,6 @@
 package com.bavon.app.dao;
 
-import com.bavon.database.MysqlDatabase;
-
+import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,8 +12,8 @@ public interface GenericDaoI <T> extends Serializable {
 
     void delete(T entity);
 
-    MysqlDatabase getDatabase();
+    EntityManager getEm();
 
-    void setDatabase(MysqlDatabase database);
+    void setEm(EntityManager em);
 
 }

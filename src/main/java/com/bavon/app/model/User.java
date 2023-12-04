@@ -1,16 +1,18 @@
 package com.bavon.app.model;
 
-import com.bavon.database.helper.DbTable;
-import com.bavon.database.helper.DbTableColumn;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 
-@DbTable(name = "users")
+@Entity
+@Table(name = "users")
 public class User extends BaseEntity {
 
-    @DbTableColumn(name = "username")
+    @Column(name = "username")
     private String username;
 
-    @DbTableColumn(name = "password")
+    @Column(name = "password")
     private String password;
 
     private String confirmPassword;

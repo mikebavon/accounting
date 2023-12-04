@@ -2,30 +2,30 @@ package com.bavon.app.bean;
 
 import com.bavon.app.dao.GenericDao;
 import com.bavon.app.dao.GenericDaoI;
-import com.bavon.database.MysqlDatabase;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public abstract class GenericBean<T> implements GenericBeanI<T>{
 
-    @EJB
-    MysqlDatabase database;
+    @PersistenceContext
+    private EntityManager em;
 
     @Inject
     private GenericDaoI<T> genericDao;
 
     @Override
     public List<T> list(Object entity) {
-        genericDao.setDatabase(database);
+        genericDao.setEm(em);
         return genericDao.list(entity);
 
     }
 
     @Override
     public void addOrUpdate(T entity) {
-        genericDao.setDatabase(database);
+        genericDao.setEm(em);
         genericDao.addOrUpdate(entity);
 
     }
@@ -36,7 +36,7 @@ public abstract class GenericBean<T> implements GenericBeanI<T>{
     }
 
     public GenericDao<T> getDao(){
-        genericDao.setDatabase(database);
+        genericDao.setEm(em);
         return (GenericDao<T>) genericDao;
     }
 

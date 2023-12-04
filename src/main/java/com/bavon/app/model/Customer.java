@@ -4,27 +4,30 @@ import com.bavon.app.view.helper.HtmlForm;
 import com.bavon.app.view.helper.HtmlFormField;
 import com.bavon.app.view.helper.HtmlTable;
 import com.bavon.app.view.helper.HtmlTableColHeader;
-import com.bavon.database.helper.DbTable;
-import com.bavon.database.helper.DbTableColumn;
 
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 
-@DbTable(name = "customers")
+@Entity
+@Table(name = "customers")
 @HtmlTable(addUrl = "./customers?action=add")
 @HtmlForm(label = "Customer", url = "./customers")
 public class Customer extends BaseEntity {
 
-    @DbTableColumn(name = "name")
+    @Column(name = "name")
     @HtmlTableColHeader(header = "Customer Name")
     @HtmlFormField(label = "Customer Name", required = true)
     private String name;
 
-    @DbTableColumn(name = "address")
+    @Column(name = "address")
     @HtmlTableColHeader(header = "Customer Address")
     @HtmlFormField(label = "Customer Address", required = true)
     private String address;
 
+    @Transient
     @HtmlTableColHeader(header = "Account Balance")
     private BigDecimal accountBalance;
 

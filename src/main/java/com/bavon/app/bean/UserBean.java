@@ -7,12 +7,17 @@ import com.bavon.app.utility.EncryptText;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
 import java.util.List;
 
 @Stateless
 @Remote
 public class UserBean extends GenericBean<User> implements UserBeanI {
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Inject
     private EncryptText encryptText;
@@ -23,9 +28,9 @@ public class UserBean extends GenericBean<User> implements UserBeanI {
         if (!user.getPassword().equals(user.getConfirmPassword()))
             throw new RuntimeException("Password & confirm password do not match");
 
-        List<User> users = list(user);
-        if (!users.isEmpty())
-            throw new RuntimeException("User already exists!");
+        //List<User> users = list(user);
+        //if (!users.isEmpty())
+        //    throw new RuntimeException("User already exists!");
 
         try {
             user.setPassword(encryptText.encrypt(user.getPassword()));
@@ -35,7 +40,8 @@ public class UserBean extends GenericBean<User> implements UserBeanI {
 
         //3. initiate event to send email ...Observer design pattern
 
-        getDao().addOrUpdate(user);
+        //getDao().addOrUpdate(user);
+        em.merge(user);
 
         return false;
     }

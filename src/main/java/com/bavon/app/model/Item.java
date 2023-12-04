@@ -4,27 +4,29 @@ import com.bavon.app.view.helper.HtmlForm;
 import com.bavon.app.view.helper.HtmlFormField;
 import com.bavon.app.view.helper.HtmlTable;
 import com.bavon.app.view.helper.HtmlTableColHeader;
-import com.bavon.database.helper.DbTable;
-import com.bavon.database.helper.DbTableColumn;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
-@DbTable(name = "items")
+@Entity
+@Table(name = "items")
 @HtmlTable(addUrl = "./items?action=add")
 @HtmlForm(label = "Item", url = "./items")
 public class Item extends BaseEntity{
 
-    @DbTableColumn(name = "name")
+    @Column(name = "name", nullable = false)
     @HtmlFormField(label = "Item Name")
     @HtmlTableColHeader(header = "Item Name")
     private String name;
 
-    @DbTableColumn(name = "description")
+    @Column(name = "description")
     @HtmlFormField(label = "Description")
     @HtmlTableColHeader(header = "Description")
     private String description;
 
-    @DbTableColumn(name = "price", definition = "decimal(10,2)")
+    @Column(name = "price")
     @HtmlFormField(label = "Item Price")
     @HtmlTableColHeader(header = "Item Price")
     private BigDecimal price;

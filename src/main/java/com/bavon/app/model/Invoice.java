@@ -1,36 +1,39 @@
 package com.bavon.app.model;
 
 import com.bavon.app.view.helper.*;
-import com.bavon.database.helper.DbTable;
-import com.bavon.database.helper.DbTableColumn;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 
-@DbTable(name = "invoices")
+@Entity
+@Table(name = "invoices")
 @HtmlTable(addUrl = "./invoices?action=add")
 @HtmlForm(label = "Invoice", url = "./invoices")
 public class Invoice extends BaseEntity {
 
+    @Column(name = "invoice_date")
+    @Temporal(TemporalType.DATE)
     @HtmlTableColHeader(header = "Date", dateFormat = "dd/MM/yyy")
     @HtmlFormField(label = "Invoice Date", type = HtmlFormFieldType.DATE, required = true)
     private Date invoiceDate;
 
-    @DbTableColumn(name = "invoice_no")
+    @Column(name = "invoice_no")
     @HtmlTableColHeader(header = "Invoice Number")
     private String invoiceNo;
 
-    @DbTableColumn(name = "total", definition = "decimal(10,2)")
+    @Column(name = "total")
     @HtmlTableColHeader(header = "Total", numberFormat = "#,###.##")
     @HtmlFormField(label = "Invoice Total", required = true)
     private BigDecimal total;
 
-    @DbTableColumn(name = "narration")
+    @Column(name = "narration",columnDefinition = "text")
     @HtmlTableColHeader(header = "Narration")
     @HtmlFormField(label = "Narration", required = true)
     private String narration;
 
+    @Transient
     private Journal journal;
 
    public Date getInvoiceDate() {

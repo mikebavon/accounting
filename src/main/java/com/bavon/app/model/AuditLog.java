@@ -1,12 +1,14 @@
 package com.bavon.app.model;
 
-import com.bavon.database.helper.DbTable;
-import com.bavon.database.helper.DbTableColumn;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-@DbTable(name = "audit_logs")
+@Entity
+@Table(name = "audit_logs")
 public class AuditLog extends BaseEntity{
 
-    @DbTableColumn(name = "log_details", definition = "longtext")
+    @Column(name = "log_details", columnDefinition = "longtext")
     private String logDetails;
 
     public String getLogDetails() {

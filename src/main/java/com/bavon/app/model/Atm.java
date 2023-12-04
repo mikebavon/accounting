@@ -6,6 +6,8 @@ import com.bavon.app.view.helper.HtmlFormField;
 import com.bavon.app.view.helper.HtmlTable;
 import com.bavon.app.view.helper.HtmlTableColHeader;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @HtmlTable(addUrl = "./atm?action=add")

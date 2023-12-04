@@ -4,40 +4,43 @@ import com.bavon.app.view.helper.HtmlForm;
 import com.bavon.app.view.helper.HtmlFormField;
 import com.bavon.app.view.helper.HtmlTable;
 import com.bavon.app.view.helper.HtmlTableColHeader;
-import com.bavon.database.helper.DbTable;
-import com.bavon.database.helper.DbTableColumn;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
-@DbTable(name = "accounts")
+@Entity
+@Table(name = "accounts")
 @HtmlTable(addUrl = "./accounts?action=add")
 @HtmlForm(label = "Account", url = "./accounts")
 public class Account extends BaseEntity {
 
-    @DbTableColumn(name = "account_code")
+    @Column(name = "code")
     @HtmlTableColHeader(header = "Account Code")
     @HtmlFormField(label = "Account Code", required = true)
     private String code;
 
-    @DbTableColumn(name = "account_name")
+    @Column(name = "account_name")
     @HtmlTableColHeader(header = "Account Name")
     @HtmlFormField(label = "Account Name", required = true)
     private String name;
 
+    @Transient
     private BigDecimal balance;
 
-    @DbTableColumn(name = "notes")
+    @Column(columnDefinition = "longtext")
     private String notes;
 
     @HtmlFormField(label = "Account Category", required = true)
+    @Column
+    @Enumerated(EnumType.STRING)
     private AccountCategory category;
 
     @HtmlFormField(label = "Account Type", required = true)
+    @Column
+    @Enumerated(EnumType.STRING)
     private AccountType type;
 
-    public Account(){
-
-    }
+    public Account(){}
 
     public Account(String code, String name, BigDecimal balance){
         this.code = code;

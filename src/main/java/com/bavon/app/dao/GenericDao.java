@@ -1,25 +1,28 @@
 package com.bavon.app.dao;
 
 
-import com.bavon.database.MysqlDatabase;
-
+import javax.persistence.EntityManager;
 import java.util.List;
 
 public class GenericDao<T> implements GenericDaoI<T> {
 
-    private MysqlDatabase database;
+    private EntityManager em;
 
 
     @SuppressWarnings({"unchecked"})
     @Override
     public List<T> list(Object entity) {
-        return (List<T>) database.fetch(entity);
+        String jpql  = "FROM " + entity.getClass().getSimpleName() + " e";
+
+        List<T> results = (List<T>) em.createQuery(jpql, entity.getClass());
+
+        return results;
 
     }
 
     @Override
     public void addOrUpdate(T entity) {
-        database.saveOrUpdate(entity);
+        em.merge(entity);
 
     }
 
@@ -28,11 +31,11 @@ public class GenericDao<T> implements GenericDaoI<T> {
 
     }
 
-    public MysqlDatabase getDatabase() {
-        return database;
+    public EntityManager getEm() {
+        return em;
     }
 
-    public void setDatabase(MysqlDatabase database) {
-        this.database = database;
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 }
