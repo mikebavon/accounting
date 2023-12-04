@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
 import javax.ejb.DependsOn;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -32,13 +33,14 @@ import java.util.List;
 @DependsOn({"CheckOsBean","CheckCountryBean","CheckLicenseBean"})
 public class MysqlDatabase implements Serializable {
 
+    @Resource(lookup = "java:jboss/datasources/accounting")
+    private DataSource dataSource;
+
     private Connection connection;
 
 
     @PostConstruct
     private void init() throws SQLException, NamingException {
-        Context ctx = new InitialContext();
-        DataSource dataSource = (DataSource) ctx.lookup("java:jboss/datasources/accounting");
         connection = dataSource.getConnection();
 
         System.out.println("Executed. on start up!!");

@@ -237,3 +237,9 @@ Types of beans
 
 CDI events (Event)
     @Observer 
+
+Resource Management (Resource Injection)
+ Inject resources
+ A resource is program that provides data e.g datasource(database), JMS, File system etc
+
+To inject a resource @Resource, uses JNDI
