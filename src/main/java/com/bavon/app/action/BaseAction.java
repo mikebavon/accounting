@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +30,6 @@ public class BaseAction extends HttpServlet {
             DateConverter converter = new DateConverter( null );
             converter.setPattern("yyyy-MM-dd");
             ConvertUtils.register(converter, Date.class);
-
-            requestMap.forEach((k,v)-> System.out.println(k + " " + v[0]));
 
             BeanUtils.populate(clazzInstance, requestMap);
 

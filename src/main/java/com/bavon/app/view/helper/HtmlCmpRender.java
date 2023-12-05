@@ -122,7 +122,7 @@ public class HtmlCmpRender implements Serializable {
                     .append(">");
 
                 for (Object enumValue : field.getType().getEnumConstants()){
-                    System.out.println(enumValue);
+                    //System.out.println(enumValue);
 
                     try {
                         Method method = field.getType().getMethod("getName");

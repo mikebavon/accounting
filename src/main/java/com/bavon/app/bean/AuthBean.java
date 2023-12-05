@@ -4,13 +4,10 @@ import com.bavon.app.model.AuditLog;
 import com.bavon.app.model.User;
 import com.bavon.app.utility.EncryptText;
 
-import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
@@ -18,10 +15,7 @@ import java.util.List;
 
 @Stateless
 @Remote
-public class AuthBean implements AuthBeanI, Serializable {
-
-    @PersistenceContext
-    EntityManager em;
+public class AuthBean extends GenericBean<User> implements AuthBeanI, Serializable {
 
     @Inject
     private EncryptText encryptText;
@@ -37,10 +31,7 @@ public class AuthBean implements AuthBeanI, Serializable {
             throw new RuntimeException(ex.getMessage());
         }
 
-        List<User> users = em.createQuery("FROM User u WHERE u.password=:password AND u.username=:username", User.class)
-                .setParameter("password", loginUser.getPassword())
-                .setParameter("username", loginUser.getUsername())
-                .getResultList();
+        List<User> users = list(loginUser);
 
         if (users.isEmpty() || users.get(0) == null)
             throw new RuntimeException("Invalid user!!");

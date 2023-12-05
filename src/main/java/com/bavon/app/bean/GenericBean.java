@@ -17,7 +17,7 @@ public abstract class GenericBean<T> implements GenericBeanI<T>{
     private GenericDaoI<T> genericDao;
 
     @Override
-    public List<T> list(Object entity) {
+    public List<T> list(T entity) {
         genericDao.setEm(em);
         return genericDao.list(entity);
 

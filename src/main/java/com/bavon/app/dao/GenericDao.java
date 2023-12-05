@@ -1,8 +1,14 @@
 package com.bavon.app.dao;
 
 
+import org.apache.commons.lang3.StringUtils;
+
+import javax.persistence.Column;
 import javax.persistence.EntityManager;
-import java.util.List;
+import javax.persistence.Id;
+import javax.persistence.TypedQuery;
+import java.lang.reflect.Field;
+import java.util.*;
 
 public class GenericDao<T> implements GenericDaoI<T> {
 
@@ -11,12 +17,57 @@ public class GenericDao<T> implements GenericDaoI<T> {
 
     @SuppressWarnings({"unchecked"})
     @Override
-    public List<T> list(Object entity) {
-        String jpql  = "FROM " + entity.getClass().getSimpleName() + " e";
+    public List<T> list(T entity) {
+        Class<?> clazz = entity.getClass();
 
-        List<T> results = (List<T>) em.createQuery(jpql, entity.getClass()).getResultList();
+        String simpleName = entity.getClass().getSimpleName();
 
-        return results;
+        String tAlias = (simpleName.charAt(0) + "_").toLowerCase();
+        String jpql  = "FROM " + entity.getClass().getSimpleName() + " " + tAlias;
+
+        StringBuilder whereClause = new StringBuilder();
+        Map<String, Object> whereParams = new HashMap<>();
+
+        List<Field> fields = new ArrayList<>(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
+        fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+
+        for (Field field : fields) {
+            if (!field.isAnnotationPresent(Column.class))
+                continue;
+
+            Column column = field.getAnnotation(Column.class);
+            field.setAccessible(true);
+
+            try {
+                if (field.get(entity) != null) {
+                    String colName = StringUtils.isEmpty(column.name()) ? field.getName() : column.name();
+
+                    whereClause
+                        .append(whereParams.isEmpty() ? "" : " AND ")
+                        .append(tAlias).append(".").append(colName).append("=:").append(colName);
+
+                    whereParams.put(colName, field.get(entity));
+                }
+
+            } catch (IllegalAccessException iEx) {
+                iEx.printStackTrace();
+
+            }
+        }
+
+        jpql = jpql + (whereParams.isEmpty() && StringUtils.isBlank(whereClause) ? "" : " WHERE " + whereClause);
+
+        jpql = jpql.replace(", FROM", " FROM");
+        System.out.println("jpql: " + jpql);
+
+        TypedQuery<T> query = (TypedQuery<T>) em.createQuery(jpql, entity.getClass());
+
+        for (Map.Entry<String, Object> entry : whereParams.entrySet()) {
+            System.out.println("param Name: " + entry.getKey() + " = " + entry.getValue() );
+            query = query.setParameter(entry.getKey(), entry.getValue());
+        }
+
+        return query.getResultList();
 
     }
 
