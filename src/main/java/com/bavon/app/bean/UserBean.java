@@ -22,8 +22,8 @@ public class UserBean extends GenericBean<User> implements UserBeanI {
         if (!user.getPassword().equals(user.getConfirmPassword()))
             throw new RuntimeException("Password & confirm password do not match");
 
-        List<User> users = list(new User(user.getUsername()));
-        if (!users.isEmpty())
+        List<User> checkUser = list(new User(user.getUsername()));
+        if (!checkUser.isEmpty())
             throw new RuntimeException("User already exists!");
 
         try {
