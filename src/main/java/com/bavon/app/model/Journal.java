@@ -1,6 +1,7 @@
 package com.bavon.app.model;
 
 import com.bavon.app.view.helper.*;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -36,6 +37,10 @@ public class Journal extends BaseEntity {
     @HtmlTableColHeader(header = "Credit", numberFormat = "#,###.00")
     @HtmlFormField(label = "Credit Amount", type = HtmlFormFieldType.NUMBER)
     private BigDecimal creditBalance;
+
+    @HtmlTableColHeader(header = "Net Balance", numberFormat = "#,###.00")
+    @Formula("(coalesce(debit,0)-coalesce(credit,0))")
+    private BigDecimal netBalance;
 
     public Date getDate() {
         return date;
@@ -75,5 +80,13 @@ public class Journal extends BaseEntity {
 
     public void setCreditBalance(BigDecimal creditBalance) {
         this.creditBalance = creditBalance;
+    }
+
+    public BigDecimal getNetBalance() {
+        return netBalance;
+    }
+
+    public void setNetBalance(BigDecimal netBalance) {
+        this.netBalance = netBalance;
     }
 }

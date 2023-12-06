@@ -1,13 +1,15 @@
 package com.bavon.app.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
+import javax.persistence.*;
 
 
 @Entity
 @Table(name = "users")
+@DynamicInsert
+@DynamicUpdate
 public class User extends BaseEntity {
 
     @Column(name = "username")
@@ -16,8 +18,17 @@ public class User extends BaseEntity {
     @Column(name = "password")
     private String password;
 
+    @Embedded
+    private Address address;
+
+    @Embedded
+    private Contact contact;
+
     @Transient
     private String confirmPassword;
+
+    @Transient
+    private String oldPassword;
 
     public User(){}
 
@@ -27,6 +38,11 @@ public class User extends BaseEntity {
 
     public User(Long id, String username, String password) {
         setId(id);
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -53,5 +69,29 @@ public class User extends BaseEntity {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 }

@@ -255,3 +255,23 @@ Specification of ORM in java - JPA (Java Persistence API)
     HIBERNATE
     ECLIPSE LINK
     TOP LINK
+
+JPA
+    -persistence.xml
+    -@Entity, @Table, @Column, @Id, @Enumerated, @Temporal, @GeneratedValue, @Transient, 
+    @Embeddable, @Embedded
+Hibernate Specific Annotations
+    -@Formula, @DynamicInsert, @DynamicUpdate
+
+form serialization 
+    struts 2, stripes form // user.contact.phoneNo, user.contact.email
+
+json serializer (Jackson, gson etc)
+    {
+        username: '',
+        password: '',
+        contact: {
+            phoneNo: '',
+            email: ''
+        }
+    }

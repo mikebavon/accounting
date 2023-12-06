@@ -5,10 +5,7 @@ import com.bavon.app.view.helper.HtmlFormField;
 import com.bavon.app.view.helper.HtmlTable;
 import com.bavon.app.view.helper.HtmlTableColHeader;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -22,14 +19,12 @@ public class Customer extends BaseEntity {
     @HtmlFormField(label = "Customer Name", required = true)
     private String name;
 
-    @Column(name = "address")
-    @HtmlTableColHeader(header = "Customer Address")
-    @HtmlFormField(label = "Customer Address", required = true)
-    private String address;
-
     @Transient
     @HtmlTableColHeader(header = "Account Balance")
     private BigDecimal accountBalance;
+
+    @Embedded
+    private Address address;
 
     public String getName() {
         return name;
@@ -39,11 +34,11 @@ public class Customer extends BaseEntity {
         this.name = name;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 

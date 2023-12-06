@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Column;
 import javax.persistence.EntityManager;
-import javax.persistence.Id;
 import javax.persistence.TypedQuery;
 import java.lang.reflect.Field;
 import java.util.*;

@@ -34,7 +34,7 @@
               </div>
 
               <div class="container">
-                <span class="psw">Forgot <a href="#">password?</a></span>
+                <span class="psw">Reset <a href="resetpwd.jsp">password?</a></span>
               </div>
             </form>
 
