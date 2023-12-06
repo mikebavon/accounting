@@ -1,6 +1,7 @@
 package com.bavon.app.model;
 
 import com.bavon.app.view.helper.*;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -33,8 +34,24 @@ public class Invoice extends BaseEntity {
     @HtmlFormField(label = "Narration", required = true)
     private String narration;
 
-    @Transient
+    @ManyToOne(fetch = FetchType.LAZY)
     private Journal journal;
+
+    @HtmlTableColHeader(header = "Journal No")
+    @Formula("(select j.journal_no from journals j where j.id=journal_id)")
+    private String journalNo;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @HtmlFormField(label = "Customer ID", required = true, selectList = "Customer")
+    @Formula("(customer_id)")
+    private Long customerId;
+
+    @HtmlTableColHeader(header = "Customer")
+    @Formula("(select c.name from customers c where c.id=customer_id)")
+    private String customerName;
 
    public Date getInvoiceDate() {
         return invoiceDate;
@@ -60,6 +77,14 @@ public class Invoice extends BaseEntity {
         this.journal = journal;
     }
 
+    public String getJournalNo() {
+        return journalNo;
+    }
+
+    public void setJournalNo(String journalNo) {
+        this.journalNo = journalNo;
+    }
+
     public BigDecimal getTotal() {
         return total;
     }
@@ -74,5 +99,29 @@ public class Invoice extends BaseEntity {
 
     public void setNarration(String narration) {
         this.narration = narration;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 }

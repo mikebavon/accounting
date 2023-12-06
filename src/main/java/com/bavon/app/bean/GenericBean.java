@@ -24,10 +24,9 @@ public abstract class GenericBean<T> implements GenericBeanI<T>{
     }
 
     @Override
-    public void addOrUpdate(T entity) {
+    public T addOrUpdate(T entity) {
         genericDao.setEm(em);
-        genericDao.addOrUpdate(entity);
-
+        return genericDao.addOrUpdate(entity);
     }
 
     @Override

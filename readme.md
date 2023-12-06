@@ -263,6 +263,12 @@ JPA
 Hibernate Specific Annotations
     -@Formula, @DynamicInsert, @DynamicUpdate
 
+Entity Relationships
+    -@ManyToOne Student has ManyToOne relation with school
+    -@OneToMany School has OneToMany relation with student
+    -OneToOne
+    -ManyToMany***
+
 form serialization 
     struts 2, stripes form // user.contact.phoneNo, user.contact.email
 

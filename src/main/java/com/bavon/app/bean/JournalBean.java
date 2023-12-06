@@ -25,8 +25,7 @@ public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
     @Inject
     private Event<AuditLog> logger;
 
-    @Override
-    public void addOrUpdate(Journal journal) {
+    public Journal addOrUpdate(Journal journal) {
         if (journalValidator.inValid(journal))
             throw new RuntimeException("Invalid journal");
 
@@ -35,13 +34,15 @@ public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
 
         journal.setJournalNo(txnNoGenerator.generate());
 
-        getDao().addOrUpdate(journal);
+        journal = getDao().addOrUpdate(journal);
 
         AuditLog log = new AuditLog();
         log.setLogDetails("A journal " + journal.getJournalNo() + " was added at "
             + DateFormat.getDateTimeInstance().format(new Date()));
 
         logger.fire(log);
+
+        return journal;
 
     }
 

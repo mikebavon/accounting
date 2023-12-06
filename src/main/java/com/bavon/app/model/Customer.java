@@ -7,6 +7,8 @@ import com.bavon.app.view.helper.HtmlTableColHeader;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -49,4 +51,5 @@ public class Customer extends BaseEntity {
     public void setAccountBalance(BigDecimal accountBalance) {
         this.accountBalance = accountBalance;
     }
+
 }

@@ -17,6 +17,8 @@ public @interface HtmlFormField {
 
     String name() default "";
 
+    String selectList() default "";
+
     HtmlFormFieldType type() default HtmlFormFieldType.TEXT;
 
     boolean required() default false;

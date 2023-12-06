@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -60,19 +61,27 @@ public class BaseAction extends HttpServlet {
             BeanUtilsBean beanUtilsBean = new BeanUtilsBean(new ConvertUtilsBean() {
                 @Override
                 public Object convert(String value, Class clazz) {
-                    if (clazz.isEnum()) {
-                        return Enum.valueOf(clazz, value);
-                    } else {
-                        return super.convert(value, clazz);
+                if (clazz.isEnum()) {
+                    return Enum.valueOf(clazz, value);
+                } else if (clazz == Date.class) {
+                    // web forms return the date in the form
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        return dateFormat.parse(value);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
                     }
+                } else {
+                    return super.convert(value, clazz);
+                }
                 }
             });
 
             ConvertUtils.register(new BigDecimalConverter(), BigDecimal.class);
 
-            DateConverter converter = new DateConverter( null );
+            /*DateConverter converter = new DateConverter( null );
             converter.setPattern("yyyy-MM-dd");
-            ConvertUtils.register(converter, Date.class);
+            ConvertUtils.register(converter, Date.class);*/
 
             beanUtilsBean.populate(clazzInstance, requestMap);
 

@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -136,7 +137,32 @@ public class HtmlCmpRender implements Serializable {
 
                 htmlForm.append("</select>");
 
-            } else {
+            }/* if (StringUtils.isNotBlank(formField.loadList())) {
+
+                List<Object> list = new ArrayList<>(); /// find a way of passing the list of customer
+
+                htmlForm.append("<select")
+                    .append(" id=\"").append(ifBlank(formField.id(), fieldName))
+                    .append("\" name=\"").append(ifBlank(formField.name(), fieldName)).append("\" ")
+                    .append(formField.required()?"required" : "")
+                    .append(">");
+
+                for (Object object : list){
+                    //System.out.println(enumValue);
+
+                    try {
+                        Method method = field.getType().getMethod("getName");
+                        htmlForm.append("htmlForm.append(<option value=\"")
+                            .append(object.getId()).append("\">")
+                            .append(object.getName).append("</option>)");
+                    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+                htmlForm.append("</select>");
+
+            }*/ else {
                 htmlForm.append("<input type=\"")
                     .append(formField.type())
                     .append("\" id=\"").append(ifBlank(formField.id(), fieldName))

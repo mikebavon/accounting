@@ -16,10 +16,8 @@ public class PaymentBean extends GenericBean<Payment> implements PaymentBeanI {
     @Named("Payment")
     private TransactionNoGenerator txnNoGenerator;
 
-    @Override
-    public void addOrUpdate(Payment payment) {
+    public Payment addOrUpdate(Payment payment) {
         payment.setVoucherNo(txnNoGenerator.generate());
-        getDao().addOrUpdate(payment);
-
+        return getDao().addOrUpdate(payment);
     }
 }

@@ -71,9 +71,8 @@ public class GenericDao<T> implements GenericDaoI<T> {
     }
 
     @Override
-    public void addOrUpdate(T entity) {
-        em.merge(entity);
-
+    public T addOrUpdate(T entity) {
+        return em.merge(entity);
     }
 
     @Override

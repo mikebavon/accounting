@@ -16,12 +16,11 @@ public class AccountBean extends GenericBean<Account> implements AccountBeanI {
         System.out.println("Bean has bean created!!");
     }
 
-    @Override
-    public void addOrUpdate(Account account) {
+    public Account addOrUpdate(Account account) {
         if (account.getType() == null)
             throw new RuntimeException("Invalid account type");
 
-        getDao().addOrUpdate(account);
+        return getDao().addOrUpdate(account);
 
     }
 
