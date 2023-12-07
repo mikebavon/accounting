@@ -281,3 +281,14 @@ json serializer (Jackson, gson etc)
             email: ''
         }
     }
+
+
+Journal 
+
+Narration                   Account         Debit       Credit
+--------                    -------         -----       ------
+Fees,constultnacy           Bank                        1000
+Fees                        Fee Expense     400
+Consultancy                 Consulty Exp    600
+                                            -----      ----
+                                            1000        1000

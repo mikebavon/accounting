@@ -2,6 +2,7 @@ package com.bavon.app.bean;
 
 import com.bavon.app.model.AuditLog;
 import com.bavon.app.model.Journal;
+import com.bavon.app.model.JournalLine;
 import com.bavon.app.utility.JournalValidator;
 import com.bavon.app.utility.TransactionNoGenerator;
 
@@ -11,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Stateless
 public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
@@ -29,6 +31,16 @@ public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
         if (journalValidator.inValid(journal))
             throw new RuntimeException("Invalid journal");
 
+        JournalLine debit = new JournalLine();
+        debit.setNarration(journal.getMemo());
+        debit.setDebit(journal.getDebitBalance());
+        journal.addJournalLine(debit);
+
+        JournalLine credit = new JournalLine();
+        credit.setNarration(journal.getMemo());
+        credit.setCredit(journal.getDebitBalance());
+        journal.addJournalLine(credit);
+
         if (journal.getDate() == null)
             journal.setDate(new Date());
 
@@ -43,6 +55,27 @@ public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
         logger.fire(log);
 
         return journal;
+
+    }
+
+    @Override
+    public List<Journal> list(Journal entity) {
+
+        List<Journal> journals = super.list(entity);
+
+        for (Journal journal : journals) {
+            StringBuilder entryTable = new StringBuilder("<table><tr><th>Debit</th><th>Credit</th><tr>");
+            for (JournalLine line : journal.getJournalLines() ){
+                entryTable.append("<tr><td>" + (line.getDebit() == null? "" : line.getDebit()) + "</td><td>"
+                    + (line.getCredit() == null? "" : line.getCredit()) + "</td><tr>");
+            }
+
+            entryTable.append("</table>");
+
+            journal.setJournalLineText(entryTable.toString());
+        }
+
+        return journals;
 
     }
 

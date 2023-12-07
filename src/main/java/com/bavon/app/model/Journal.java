@@ -5,7 +5,9 @@ import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "journals")
@@ -28,19 +30,22 @@ public class Journal extends BaseEntity {
     @HtmlFormField(label = "Particulars", required = true)
     private String memo;
 
-    @Column(name = "debit")
-    @HtmlTableColHeader(header = "Debit", numberFormat = "#,###.00")
+    @Formula("(select sum(l.debit) from journal_lines l where l.journal_id=id)")
+    //@HtmlTableColHeader(header = "Debit", numberFormat = "#,###.00")
     @HtmlFormField(label = "Debit Amount", type = HtmlFormFieldType.NUMBER)
     private BigDecimal debitBalance;
 
-    @Column(name = "credit")
-    @HtmlTableColHeader(header = "Credit", numberFormat = "#,###.00")
+    @Formula("(select sum(l.credit) from journal_lines l where l.journal_id=id)")
+    //@HtmlTableColHeader(header = "Credit", numberFormat = "#,###.00")
     @HtmlFormField(label = "Credit Amount", type = HtmlFormFieldType.NUMBER)
     private BigDecimal creditBalance;
 
-    @HtmlTableColHeader(header = "Net Balance", numberFormat = "#,###.00")
-    @Formula("(coalesce(debit,0)-coalesce(credit,0))")
-    private BigDecimal netBalance;
+    @OneToMany(mappedBy = "journal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<JournalLine> journalLines = new ArrayList<>();
+
+    @HtmlTableColHeader(header = "Entries")
+    @Transient
+    private String journalLineText;
 
     public Date getDate() {
         return date;
@@ -82,11 +87,29 @@ public class Journal extends BaseEntity {
         this.creditBalance = creditBalance;
     }
 
-    public BigDecimal getNetBalance() {
-        return netBalance;
+    public List<JournalLine> getJournalLines() {
+        return journalLines;
     }
 
-    public void setNetBalance(BigDecimal netBalance) {
-        this.netBalance = netBalance;
+    public void setJournalLines(List<JournalLine> journalLines) {
+        this.journalLines = journalLines;
+    }
+
+    public void addJournalLine(JournalLine journalLine){
+        journalLine.setJournal(this);
+        getJournalLines().add(journalLine);
+    }
+
+    public void addJournalLines(List<JournalLine> journalLines){
+        for (JournalLine journalLine : journalLines)
+            addJournalLine(journalLine);
+    }
+
+    public String getJournalLineText() {
+        return journalLineText;
+    }
+
+    public void setJournalLineText(String journalLineText) {
+        this.journalLineText = journalLineText;
     }
 }
