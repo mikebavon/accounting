@@ -1,13 +1,10 @@
 package com.bavon.app.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "companies")
-public class Company extends BaseEntity{
+@Table(name = "girl_friends")
+public class GirlFriend extends BaseEntity{
 
     @Column
     private String name;
@@ -18,7 +15,8 @@ public class Company extends BaseEntity{
     @Embedded
     private Address address;
 
-
+    @OneToOne
+    private BoyFriend boyFriend;
 
     public String getName() {
         return name;
@@ -42,5 +40,13 @@ public class Company extends BaseEntity{
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public BoyFriend getBoyFriend() {
+        return boyFriend;
+    }
+
+    public void setBoyFriend(BoyFriend boyFriend) {
+        this.boyFriend = boyFriend;
     }
 }

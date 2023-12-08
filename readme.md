@@ -292,3 +292,15 @@ Fees                        Fee Expense     400
 Consultancy                 Consulty Exp    600
                                             -----      ----
                                             1000        1000
+
+ONE TO ONE *****
+MANY TO MANY
+HOW TO WRITE NATIVE QUERY
+
+BEAN VALIDATION
+
+WEBSERVICES
+    -Restful - (JS AJAX) - REST CLIENT(POSTMAN) ***
+    -soap 
+
+WEBSOCKET

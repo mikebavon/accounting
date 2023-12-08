@@ -19,6 +19,8 @@ public @interface HtmlFormField {
 
     String selectList() default "";
 
+    Class<?> grid() default Object.class;
+
     HtmlFormFieldType type() default HtmlFormFieldType.TEXT;
 
     boolean required() default false;

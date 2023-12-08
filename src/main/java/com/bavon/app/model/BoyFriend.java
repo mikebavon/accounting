@@ -1,13 +1,10 @@
 package com.bavon.app.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "companies")
-public class Company extends BaseEntity{
+@Table(name = "boyfriends")
+public class BoyFriend extends BaseEntity{
 
     @Column
     private String name;
@@ -18,7 +15,8 @@ public class Company extends BaseEntity{
     @Embedded
     private Address address;
 
-
+    @OneToOne(mappedBy = "boyFriend", cascade = CascadeType.ALL)
+    private GirlFriend girlFriend;
 
     public String getName() {
         return name;
@@ -42,5 +40,16 @@ public class Company extends BaseEntity{
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public GirlFriend getGirlFriend() {
+        return girlFriend;
+    }
+
+    public void setGirlFriend(GirlFriend girlFriend) {
+        if (girlFriend != null)
+            girlFriend.setBoyFriend(this);
+
+        this.girlFriend = girlFriend;
     }
 }

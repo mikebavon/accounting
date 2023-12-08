@@ -1,8 +1,6 @@
 package com.bavon.app.bean;
 
-import com.bavon.app.model.AuditLog;
-import com.bavon.app.model.Journal;
-import com.bavon.app.model.JournalLine;
+import com.bavon.app.model.*;
 import com.bavon.app.utility.JournalValidator;
 import com.bavon.app.utility.TransactionNoGenerator;
 
@@ -53,6 +51,16 @@ public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
             + DateFormat.getDateTimeInstance().format(new Date()));
 
         logger.fire(log);
+
+        BoyFriend boyFriend = new BoyFriend();
+        boyFriend.setName("Tom");
+
+        GirlFriend girlFriend = new GirlFriend();
+        girlFriend.setName("Esther");
+
+        boyFriend.setGirlFriend(girlFriend);
+
+        getDao().getEm().merge(boyFriend);
 
         return journal;
 

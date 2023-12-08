@@ -35,6 +35,9 @@ public class Payment extends BaseEntity {
     @Transient
     private Journal journal;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Customer customer;
+
     public Date getTxnDate() {
         return txnDate;
     }
@@ -73,5 +76,13 @@ public class Payment extends BaseEntity {
 
     public void setJournal(Journal journal) {
         this.journal = journal;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

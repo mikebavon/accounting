@@ -25,6 +25,9 @@ public class Customer extends BaseEntity {
     @HtmlTableColHeader(header = "Account Balance")
     private BigDecimal accountBalance;
 
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Payment> payments = new ArrayList<>();
+
     @Embedded
     private Address address;
 
@@ -52,4 +55,11 @@ public class Customer extends BaseEntity {
         this.accountBalance = accountBalance;
     }
 
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
 }
