@@ -8,11 +8,21 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 
+
+@NamedQueries({
+    @NamedQuery(name = Invoice.InvoiceAbove1000, query = "FROM Invoice i WHERE i.total>1000"),
+    @NamedQuery(name = Invoice.InvoiceBelow1000, query = "FROM Invoice i WHERE i.total<1000"),
+    @NamedQuery(name = Invoice.TodaysInvoice, query = "FROM Invoice i WHERE i.invoiceDate=CURDATE()")
+})
 @Entity
 @Table(name = "invoices")
 @HtmlTable(addUrl = "./invoices?action=add")
 @HtmlForm(label = "Invoice", url = "./invoices")
 public class Invoice extends BaseEntity {
+
+    public static final String InvoiceAbove1000 = "Invoice.InvoiceAbove1000";
+    public static final String InvoiceBelow1000 = "Invoice.InvoiceBelow1000";
+    public static final String TodaysInvoice = "Invoice.TodaysInvoice";
 
     @Column(name = "invoice_date")
     @Temporal(TemporalType.DATE)
@@ -45,7 +55,7 @@ public class Invoice extends BaseEntity {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @HtmlFormField(label = "Customer ID", required = true, selectList = "Customer")
+    @HtmlFormField(label = "Customer ID", selectList = "Customer")
     @Formula("(customer_id)")
     private Long customerId;
 

@@ -1,7 +1,9 @@
 package com.bavon.app.dao;
 
 
+import com.sun.xml.bind.v2.schemagen.episode.Klass;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Session;
 
 import javax.persistence.Column;
 import javax.persistence.EntityManager;
@@ -71,13 +73,21 @@ public class GenericDao<T> implements GenericDaoI<T> {
     }
 
     @Override
+    public List<Object[]> nativeQuery(String sql) {
+        return getEm().createNativeQuery(sql).getResultList();
+
+    }
+
+    @Override
     public T addOrUpdate(T entity) {
         return em.merge(entity);
     }
 
     @Override
-    public void delete(T entity) {
-
+    public void delete(Class<?> klass, Long id) {
+        Object record = em.find(klass, id);
+        if (record != null)
+            em.remove(record);
     }
 
     public EntityManager getEm() {

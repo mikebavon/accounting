@@ -52,16 +52,6 @@ public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
 
         logger.fire(log);
 
-        BoyFriend boyFriend = new BoyFriend();
-        boyFriend.setName("Tom");
-
-        GirlFriend girlFriend = new GirlFriend();
-        girlFriend.setName("Esther");
-
-        boyFriend.setGirlFriend(girlFriend);
-
-        getDao().getEm().merge(boyFriend);
-
         return journal;
 
     }
