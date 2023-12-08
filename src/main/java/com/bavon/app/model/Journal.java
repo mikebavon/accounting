@@ -1,9 +1,12 @@
 package com.bavon.app.model;
 
 import com.bavon.app.view.helper.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,12 +18,14 @@ import java.util.List;
 @HtmlForm(label = "Journal", url = "./journals")
 public class Journal extends BaseEntity {
 
+    @NotNull
     @HtmlTableColHeader(header = "Date", dateFormat = "dd MMM yyyy")
     @Column(name = "txn_date")
     @Temporal(TemporalType.DATE)
     @HtmlFormField(label = "Transaction Date", type = HtmlFormFieldType.DATE, required = true)
     private Date date;
 
+    @NotNull
     @Column(name = "journal_no", nullable = false, unique = true)
     @HtmlTableColHeader(header = "Journal No")
     private String journalNo;
@@ -87,6 +92,7 @@ public class Journal extends BaseEntity {
         this.creditBalance = creditBalance;
     }
 
+    //@JsonIgnore
     public List<JournalLine> getJournalLines() {
         return journalLines;
     }

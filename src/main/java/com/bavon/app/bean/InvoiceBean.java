@@ -36,6 +36,9 @@ public class InvoiceBean extends GenericBean<Invoice> implements InvoiceBeanI {
         if (invoice == null)
             throw new RuntimeException("Invalid invoice details!");
 
+        if (invoice.getInvoiceDate() == null)
+            invoice.setInvoiceDate(new Date());
+
         System.out.println(">>>>>>>>>>>>>>>>>>>>");
         List<Object[]> customers = getDao().nativeQuery("select c.id, c.name from customers c");
 

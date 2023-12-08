@@ -1,9 +1,7 @@
 package com.bavon.app.dao;
 
 
-import com.sun.xml.bind.v2.schemagen.episode.Klass;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.Session;
 
 import javax.persistence.Column;
 import javax.persistence.EntityManager;

@@ -4,6 +4,7 @@ import com.bavon.app.view.helper.HtmlForm;
 import com.bavon.app.view.helper.HtmlFormField;
 import com.bavon.app.view.helper.HtmlTable;
 import com.bavon.app.view.helper.HtmlTableColHeader;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -55,6 +56,7 @@ public class Customer extends BaseEntity {
         this.accountBalance = accountBalance;
     }
 
+    @JsonIgnore
     public List<Payment> getPayments() {
         return payments;
     }

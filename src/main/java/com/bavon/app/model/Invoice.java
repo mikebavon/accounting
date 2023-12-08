@@ -1,9 +1,12 @@
 package com.bavon.app.model;
 
 import com.bavon.app.view.helper.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -34,6 +37,7 @@ public class Invoice extends BaseEntity {
     @HtmlTableColHeader(header = "Invoice Number")
     private String invoiceNo;
 
+    @DecimalMin("1.0")
     @Column(name = "total")
     @HtmlTableColHeader(header = "Total", numberFormat = "#,###.##")
     @HtmlFormField(label = "Invoice Total", required = true)
@@ -79,6 +83,7 @@ public class Invoice extends BaseEntity {
         this.invoiceNo = invoiceNo;
     }
 
+    @JsonIgnore
     public Journal getJournal() {
         return journal;
     }
@@ -111,6 +116,7 @@ public class Invoice extends BaseEntity {
         this.narration = narration;
     }
 
+    @JsonIgnore
     public Customer getCustomer() {
         return customer;
     }
