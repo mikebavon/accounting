@@ -1,16 +1,16 @@
 package com.bavon.app.view.helper;
 
+import com.bavon.app.bean.GenericCombo;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.enterprise.inject.spi.CDI;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -137,32 +137,45 @@ public class HtmlCmpRender implements Serializable {
 
                 htmlForm.append("</select>");
 
-            }/* if (StringUtils.isNotBlank(formField.loadList())) {
+            } else if (StringUtils.isNotBlank(formField.selectList())
+                    && StringUtils.isNotBlank(formField.selectValue())
+                    && StringUtils.isNotBlank(formField.selectDisplay())) {
+                try {
 
-                List<Object> list = new ArrayList<>(); /// find a way of passing the list of customer
+                    htmlForm.append("<select")
+                        .append(" id=\"").append(ifBlank(formField.id(), fieldName))
+                        .append("\" name=\"").append(ifBlank(formField.name(), fieldName)).append("\" ")
+                        .append(formField.required()?"required" : "")
+                        .append(">");
 
-                htmlForm.append("<select")
-                    .append(" id=\"").append(ifBlank(formField.id(), fieldName))
-                    .append("\" name=\"").append(ifBlank(formField.name(), fieldName)).append("\" ")
-                    .append(formField.required()?"required" : "")
-                    .append(">");
+                    GenericCombo genericCombo = CDI.current().select(GenericCombo.class).get();
 
-                for (Object object : list){
-                    //System.out.println(enumValue);
+                    Method selectListMethod = GenericCombo.class.getDeclaredMethod(formField.selectList());
 
-                    try {
-                        Method method = field.getType().getMethod("getName");
+                    List<?> options = (List<?>) selectListMethod.invoke(genericCombo);
+
+                    for (Object option : options) {
+                        Field valueField = formField.selectValueInSuper()?
+                            option.getClass().getSuperclass().getDeclaredField(formField.selectValue()) :
+                            option.getClass().getDeclaredField(formField.selectValue());
+                        valueField.setAccessible(true);
+
+                        Field displayField = formField.selectDisplayInSuper()?
+                            option.getClass().getSuperclass().getDeclaredField(formField.selectDisplay()) :
+                            option.getClass().getDeclaredField(formField.selectDisplay());
+                        displayField.setAccessible(true);
+
                         htmlForm.append("htmlForm.append(<option value=\"")
-                            .append(object.getId()).append("\">")
-                            .append(object.getName).append("</option>)");
-                    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                        throw new RuntimeException(e);
+                            .append(valueField.get(option)).append("\">")
+                            .append(displayField.get(option)).append("</option>)");
                     }
+
+                    htmlForm.append("</select>");
+                } catch (NoSuchFieldException | NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
+                    System.out.println(ex.getMessage());
                 }
 
-                htmlForm.append("</select>");
-
-            }*/ else {
+            } else {
                 htmlForm.append("<input type=\"")
                     .append(formField.type())
                     .append("\" id=\"").append(ifBlank(formField.id(), fieldName))

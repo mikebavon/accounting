@@ -37,16 +37,16 @@ public class Invoice extends BaseEntity {
     @HtmlTableColHeader(header = "Invoice Number")
     private String invoiceNo;
 
-    @DecimalMin("1.0")
-    @Column(name = "total")
-    @HtmlTableColHeader(header = "Total", numberFormat = "#,###.##")
-    @HtmlFormField(label = "Invoice Total", required = true)
-    private BigDecimal total;
-
     @Column(name = "narration",columnDefinition = "text")
     @HtmlTableColHeader(header = "Narration")
     @HtmlFormField(label = "Narration", required = true)
     private String narration;
+
+    @DecimalMin("1.0")
+    @Column(name = "total")
+    @HtmlTableColHeader(header = "Total", numberFormat = "#,###.##")
+    @HtmlFormField(label = "Invoice Total", type = HtmlFormFieldType.NUMBER, required = true)
+    private BigDecimal total;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Journal journal;
@@ -59,7 +59,7 @@ public class Invoice extends BaseEntity {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @HtmlFormField(label = "Customer ID", selectList = "Customer")
+    @HtmlFormField(label = "Customer", selectList = "customers", selectValue = "id", selectValueInSuper=true, selectDisplay = "name")
     @Formula("(customer_id)")
     private Long customerId;
 
@@ -100,20 +100,20 @@ public class Invoice extends BaseEntity {
         this.journalNo = journalNo;
     }
 
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
     public String getNarration() {
         return narration;
     }
 
     public void setNarration(String narration) {
         this.narration = narration;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 
     @JsonIgnore

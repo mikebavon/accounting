@@ -19,7 +19,13 @@ public @interface HtmlFormField {
 
     String selectList() default "";
 
-    Class<?> grid() default Object.class;
+    String selectValue() default "";
+
+    boolean selectValueInSuper() default false;
+
+    String selectDisplay() default "";
+
+    boolean selectDisplayInSuper() default false;
 
     HtmlFormFieldType type() default HtmlFormFieldType.TEXT;
 
