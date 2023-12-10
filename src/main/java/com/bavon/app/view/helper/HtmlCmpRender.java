@@ -26,8 +26,25 @@ public class HtmlCmpRender implements Serializable {
 
         StringBuilder trBuilder = new StringBuilder();
         trBuilder.append("<a class=\"link-btn-add\" href=\"")
-            .append(htmlTable.addUrl()).append("\">Add</a><br/>")
-            .append("<table><tr>");
+            .append(htmlTable.addUrl()).append("\">Add</a>");
+
+        for (int idx=0; idx<htmlTable.otherLinkBtn().length; idx++) {
+            if (StringUtils.isBlank(htmlTable.otherLinkUrl()[idx]) || StringUtils.isBlank(htmlTable.otherLinkBtn()[idx]))
+                continue;
+
+            trBuilder
+                .append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+                .append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+                .append("<a class=\"link-btn-add\" href=\"")
+                .append(htmlTable.otherLinkUrl()[idx])
+                .append("\">")
+                .append(htmlTable.otherLinkBtn()[idx])
+                .append("</a>");
+
+        }
+
+        trBuilder.append("<br/><table><tr>");
+
 
         Field[] fields = dataClass.getDeclaredFields();
 
@@ -123,8 +140,6 @@ public class HtmlCmpRender implements Serializable {
                     .append(">");
 
                 for (Object enumValue : field.getType().getEnumConstants()){
-                    //System.out.println(enumValue);
-
                     try {
                         Method method = field.getType().getMethod("getName");
                         htmlForm.append("htmlForm.append(<option value=\"")

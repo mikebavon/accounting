@@ -3,6 +3,7 @@ package com.bavon.app.bean;
 import com.bavon.app.model.*;
 import com.bavon.app.utility.JournalValidator;
 import com.bavon.app.utility.TransactionNoGenerator;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -26,18 +27,6 @@ public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
     private Event<AuditLog> logger;
 
     public Journal addOrUpdate(Journal journal) {
-        if (journalValidator.inValid(journal))
-            throw new RuntimeException("Invalid journal");
-
-        JournalLine debit = new JournalLine();
-        debit.setNarration(journal.getMemo());
-        debit.setDebit(journal.getDebitBalance());
-        journal.addJournalLine(debit);
-
-        JournalLine credit = new JournalLine();
-        credit.setNarration(journal.getMemo());
-        credit.setCredit(journal.getDebitBalance());
-        journal.addJournalLine(credit);
 
         if (journal.getDate() == null)
             journal.setDate(new Date());
@@ -62,10 +51,14 @@ public class JournalBean extends GenericBean<Journal> implements JournalBeanI{
         List<Journal> journals = super.list(entity);
 
         for (Journal journal : journals) {
-            StringBuilder entryTable = new StringBuilder("<table><tr><th>Debit</th><th>Credit</th><tr>");
+            StringBuilder entryTable = new StringBuilder("<table><tr><th>Account</th><th>Debit</th><th>Credit</th><tr>");
             for (JournalLine line : journal.getJournalLines() ){
-                entryTable.append("<tr><td>" + (line.getDebit() == null? "" : line.getDebit()) + "</td><td>"
-                    + (line.getCredit() == null? "" : line.getCredit()) + "</td><tr>");
+                entryTable
+                    .append("<tr>")
+                        .append("<td>").append(StringUtils.trimToEmpty(line.getAccountName())).append("</td>")
+                        .append("<td>").append(line.getDebit() == null ? "" : line.getDebit()).append("</td>")
+                        .append("<td>").append(line.getCredit() == null ? "" : line.getCredit()).append("</td>")
+                    .append("<tr>");
             }
 
             entryTable.append("</table>");

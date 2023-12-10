@@ -12,4 +12,8 @@ public @interface HtmlTable{
     String name() default "";
 
     String addUrl();
+
+    String [] otherLinkBtn() default "";
+
+    String [] otherLinkUrl() default "";
 }

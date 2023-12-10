@@ -25,7 +25,7 @@ public class JournalAction extends BaseAction {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         journalBean.addOrUpdate(serializeForm(Journal.class, req.getParameterMap()));
 
-        resp.sendRedirect("./journals");
+        resp.sendRedirect("./journallines?action=add");
 
     }
 }

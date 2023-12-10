@@ -1,11 +1,9 @@
 package com.bavon.app.model;
 
 import com.bavon.app.view.helper.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "journals")
-@HtmlTable(addUrl = "./journals?action=add")
+@HtmlTable(addUrl = "./journals?action=add", otherLinkBtn = {"Add Journal Entry"}, otherLinkUrl = {"./journallines?action=add"})
 @HtmlForm(label = "Journal", url = "./journals")
 public class Journal extends BaseEntity {
 
@@ -35,14 +33,17 @@ public class Journal extends BaseEntity {
     @HtmlFormField(label = "Particulars", required = true)
     private String memo;
 
+    @Formula("concat(journal_no,' ',particulars)")
+    private String displayInfo;
+
     @Formula("(select sum(l.debit) from journal_lines l where l.journal_id=id)")
     //@HtmlTableColHeader(header = "Debit", numberFormat = "#,###.00")
-    @HtmlFormField(label = "Debit Amount", type = HtmlFormFieldType.NUMBER)
+    //@HtmlFormField(label = "Debit Amount", type = HtmlFormFieldType.NUMBER)
     private BigDecimal debitBalance;
 
     @Formula("(select sum(l.credit) from journal_lines l where l.journal_id=id)")
     //@HtmlTableColHeader(header = "Credit", numberFormat = "#,###.00")
-    @HtmlFormField(label = "Credit Amount", type = HtmlFormFieldType.NUMBER)
+    //@HtmlFormField(label = "Credit Amount", type = HtmlFormFieldType.NUMBER)
     private BigDecimal creditBalance;
 
     @OneToMany(mappedBy = "journal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -74,6 +75,14 @@ public class Journal extends BaseEntity {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public String getDisplayInfo() {
+        return displayInfo;
+    }
+
+    public void setDisplayInfo(String displayInfo) {
+        this.displayInfo = displayInfo;
     }
 
     public BigDecimal getDebitBalance() {
