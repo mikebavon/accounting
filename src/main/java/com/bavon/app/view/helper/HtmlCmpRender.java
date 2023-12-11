@@ -1,6 +1,6 @@
 package com.bavon.app.view.helper;
 
-import com.bavon.app.bean.GenericCombo;
+import com.bavon.app.utility.SelectBoxStore;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.enterprise.inject.spi.CDI;
@@ -163,9 +163,9 @@ public class HtmlCmpRender implements Serializable {
                         .append(formField.required()?"required" : "")
                         .append(">");
 
-                    GenericCombo genericCombo = CDI.current().select(GenericCombo.class).get();
+                    SelectBoxStore genericCombo = CDI.current().select(SelectBoxStore.class).get();
 
-                    Method selectListMethod = GenericCombo.class.getDeclaredMethod(formField.selectList());
+                    Method selectListMethod = SelectBoxStore.class.getDeclaredMethod(formField.selectList());
 
                     List<?> options = (List<?>) selectListMethod.invoke(genericCombo);
 

@@ -1,9 +1,6 @@
 package com.bavon.app.bean;
 
-import com.bavon.app.model.AuditLog;
-import com.bavon.app.model.Customer;
-import com.bavon.app.model.Invoice;
-import com.bavon.app.model.Journal;
+import com.bavon.app.model.*;
 import com.bavon.app.utility.TransactionNoGenerator;
 
 import javax.ejb.EJB;
@@ -39,21 +36,6 @@ public class InvoiceBean extends GenericBean<Invoice> implements InvoiceBeanI {
         if (invoice.getInvoiceDate() == null)
             invoice.setInvoiceDate(new Date());
 
-        System.out.println(">>>>>>>>>>>>>>>>>>>>");
-        List<Object[]> customers = getDao().nativeQuery("select c.id, c.name from customers c");
-
-        for (Object[] customer : customers){
-            System.out.println("Customer ID " + customer[0]);
-            System.out.println("Customer Name " + customer[1]);
-
-            invoice.setCustomerId(((BigInteger) customer[0]).longValue());
-        }
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>");
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
         if (invoice.getCustomerId() == null)
             throw new RuntimeException("Customer is required!");
 
@@ -67,8 +49,18 @@ public class InvoiceBean extends GenericBean<Invoice> implements InvoiceBeanI {
         Journal journal = new Journal();
         journal.setMemo(invoice.getNarration());
         journal.setDate(invoice.getInvoiceDate());
-        journal.setDebitBalance(invoice.getTotal());
-        journal.setCreditBalance(invoice.getTotal());
+
+        JournalLine debit = new JournalLine();
+        debit.setAccount(getDao().getEm().find(Account.class, invoice.getDebitAccountId()));
+        debit.setDebit(invoice.getTotal());
+        debit.setNarration(invoice.getNarration());
+        journal.addJournalLine(debit);
+
+        JournalLine credit = new JournalLine();
+        credit.setAccount(getDao().getEm().find(Account.class, invoice.getCreditAccountId()));
+        credit.setCredit(invoice.getTotal());
+        credit.setNarration(invoice.getNarration());
+        journal.addJournalLine(credit);
 
         invoice.setJournal(journalBean.addOrUpdate(journal));
 

@@ -1,9 +1,7 @@
-package com.bavon.app.bean;
+package com.bavon.app.utility;
 
-import com.bavon.app.model.Account;
-import com.bavon.app.model.Customer;
-import com.bavon.app.model.CustomerList;
-import com.bavon.app.model.Journal;
+import com.bavon.app.bean.*;
+import com.bavon.app.model.*;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
@@ -13,7 +11,7 @@ import java.util.List;
 
 @Produces
 @ApplicationScoped
-public class GenericCombo implements Serializable {
+public class SelectBoxStore implements Serializable {
 
     @EJB
     private AccountBeanI accountBean;
@@ -23,6 +21,12 @@ public class GenericCombo implements Serializable {
 
     @EJB
     private JournalBeanI journalBean;
+
+    @EJB
+    private InvoiceBeanI invoiceBean;
+
+    @EJB
+    private VendorBeanI vendorBean;
 
     public List<Account> accounts(){
         return accountBean.list(new Account());
@@ -34,6 +38,14 @@ public class GenericCombo implements Serializable {
 
     public List<Journal> journals(){
         return journalBean.list(new Journal());
+    }
+
+    public List<Vendor> vendors(){
+        return vendorBean.list(new Vendor());
+    }
+
+    public List<Invoice> invoices(){
+        return invoiceBean.list(new Invoice());
     }
 
 }

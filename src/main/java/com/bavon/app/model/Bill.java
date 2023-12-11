@@ -9,40 +9,38 @@ import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
-
 @NamedQueries({
-    @NamedQuery(name = Invoice.InvoiceAbove1000, query = "FROM Invoice i WHERE i.total>1000"),
-    @NamedQuery(name = Invoice.InvoiceBelow1000, query = "FROM Invoice i WHERE i.total<1000"),
-    @NamedQuery(name = Invoice.TodaysInvoice, query = "FROM Invoice i WHERE i.invoiceDate=CURDATE()")
+    @NamedQuery(name = Bill.BillAbove1000, query = "FROM Bill b WHERE b.total>1000"),
+    @NamedQuery(name = Bill.BillBelow1000, query = "FROM Bill b WHERE b.total<1000"),
+    @NamedQuery(name = Bill.TodaysBill, query = "FROM Bill b WHERE b.billDate=CURDATE()")
 })
 @Entity
-@Table(name = "invoices")
-@HtmlTable(addUrl = "./invoices?action=add")
-@HtmlForm(label = "Invoice", url = "./invoices")
-public class Invoice extends BaseEntity {
+@Table(name = "bills")
+@HtmlTable(addUrl = "./bills?action=add")
+@HtmlForm(label = "Bill", url = "./bills")
+public class Bill extends BaseEntity {
 
-    public static final String InvoiceAbove1000 = "Invoice.InvoiceAbove1000";
-    public static final String InvoiceBelow1000 = "Invoice.InvoiceBelow1000";
-    public static final String TodaysInvoice = "Invoice.TodaysInvoice";
+    public static final String BillAbove1000 = "Bill.InvoiceAbove1000";
+    public static final String BillBelow1000 = "Bill.InvoiceBelow1000";
+    public static final String TodaysBill = "Bill.TodaysInvoice";
 
-    @Column(name = "invoice_date")
+    @Column(name = "bill_date")
     @Temporal(TemporalType.DATE)
     @HtmlTableColHeader(header = "Date", dateFormat = "dd/MM/yyy")
-    @HtmlFormField(label = "Invoice Date", type = HtmlFormFieldType.DATE, required = true)
-    private Date invoiceDate;
+    @HtmlFormField(label = "Bill Date", type = HtmlFormFieldType.DATE, required = true)
+    private Date billDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(name = "vendor_id")
+    private Vendor vendor;
 
-    @HtmlFormField(label = "Customer", selectList = "customers", selectValue = "id", selectValueInSuper=true, selectDisplay = "name")
-    @Formula("(customer_id)")
-    private Long customerId;
+    @HtmlFormField(label = "Vendor", selectList = "vendors", selectValue = "id", selectValueInSuper=true, selectDisplay = "name")
+    @Formula("(vendor_id)")
+    private Long vendorId;
 
-    @Column(name = "invoice_no")
-    @HtmlTableColHeader(header = "Invoice Number")
-    private String invoiceNo;
+    @Column(name = "bill_no")
+    @HtmlTableColHeader(header = "Bill Number")
+    private String billNo;
 
     @Column(name = "narration",columnDefinition = "text")
     @HtmlTableColHeader(header = "Narration")
@@ -52,7 +50,7 @@ public class Invoice extends BaseEntity {
     @DecimalMin("1.0")
     @Column(name = "total")
     @HtmlTableColHeader(header = "Total", numberFormat = "#,###.##")
-    @HtmlFormField(label = "Invoice Total", type = HtmlFormFieldType.NUMBER, required = true)
+    @HtmlFormField(label = "Bill Total", type = HtmlFormFieldType.NUMBER, required = true)
     private BigDecimal total;
 
     @HtmlFormField(label = "Debit Account", selectList = "accounts", selectValue = "id", selectValueInSuper=true, selectDisplay = "name")
@@ -71,24 +69,49 @@ public class Invoice extends BaseEntity {
     @Formula("(select j.journal_no from journals j where j.id=journal_id)")
     private String journalNo;
 
-    @HtmlTableColHeader(header = "Customer")
-    @Formula("(select c.name from customers c where c.id=customer_id)")
-    private String customerName;
+    @HtmlTableColHeader(header = "Vendor")
+    @Formula("(select v.vendor_name from vendors v where v.id=vendor_id)")
+    private String vendorName;
 
-   public Date getInvoiceDate() {
-        return invoiceDate;
+    public Date getBillDate() {
+        return billDate;
     }
 
-    public void setInvoiceDate(Date invoiceDate) {
-        this.invoiceDate = invoiceDate;
+    public void setBillDate(Date billDate) {
+        this.billDate = billDate;
     }
 
-    public String getInvoiceNo() {
-        return invoiceNo;
+    @JsonIgnore
+    public Vendor getVendor() {
+        return vendor;
     }
 
-    public void setInvoiceNo(String invoiceNo) {
-        this.invoiceNo = invoiceNo;
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
+    }
+
+    public Long getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(Long vendorId) {
+        this.vendorId = vendorId;
+    }
+
+    public String getVendorName() {
+        return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
+    }
+
+    public String getBillNo() {
+        return billNo;
+    }
+
+    public void setBillNo(String billNo) {
+        this.billNo = billNo;
     }
 
     @JsonIgnore
@@ -122,31 +145,6 @@ public class Invoice extends BaseEntity {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
-    }
-
-    @JsonIgnore
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
     }
 
     public Long getDebitAccountId() {
