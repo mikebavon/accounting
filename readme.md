@@ -304,3 +304,17 @@ WEBSERVICES
     -soap 
 
 WEBSOCKET
+
+RESTful Webservice
+REST API JAX-RS
+Configuration extending Application class and annotation using @ApplicationPath
+
+@Path
+processing http methods @Post @Get
+
+extracting request parameters
+@PathParam invoice/{id} i.e invoice/25
+@QueryParam
+@HeaderParam
+@BeanParam
+

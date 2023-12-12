@@ -12,7 +12,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "journals")
-@HtmlTable(addUrl = "./journals?action=add", otherLinkBtn = {"Add Journal Entry"}, otherLinkUrl = {"./journallines?action=add"})
+@HtmlTable(addUrl = "./journals?action=add",
+    otherLinkBtn = {"Add Journal Entry", "Invoices"},
+    otherLinkUrl = {"./journallines?action=add","./invoices"}
+)
 @HtmlForm(label = "Journal", url = "./journals")
 public class Journal extends BaseEntity {
 

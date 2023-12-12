@@ -2,9 +2,11 @@ package com.bavon.app.dao;
 
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.Column;
 import javax.persistence.EntityManager;
+import javax.persistence.Id;
 import javax.persistence.TypedQuery;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -31,15 +33,15 @@ public class GenericDao<T> implements GenericDaoI<T> {
         fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
 
         for (Field field : fields) {
-            if (!field.isAnnotationPresent(Column.class))
+            if (!field.isAnnotationPresent(Column.class) && !field.isAnnotationPresent(Formula.class)
+                    && !field.isAnnotationPresent(Id.class))
                 continue;
 
-            Column column = field.getAnnotation(Column.class);
             field.setAccessible(true);
 
             try {
                 if (field.get(entity) != null) {
-                    String colName = StringUtils.isEmpty(column.name()) ? field.getName() : column.name();
+                    String colName = field.getName();
 
                     whereClause
                         .append(whereParams.isEmpty() ? "" : " AND ")
